@@ -17,8 +17,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User authenticateUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password";
+		User u = em.createQuery(query, User.class)
+				   .setParameter("username", username)
+				   .setParameter("password", password)
+				   .getSingleResult();
+		return u;
 	}
 
 }
