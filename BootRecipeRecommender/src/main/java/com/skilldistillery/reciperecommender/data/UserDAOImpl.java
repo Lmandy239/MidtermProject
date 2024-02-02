@@ -11,17 +11,15 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class UserDAOImpl implements UserDAO {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
 	public User authenticateUser(String username, String password) {
 		String query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password";
-		User u = em.createQuery(query, User.class)
-				   .setParameter("username", username)
-				   .setParameter("password", password)
-				   .getSingleResult();
+		User u = em.createQuery(query, User.class).setParameter("username", username).setParameter("password", password)
+				.getSingleResult();
 		return u;
 	}
 
@@ -29,8 +27,11 @@ public class UserDAOImpl implements UserDAO {
 	public User registerUser(String username, String password) {
 		User user = new User();
 		user.setUsername(username);
-		user.setPassword(password);		
+		user.setPassword(password);
+		user.setRole("user");
+		user.setEnabled(true);
 		em.persist(user);
 		return user;
 	}
+
 }
