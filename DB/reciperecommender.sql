@@ -21,13 +21,93 @@ USE `reciperecommenderdb` ;
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NULL,
-  `enabled` TINYINT NULL,
-  `role` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL DEFAULT NULL,
+  `enabled` TINYINT(4) NULL DEFAULT NULL,
+  `role` VARCHAR(45) NULL DEFAULT NULL,
+  `createdat` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedat` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ingredient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ingredient` ;
+
+CREATE TABLE IF NOT EXISTS `ingredient` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `recipe`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `recipe` ;
+
+CREATE TABLE IF NOT EXISTS `recipe` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` TEXT(255) NOT NULL,
+  `ingredient_description` TEXT(255) NOT NULL,
+  `createdat` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedat` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `recipe_ingredient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `recipe_ingredient` ;
+
+CREATE TABLE IF NOT EXISTS `recipe_ingredient` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `ingredient_id` INT NOT NULL,
+  `recipe_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_recipe_ingredient_recipe1_idx` (`recipe_id` ASC),
+  CONSTRAINT `fk_recipe_ingredient_ingredient`
+    FOREIGN KEY (`ingredient_id`)
+    REFERENCES `ingredient` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recipe_ingredient_recipe1`
+    FOREIGN KEY (`recipe_id`)
+    REFERENCES `recipe` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_ingredient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_ingredient` ;
+
+CREATE TABLE IF NOT EXISTS `user_ingredient` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `ingredient_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_user_ingredient_ingredient1_idx` (`ingredient_id` ASC),
+  CONSTRAINT `fk_user_ingredient_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_ingredient_ingredient1`
+    FOREIGN KEY (`ingredient_id`)
+    REFERENCES `ingredient` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -46,7 +126,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `reciperecommenderdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'billybob', 'password', 1, 'user');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `createdat`, `updatedat`) VALUES (1, 'billybob', 'password', 1, 'user', NULL, NULL);
 
 COMMIT;
 
