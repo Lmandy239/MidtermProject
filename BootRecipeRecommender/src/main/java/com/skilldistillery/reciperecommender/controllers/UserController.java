@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.reciperecommender.data.UserDAO;
@@ -19,7 +18,7 @@ public class UserController {
 	@Autowired
 	private UserDAO userDAO;
 
-	@GetMapping("home")
+	@GetMapping({"", "/", "home"})
 	public String home(Model model) {
 		return "home";
 	}
@@ -33,25 +32,31 @@ public class UserController {
 		} else {
 			return "home";
 		}
-
 	}
 
-	@PostMapping("register.do")
-	public String showRegistrationForm(User user, Model model) {
-		model.addAttribute("user", new User());
-		
+	@GetMapping("register.do")
+	public String showRegistrationForm(User user) {
 		return "register";
-		
 	}
 	
-	@PostMapping("registerResult.do")
-	public String registerUser(@RequestParam User user, String username, String password, Model model) {
-		
+	@RequestMapping(path = "registerResult.do", params = {"username", "password"})
+	public String registerUser(@RequestParam("username") String username,
+			@RequestParam("password") String password) {
 		try {
-			userDAO.registerUser(user, username, password);
-			return "registerResult";
+			userDAO.registerUser(username, password);
+			return "recipe";
 		} catch (Exception e) {
 			return "register";
 		}
 	}
 }
+//	}
+//	@RequestMapping(path = "registerResult.do", params = {"username", "password"})
+//	public String registerUser(@RequestParam String username, @RequestParam  String password) {
+//		try {
+//			userDAO.registerUser(username, password);
+//			return "recipe";
+//		} catch (Exception e) {
+//			return "register";
+//		}
+//	}
