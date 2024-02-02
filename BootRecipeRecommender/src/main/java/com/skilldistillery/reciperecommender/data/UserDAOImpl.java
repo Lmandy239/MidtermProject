@@ -25,4 +25,15 @@ public class UserDAOImpl implements UserDAO {
 		return u;
 	}
 
+	@Override
+	public User registerUser(User user, String username, String password) {
+		user = new User();
+		
+		user.setUsername(username);
+		
+		user.setPassword(password);		
+		
+		em.persist(password);
+		return user;
+	}
 }

@@ -7,8 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${testUser}
+
 	Hello World!
+	<br>
+	<br>
+			<a href="register.do">Create new user</a>
 	
+<div class="head">
+			<form action="login.do" method="POST">
+				<input type="text" name="username" />
+				<input type="text" name="password" />  <input type="submit"
+					value="Login" />
+			</form>
+		</div>
+	${username}
 </body>
 </html>
