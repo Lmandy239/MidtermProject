@@ -7,13 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="head">
-			<form action="login.do" method="POST">
-				<input type="text" name="username" />
-				<input type="text" name="password" />  <input type="submit"
-					value="Login" />
-			</form>
-		</div>
 	${username}
+	Login Failed. Please Try Again.
+	
 </body>
 </html>

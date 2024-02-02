@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.reciperecommender.data.UserDAO;
 import com.skilldistillery.reciperecommender.entities.User;
@@ -12,13 +14,21 @@ import com.skilldistillery.reciperecommender.entities.User;
 public class UserController {
 	@Autowired
 	private UserDAO userDAO;
-	
-	
-	@GetMapping("/")
+
+	@GetMapping("home")
 	public String home(Model model) {
-		User u = userDAO.authenticateUser("billybob", "password");
-		model.addAttribute("testUser",u);
 		return "home";
-		
+	}
+
+	@RequestMapping(path = "login.do", params = {"username", "password"})
+	public String authenticateLogin(@RequestParam("username") String username,
+			@RequestParam("password") String password) {
+		User u = userDAO.authenticateUser(username, password);
+		if (u != null) {
+			return "recipe";
+		} else {
+			return "home";
+		}
+
 	}
 }
