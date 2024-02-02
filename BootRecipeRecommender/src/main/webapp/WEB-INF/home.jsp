@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${testUser}
+
 	Hello World!
+	<br>
+	<br>
+			<a href="register.do">Create new user</a>
 	
 </body>
 </html>
