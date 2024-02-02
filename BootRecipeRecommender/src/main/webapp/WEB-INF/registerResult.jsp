@@ -8,17 +8,17 @@
 </head>
 <body>
 
-	<c:if test="${not empty user}">
+	<c:if test="${not empty username}">
 	<h2>Result of adding new User:</h2><br>
 	<p>You have created a new User.</p>
 	</c:if>
 	
-	<c:if test="${empty user}">
+	<c:if test="${empty username}">
 	<h2>Result of adding new User:</h2><br>
 	<p>You were not able to create a new User.</p>
 	</c:if>
 	
-			<a href="home.do">Return to home page</a>
+			<a href="home">Return to home page</a>
 
 </body>
 </html>

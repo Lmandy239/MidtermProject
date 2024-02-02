@@ -20,6 +20,5 @@
 					value="Login" />
 			</form>
 		</div>
-	${username}
 </body>
 </html>
