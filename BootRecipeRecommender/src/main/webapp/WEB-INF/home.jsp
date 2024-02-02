@@ -7,14 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
 
 	Hello World!
 	<br>
 	<br>
 			<a href="register.do">Create new user</a>
 	
-=======
 <div class="head">
 			<form action="login.do" method="POST">
 				<input type="text" name="username" />
@@ -23,6 +21,5 @@
 			</form>
 		</div>
 	${username}
->>>>>>> a7a9634118c023af82435900f58f558c05f3397a
 </body>
 </html>
