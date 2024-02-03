@@ -11,35 +11,50 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String username;
-	
+
 	private String password;
-	
-	//private boolean enabled;
-	
+
+	private boolean enabled;
+
 	private String role;
+
 	
-	public User() {}
+	//transient means that is doesnt user persistence to access the databases, it is it own field
 	
+	@Transient
+	private List<Ingredient> cart;
+
+	public void addToCart(Ingredient ingredient) {
+		cart.add(ingredient);
+	}
+
+	public void removeFromCart(Ingredient ingredient) {
+		cart.remove(ingredient);
+	}
+
+	public User() {
+	}
+
 	@ManyToMany
-	@JoinTable(name = "user_ingredient", 
-	joinColumns = @JoinColumn(name = "ingredient_id"), 
-	inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Ingredient> ingredients;
 
 	public void addIngredient(Ingredient ingredient) {
-		if (ingredient == null) {
+		if (ingredients == null) {
 			ingredients = new ArrayList<>();
 		}
 		if (!ingredients.contains(ingredient)) {
+			ingredients.add(ingredient);
 			ingredient.addUser(this);
 		}
 	}
@@ -55,41 +70,33 @@ public class User {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getUsername() {
 		return username;
 	}
 
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public String getRole() {
 		return role;
 	}
 
-
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 
 	public List<Ingredient> getIngredients() {
 		return ingredients;
@@ -101,7 +108,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, ingredients, password, role, username);
+		return Objects.hash(enabled, id, ingredients, password, role, username);
 	}
 
 	@Override
@@ -113,14 +120,30 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id == other.id && Objects.equals(ingredients, other.ingredients)
+		return enabled == other.enabled && id == other.id && Objects.equals(ingredients, other.ingredients)
 				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
 				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
-				+ ", ingredients=" + ingredients + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
+				+ ", role=" + role + ", ingredients=" + ingredients.size() + "]";
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Ingredient> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<Ingredient> cart) {
+		this.cart = cart;
 	}
 }

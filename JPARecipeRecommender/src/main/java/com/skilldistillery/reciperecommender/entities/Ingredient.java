@@ -12,19 +12,18 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Ingredient {
-	
-	public Ingredient() {
-	}
-	
+
+	public Ingredient() {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	@ManyToMany(mappedBy = "ingredients")
 	private List<User> users;
-	
+
 	public void addUser(User user) {
 		if (user == null) {
 			users = new ArrayList<>();
@@ -40,7 +39,6 @@ public class Ingredient {
 			user.removeIngredient(this);
 		}
 	}
-
 
 	public int getId() {
 		return id;
@@ -65,6 +63,7 @@ public class Ingredient {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+
 	@Override
 	public String toString() {
 		return "Ingredient [id=" + id + ", name=" + name + ", users=" + users.size() + "]";

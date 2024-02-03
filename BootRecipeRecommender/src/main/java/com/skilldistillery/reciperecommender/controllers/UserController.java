@@ -1,5 +1,8 @@
 package com.skilldistillery.reciperecommender.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.skilldistillery.reciperecommender.data.UserDAO;
 import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -50,12 +55,12 @@ public class UserController {
 
 	// tried to add ingredient to user entity list, but it didnt work.
 
-	@RequestMapping(path = "selectIngredient.do", params = { "ingredient" })
-	public String addIngredientToCart(@ModelAttribute User user, @RequestParam("ingredient") String name, Model model) {
+	@RequestMapping(path = "selectIngredient.do", params = "name")
+	public String addIngredientToCart(HttpSession session, @RequestParam("name") String input, Model model) {
 		try {
-			Ingredient ingredient = userDAO.selectIngredient(name);
-			user.addIngredient(ingredient);
-			model.addAllAttributes(user.getIngredients());
+			//userDAO.selectIngredient(input);
+			model.addAttribute("ingredients", userDAO.displayCart(input));
+			return "recipe";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,22 +69,33 @@ public class UserController {
 
 	// tried to remove ingredient from user cart
 
-	@RequestMapping(path = "removeIngredient.do", params = { "ingredient" })
-	public String removingIngredientInCart(@ModelAttribute User user, @RequestParam("ingredient") Ingredient ingredient,
-			Model model) {
+	@RequestMapping(path = "removeIngredient.do", params = "name")
+	public String removingIngredientInCart(@ModelAttribute User user, @RequestParam("name") String name) {
 		try {
-			user.removeIngredient(ingredient);
-			model.addAllAttributes(user.getIngredients());
+			//userDAO.removeIngredient(user, name);
+			return "recipe";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "recipe";
 	}
-//	
-//	@GetMapping("showIngredients.do")
-//	public String index(Model model) {
-//		List<Ingredient> ingredients = userDAO.displayCart();
-//		model.addAttribute("ingredients", ingredients);
-//		return "recipe";
-//	}
+
+	@RequestMapping(path = "showIngredients.do", params = "name")
+	public String index(@ModelAttribute User user, @RequestParam("name") String input, Model model) {
+		List<Ingredient> ingredients = userDAO.displayCart(input);
+		model.addAttribute("ingredients", ingredients);
+		return "recipe";
+	}
+
+	@RequestMapping(path = "displayIngredients.do", params = "name")
+	public List<Ingredient> index(HttpSession session, @RequestParam("name") String input) {
+		List<Ingredient> cart = (List<Ingredient>) session.getAttribute("userCart");
+		List<Ingredient> patternIngredients = userDAO.displayCart(input);
+		if (cart == null) {
+			cart = new ArrayList<>();
+			session.setAttribute("userCart", cart);
+		}
+		cart.addAll(patternIngredients);
+		return cart;
+	}
 }
