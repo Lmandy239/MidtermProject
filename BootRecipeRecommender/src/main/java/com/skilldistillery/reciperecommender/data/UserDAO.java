@@ -6,4 +6,5 @@ public interface UserDAO {
 	User authenticateUser(String username, String password);
 	
 	User registerUser(String username, String password);
+
 }
