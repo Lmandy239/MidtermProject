@@ -9,14 +9,17 @@
 <title>Select Ingredient</title>
 </head>
 <body>
-
+	  <h2>Your Recipe</h2>
 
 	<form action="selectIngredient.do" method="POST">
 		<label for="name">Search for Ingredient: </label> <input type="text"
 			name="name" required> <br> <input type="submit"
 			value="Search Ingredient">
 	</form>
+	
+	
 	<c:choose>
+	
 		<c:when test="${! empty ingredients}">
 			<form action="removeIngredient.do" method="POST">
 				<label for="name">Remove an Ingredient: </label> <input type="text"
@@ -43,8 +46,6 @@
 	<br>
 	<br>
 	<a href="home">Return to Login</a>
-
-</body>
 
 </body>
 </html>
