@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +25,38 @@
                         <img src="images/image6.png" class="logo">
                     </div>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                        <img src="images/food1.jpg" class="image">
+					 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+					  <div class="carousel-inner">
+					    <div class="carousel-item active">
+					      <img src="images/food2.jpg" class="d-block w-100">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="images/food3.jpg" class="d-block w-100">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="images/food4.jpg" class="d-block w-100">
+					    </div>
+					    <div class="carousel-item">
+					      <img src="images/food5.jpg" class="d-block w-100">
+					    </div>
+					  </div>
+					</div>
                     </div>
                 </div>
             </div>
+                  
+          
            <div class="col-lg-6">
     <div class="card2 card border-0 px-4 py-5">
         <form action="login.do" method="POST">
+        			<br>
+        			<br>
+        			<br>
+        			<br>
+        			<h1>Recipe Recommender</h1>
+        			<br>
+        			<br>
+        			<br>
             <div class="row px-3">
                 <label class="mb-1"><h6 class="mb-0 text-sm">User Name</h6></label>
                 <input class="mb-4" type="text" name="username" placeholder="Enter a valid user name">
@@ -62,5 +85,8 @@
     </div>
 </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
