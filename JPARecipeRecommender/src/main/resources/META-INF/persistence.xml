@@ -10,6 +10,7 @@
 
 		<!-- begin entities -->
 		<class>com.skilldistillery.reciperecommender.entities.User</class>
+		<class>com.skilldistillery.reciperecommender.entities.Ingredient</class>
 		<!-- end entities -->
 
 		<properties>

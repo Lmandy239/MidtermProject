@@ -2,6 +2,7 @@ package com.skilldistillery.reciperecommender.data;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.persistence.EntityManager;
@@ -29,9 +30,28 @@ public class UserDAOImpl implements UserDAO {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setRole("user");
-		user.setEnabled(true);
+		// user.setEnabled(true);
 		em.persist(user);
 		return user;
 	}
 
+	@Override
+	public Ingredient selectIngredient(String name) {
+		String query = "SELECT i FROM Ingredient i WHERE i.name = :name";
+		Ingredient ingredient = em.createQuery(query, Ingredient.class).setParameter("name", name).getSingleResult();
+		return ingredient;
+	}
+
+//	@Override
+//	public Ingredient selectIngredient(String name) {
+//		Ingredient ingredient = em.find(Ingredient.class, name);
+//		return ingredient;
+//	}
+
+//	@Override
+//	public List<Ingredient> displayCart() {
+//		String jpql = "SELECT i FROM Ingredient i JOIN User u WHERE u.user_id = i.ingredient_id";
+//		List<Ingredient> ingredients = em.createQuery(jpql, Ingredient.class).getResultList();
+//		return ingredients;
+//	}
 }
