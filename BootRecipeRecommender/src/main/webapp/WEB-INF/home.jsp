@@ -53,7 +53,7 @@
         			<br>
         			<br>
         			<br>
-        			<br>
+        			<h1>Recipe Recommender</h1>
         			<br>
         			<br>
         			<br>
