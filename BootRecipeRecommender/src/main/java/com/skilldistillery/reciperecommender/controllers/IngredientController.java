@@ -32,7 +32,7 @@ public class IngredientController {
 			}
 			
 			
-			return "recipe";
+			return "userIngredient";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

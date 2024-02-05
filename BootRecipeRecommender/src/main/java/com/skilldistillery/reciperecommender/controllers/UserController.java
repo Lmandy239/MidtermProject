@@ -32,7 +32,7 @@ public class UserController {
 			@RequestParam("password") String password) {
 		User u = userDAO.authenticateUser(username, password);
 		if (u != null) {
-			return "recipe";
+			return "userIngredient";
 		} else {
 			return "home";
 		}
