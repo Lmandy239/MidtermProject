@@ -121,7 +121,7 @@
 					<div class="col-md-6 offset-md-3 text-center">
 						<button type="submit" class="btn btn-blue btn-block w-100">Find
 							Recipe</button>
-						<br> <br> <br>
+						<small class="font-weight-bold">Or <a href="findall.do">Show all</a></small>
 					</div>
 					<br> <br>
 
