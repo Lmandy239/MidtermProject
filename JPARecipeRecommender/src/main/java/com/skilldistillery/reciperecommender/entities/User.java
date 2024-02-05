@@ -28,20 +28,6 @@ public class User {
 
 	private String role;
 
-	
-	//transient means that is doesnt user persistence to access the databases, it is it own field
-	
-	@Transient
-	private List<Ingredient> cart;
-
-	public void addToCart(Ingredient ingredient) {
-		cart.add(ingredient);
-	}
-
-	public void removeFromCart(Ingredient ingredient) {
-		cart.remove(ingredient);
-	}
-
 	public User() {
 	}
 
@@ -64,6 +50,16 @@ public class User {
 			ingredients.remove(ingredient);
 			ingredient.removeUser(this);
 		}
+	}
+
+	public User(int id, String username, String password, boolean enabled, String role, List<Ingredient> ingredients) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.role = role;
+		this.ingredients = ingredients;
 	}
 
 	public int getId() {
@@ -102,8 +98,23 @@ public class User {
 		return ingredients;
 	}
 
+	public String showIngredients() {
+		for (Ingredient ingredient : ingredients) {
+			return ingredient.getName();
+		}
+		return null;
+	}
+
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override
@@ -127,23 +138,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", ingredients=" + ingredients.size() + "]";
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public List<Ingredient> getCart() {
-		return cart;
-	}
-
-	public void setCart(List<Ingredient> cart) {
-		this.cart = cart;
+		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
+				+ ", role=" + role + ", ingredients=" + "]";
 	}
 }

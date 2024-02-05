@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,13 +14,22 @@ import jakarta.persistence.ManyToMany;
 @Entity
 public class Ingredient {
 
-	public Ingredient() {}
+	public Ingredient() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "name")
 	private String name;
+
+	public Ingredient(int id, String name, List<User> users) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.users = users;
+	}
 
 	@ManyToMany(mappedBy = "ingredients")
 	private List<User> users;
@@ -65,11 +75,6 @@ public class Ingredient {
 	}
 
 	@Override
-	public String toString() {
-		return "Ingredient [id=" + id + ", name=" + name + ", users=" + users.size() + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		return Objects.hash(id, name, users);
 	}
@@ -84,5 +89,10 @@ public class Ingredient {
 			return false;
 		Ingredient other = (Ingredient) obj;
 		return id == other.id && Objects.equals(name, other.name) && Objects.equals(users, other.users);
+	}
+
+	@Override
+	public String toString() {
+		return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
 	}
 }

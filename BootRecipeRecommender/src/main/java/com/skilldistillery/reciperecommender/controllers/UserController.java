@@ -39,7 +39,7 @@ public class UserController {
 	}
 
 	@GetMapping("register.do")
-	public String showRegistrationForm(User user) {
+	public String showRegistrationForm(@ModelAttribute User user) {
 		return "register";
 	}
 
