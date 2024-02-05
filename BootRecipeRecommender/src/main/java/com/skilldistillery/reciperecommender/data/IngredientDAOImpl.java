@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.reciperecommender.entities.Ingredient;
+import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.persistence.EntityManager;
@@ -23,21 +24,42 @@ public class IngredientDAOImpl implements IngredientDAO {
 	public List<Ingredient> findIngredientByName(User user, String namePattern) {
 		System.out.println("**********************entering method***************************");
 		String jpql = "SELECT i FROM Ingredient i WHERE i.name LIKE :pattern";
-		
+
 		Query query = em.createQuery(jpql);
-		
-		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%").getResultList();
-	
+
+		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%")
+				.getResultList();
+
 		for (Ingredient ingredient : ingredients) {
-			user.addIngredient(ingredient);
+			user.searchIngredient(ingredient);
 		}
 		return ingredients;
 	}
 
 	@Override
 	public void removeIngredient(User user, Ingredient ingredient) {
-		if (user.getIngredients().contains(ingredient)) {
+		if (user.getIngredients() != null && user.getIngredients().contains(ingredient)) {
 			user.removeIngredient(ingredient);
 		}
+	}
+
+	@Override
+	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients) {
+		return null;
+//		ingredients = user.getIngredients();
+//		int index = 0;
+//		int count = 0;
+//		Recipe [] topSixRecipes = new Recipe[6];
+//		for (Ingredient ingredient : ingredients) {
+//			for (Recipe recipe: recipes) {
+//				if (recipe.contains(ingredient)) {
+//					count++;
+//					topSixRecipes[index] = recipe;
+	}
+
+	@Override
+	public void addToPantry(User user, Ingredient ingredient) {
+		user.addIngredient(ingredient);
+
 	}
 }

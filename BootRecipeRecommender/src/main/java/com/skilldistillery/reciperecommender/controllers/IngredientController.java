@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.reciperecommender.data.IngredientDAO;
 import com.skilldistillery.reciperecommender.entities.Ingredient;
+import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,18 +21,15 @@ public class IngredientController {
 	@Autowired
 	private IngredientDAO ingredientDAO;
 
-	@RequestMapping(path = "selectIngredient.do", params = "name")
-	public String addIngredientToCart(HttpSession session, @RequestParam("name") String input,
+	@RequestMapping(path = "searchIngredientFromStore.do", params = "name")
+	public String searchIngredientFromStore(HttpSession session, @RequestParam("name") String input,
 			@ModelAttribute("user") User user, Model model) {
-		
 		try {
 			List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, input);
-			
+			model.addAttribute("ingredients", ingredients);
 			for (Ingredient ingredient : ingredients) {
-				model.addAttribute("ingredient", ingredient);
+				session.setAttribute("itemToAdd", ingredient);
 			}
-			
-
 			return "userIngredient";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,12 +37,35 @@ public class IngredientController {
 		return "error";
 	}
 
-	@RequestMapping(path = "removeIngredient.do", params = "name")
-	public String removeIngredientFromCart(HttpSession session, @RequestParam("name") String name, User user) {
+	@RequestMapping(path = "removeIngredientFromPantry.do")
+	public String removeIngredientFromPantry(HttpSession session, User user) {
 		try {
-			Ingredient ingredient = (Ingredient) ingredientDAO.findIngredientByName(user, name);
+			Ingredient ingredient = (Ingredient) session.getAttribute("itemToAdd");
 			ingredientDAO.removeIngredient(user, ingredient);
-			return "recipe";
+			return "userIngredient";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "error";
+	}
+
+	@RequestMapping(path = "populatePantry.do")
+	public String addIngredientToPantry(HttpSession session, User user) {
+		try {
+			Ingredient ingredient = (Ingredient) session.getAttribute("itemToAdd");
+			ingredientDAO.addToPantry(user, ingredient);
+			return "userIngredient";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "error";
+	}
+
+	@RequestMapping(path = "generateRecipe.do")
+	public String generateRecipes(HttpSession session, List<Ingredient> ingredients, User user) {
+		try {
+			List<Recipe> recipes = ingredientDAO.generateRecipes(user, ingredients);
+			return "userIngredient";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
