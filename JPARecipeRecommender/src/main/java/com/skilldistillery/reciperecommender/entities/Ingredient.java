@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Ingredient {
 		this.users = users;
 	}
 
-	@ManyToMany(mappedBy = "ingredients")
+	@ManyToMany(mappedBy = "ingredientsInPantry", fetch = FetchType.EAGER)
 	private List<User> users;
 
 	public void addUser(User user) {
@@ -93,6 +94,6 @@ public class Ingredient {
 
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
+		return name;
 	}
 }
