@@ -62,4 +62,23 @@ public class IngredientDAOImpl implements IngredientDAO {
 		user.addIngredient(ingredient);
 
 	}
+
+	@Override
+	public List<Recipe> findAll() {
+
+		String jpql = "SELECT r FROM Recipe r";
+		List<Recipe> recipes = em.createQuery(jpql, Recipe.class).getResultList();
+
+		return recipes;
+	}
+
+	@Override
+	public List<Recipe> findRecipesByIngredients(String name) {
+		String jpql = "SELECT r FROM Recipe JOIN r.ingredients WHERE i.name IN :ingredientNames";
+		List<Recipe> recipes = em.createQuery(jpql, Recipe.class).getResultList();
+		
+		return recipes;
+	
+	}
+
 }

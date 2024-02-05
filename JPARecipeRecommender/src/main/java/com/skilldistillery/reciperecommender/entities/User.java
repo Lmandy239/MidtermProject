@@ -50,7 +50,7 @@ public class User {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 	private List<Ingredient> ingredientsInPantry;
 
 	public void addIngredient(Ingredient ingredient) {
