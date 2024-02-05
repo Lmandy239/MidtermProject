@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page
-	import="com.skilldistillery.reciperecommender.entities.Ingredient"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,14 +30,14 @@
 			<tr id="th">
 				<th>Your Cart</th>
 			</tr>
-			<c:forEach items="${user.getIngredients()}" var="user">
+			<c:forEach items="${user.getIngredients()}" var="ingredient">
 				<tr>
 					<td>${ingredient.name}</td>
 				</tr>
-				<tr>
-					<td>Cart size ${user.getIngredients().size()}</td>
-				</tr>
 			</c:forEach>
+			<tr>
+				<td>Cart size ${user.getIngredients().size()}</td>
+			</tr>
 		</table>
 	</div>
 

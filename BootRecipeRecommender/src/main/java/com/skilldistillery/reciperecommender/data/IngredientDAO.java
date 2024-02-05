@@ -7,6 +7,6 @@ import com.skilldistillery.reciperecommender.entities.User;
 
 public interface IngredientDAO {
 
-	Ingredient findIngredientByName(User user, String namePattern);
+	List<Ingredient> findIngredientByName(User user, String namePattern);
 	void removeIngredient(User user, Ingredient ingredient);
 }
