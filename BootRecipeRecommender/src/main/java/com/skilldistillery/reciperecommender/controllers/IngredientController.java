@@ -1,5 +1,7 @@
 package com.skilldistillery.reciperecommender.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,15 @@ public class IngredientController {
 	@RequestMapping(path = "selectIngredient.do", params = "name")
 	public String addIngredientToCart(HttpSession session, @RequestParam("name") String input,
 			@ModelAttribute("user") User user, Model model) {
+		
 		try {
-			Ingredient ingredient = ingredientDAO.findIngredientByName(user, input);
-			model.addAttribute("ingredient", ingredient);
+			List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, input);
+			
+			for (Ingredient ingredient : ingredients) {
+				model.addAttribute("ingredient", ingredient);
+			}
+			
+			
 			return "recipe";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,7 +42,7 @@ public class IngredientController {
 	@RequestMapping(path = "removeIngredient.do", params = "name")
 	public String removeIngredientFromCart(HttpSession session, @RequestParam("name") String name, User user) {
 		try {
-			Ingredient ingredient = ingredientDAO.findIngredientByName(user, name);
+			Ingredient ingredient = (Ingredient) ingredientDAO.findIngredientByName(user, name);
 			ingredientDAO.removeIngredient(user, ingredient);
 			return "recipe";
 		} catch (Exception e) {
