@@ -31,7 +31,7 @@ public class IngredientController {
 				model.addAttribute("ingredient", ingredient);
 			}
 			
-			
+
 			return "userIngredient";
 		} catch (Exception e) {
 			e.printStackTrace();

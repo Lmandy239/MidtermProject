@@ -31,23 +31,41 @@ public class User {
 	public User() {
 	}
 
+	@Transient
+	List<Ingredient> goShopping;
+
+	public void searchIngredient(Ingredient ingredient) {
+		if (goShopping == null) {
+			goShopping = new ArrayList<>();
+		}
+		if (!goShopping.contains(ingredient)) {
+			goShopping.add(ingredient);
+		}
+	}
+
+	public void displayWhatsInGroceryCart() {
+		for (Ingredient ingredient : goShopping) {
+			ingredient.getName();
+		}
+	}
+
 	@ManyToMany
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<Ingredient> ingredients;
+	private List<Ingredient> ingredientsInPantry;
 
 	public void addIngredient(Ingredient ingredient) {
-		if (ingredients == null) {
-			ingredients = new ArrayList<>();
+		if (ingredientsInPantry == null) {
+			ingredientsInPantry = new ArrayList<>();
 		}
-		if (!ingredients.contains(ingredient)) {
-			ingredients.add(ingredient);
+		if (!ingredientsInPantry.contains(ingredient)) {
+			ingredientsInPantry.add(ingredient);
 			ingredient.addUser(this);
 		}
 	}
 
 	public void removeIngredient(Ingredient ingredient) {
-		if (ingredients != null && ingredients.contains(ingredient)) {
-			ingredients.remove(ingredient);
+		if (ingredientsInPantry != null && ingredientsInPantry.contains(ingredient)) {
+			ingredientsInPantry.remove(ingredient);
 			ingredient.removeUser(this);
 		}
 	}
@@ -59,7 +77,7 @@ public class User {
 		this.password = password;
 		this.enabled = enabled;
 		this.role = role;
-		this.ingredients = ingredients;
+		this.ingredientsInPantry = ingredients;
 	}
 
 	public int getId() {
@@ -95,18 +113,20 @@ public class User {
 	}
 
 	public List<Ingredient> getIngredients() {
-		return ingredients;
+		return ingredientsInPantry;
 	}
 
-	public String showIngredients() {
-		for (Ingredient ingredient : ingredients) {
-			return ingredient.getName();
+	public Ingredient showIngredients() {
+		if (ingredientsInPantry != null) {
+			for (Ingredient ingredient : ingredientsInPantry) {
+				return ingredient;
+			}
 		}
 		return null;
 	}
 
 	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
+		this.ingredientsInPantry = ingredients;
 	}
 
 	public boolean isEnabled() {
@@ -119,7 +139,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(enabled, id, ingredients, password, role, username);
+		return Objects.hash(enabled, id, ingredientsInPantry, password, role, username);
 	}
 
 	@Override
@@ -131,7 +151,8 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return enabled == other.enabled && id == other.id && Objects.equals(ingredients, other.ingredients)
+		return enabled == other.enabled && id == other.id
+				&& Objects.equals(ingredientsInPantry, other.ingredientsInPantry)
 				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
 				&& Objects.equals(username, other.username);
 	}
