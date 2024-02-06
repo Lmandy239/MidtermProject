@@ -22,18 +22,22 @@ public class IngredientDAOImpl implements IngredientDAO {
 
 	@Override
 	public List<Ingredient> findIngredientByName(User user, String namePattern) {
-		System.out.println("**********************entering method***************************");
 		String jpql = "SELECT i FROM Ingredient i WHERE i.name LIKE :pattern";
 
 		Query query = em.createQuery(jpql);
 
-		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%")
-				.getResultList();
+		@SuppressWarnings("unchecked")
+		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%").getResultList();
 
 		for (Ingredient ingredient : ingredients) {
 			user.searchIngredient(ingredient);
 		}
 		return ingredients;
+	}
+	
+	@Override
+	public Ingredient findById(int id) {
+		return em.find(Ingredient.class, id);
 	}
 
 	@Override

@@ -23,8 +23,10 @@ public class UserController {
 
 	@RequestMapping(path = "login.do", params = { "username", "password" })
 	public String authenticateLogin(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, HttpSession session) {
 		User u = userDAO.authenticateUser(username, password);
+        session.setAttribute("user", u);
+
 		if (u != null) {
 			return "userIngredient";
 		} else {

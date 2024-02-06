@@ -109,17 +109,8 @@ public class Ingredient {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
