@@ -3,6 +3,7 @@ package com.skilldistillery.reciperecommender.entities;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,9 @@ public class Recipe {
     @ManyToMany
     @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
+    
+    @Column(name="recipe_image")
+    private String image;
 
     public int getId() {
         return id;
@@ -54,7 +58,15 @@ public class Recipe {
      
     
     
-    @Override
+    public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hash(id);
     }
