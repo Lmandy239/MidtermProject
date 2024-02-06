@@ -70,7 +70,6 @@ public class User {
 		this.ingredientsInPantry = ingredientsInPantry;
 	}
 
-
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {
 			ingredientsInPantry = new ArrayList<>();

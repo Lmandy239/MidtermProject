@@ -17,4 +17,9 @@ public interface IngredientDAO {
 	void addToPantry(User user, Ingredient ingredient);
 
 	Ingredient findById(int id);
+	
+	List<Recipe> findAll();
+	
+	List<Recipe> findRecipesByIngredients(String name);
+	
 }
