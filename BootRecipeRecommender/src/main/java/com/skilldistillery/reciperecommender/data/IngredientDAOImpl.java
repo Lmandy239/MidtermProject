@@ -22,14 +22,16 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ingredient> findIngredientByName(User user, String namePattern) {
-		String jpql = "SELECT i FROM Ingredient i WHERE i.name LIKE :pattern";
+		String jpql = "SELECT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER(:pattern || '%')";
 
 		Query query = em.createQuery(jpql);
-
-		@SuppressWarnings("unchecked")
-		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%").getResultList();
+		
+		List<Ingredient> ingredients;
+		
+		ingredients = query.setParameter("pattern", namePattern.toLowerCase()).getResultList();
 
 		for (Ingredient ingredient : ingredients) {
 			user.searchIngredient(ingredient);

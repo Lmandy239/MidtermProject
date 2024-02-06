@@ -71,17 +71,17 @@
                             <div>
                                 <h3>Your Cart:</h3>
                                 <div class="colored-block scroll-container">
-                                    <form action="removeFromCart.do" method="GET">
                                         <ul class="ingredient-list">
                                             <c:forEach var="ingredient" items="${user.ingredientsInPantry}">
+                                    <form action="removeFromCart.do" method="GET">
                                                 <li class="d-flex justify-content-between align-items-center">
                                                     ${ingredient.name}
                                                     <input type="hidden" name="id" value="${ingredient.id}">
                                                     <button type="submit" class="btn btn-danger">-</button>
                                                 </li>
+                                    </form>
                                             </c:forEach>
                                         </ul>
-                                    </form>
                                 </div>
                             </div>
                             <br>
@@ -114,17 +114,17 @@
                         <div class="col-md-6 text-center">
                             <h3>Search Results:</h3>
                             <div class="colored-block scroll-container2">
-                                <form action="addToCart.do" method="GET">
                                     <ul class="ingredient-list">
                                         <c:forEach var="ingredient" items="${ingredients}">
+                                <form action="addToCart.do" method="GET">
                                             <li class="d-flex justify-content-between align-items-center">
                                                 ${ingredient.name}
                                                 <input type="hidden" name="id" value="${ingredient.id}">
                                                 <button type="submit" class="btn btn-success">+</button>
                                             </li>
+                                </form>
                                         </c:forEach>
                                     </ul>
-                                </form>
                             </div>
                         </div>
                     </div>
