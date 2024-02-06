@@ -16,6 +16,12 @@
 	crossorigin="anonymous">
 
 <link rel="stylesheet" href="css/stylesheet.css">
+
+<style>
+.logo {
+	height: 150px;">
+		}
+</style>
 </head>
 <body>
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -26,7 +32,7 @@
 
 
 						<div class="row">
-							<img src="images/image6.png" class="logo">
+							<img src="images/logoSpark.png" class="logo">
 						</div>
 
 
@@ -45,8 +51,8 @@
           										  </c:forEach>
 										</form>
 								</div>
-							</div>
 								<br> <a href="home">Return to Login</a> <br>
+							</div>
 						</div>
 					</div>
 				</div>

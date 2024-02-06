@@ -9,3 +9,6 @@ default
 .gradle
 *.war
 *.bak
+DB/reciperecommender_original.sql
+DB/reciperecommender.sql
+data
