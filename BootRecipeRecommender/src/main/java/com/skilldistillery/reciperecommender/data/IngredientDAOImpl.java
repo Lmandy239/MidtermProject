@@ -1,5 +1,7 @@
 package com.skilldistillery.reciperecommender.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -48,20 +50,6 @@ public class IngredientDAOImpl implements IngredientDAO {
 	}
 
 	@Override
-	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients) {
-		return null;
-//		ingredients = user.getIngredients();
-//		int index = 0;
-//		int count = 0;
-//		Recipe [] topSixRecipes = new Recipe[6];
-//		for (Ingredient ingredient : ingredients) {
-//			for (Recipe recipe: recipes) {
-//				if (recipe.contains(ingredient)) {
-//					count++;
-//					topSixRecipes[index] = recipe;
-	}
-
-	@Override
 	public void addToPantry(User user, Ingredient ingredient) {
 		user.addIngredient(ingredient);
 
@@ -84,5 +72,53 @@ public class IngredientDAOImpl implements IngredientDAO {
 		return recipes;
 	
 	}
+	
+	@Override
+	public List<Recipe> allRecipe() {
+		String jpql = "SELECT r FROM Recipe r";
+		List<Recipe> allRecipe = em.createQuery(jpql, Recipe.class).getResultList();
+		return allRecipe;
+	}
+	
+	@Override
+	public List<Recipe> generateRecipes(User user) {
+	    List<Recipe> allRecipes = allRecipe();
+	    List<Recipe> topRecipes = new ArrayList<>();
+	    List<Ingredient> ingredients = user.getIngredients();
+	    
+	    // Calculate the intersection sizes and store them in a separate list
+	    List<Integer> intersectionSizes = new ArrayList<>();
+	    
+	    for (Recipe recipe : allRecipes) {
+	        int intersectionSize = calculateIntersectionSize(recipe.getIngredients(), user.getIngredientsInPantry());
+	        intersectionSizes.add(intersectionSize);
+	    }
+	    
+	    for (int i = 0; i < Math.min(6, allRecipes.size()); i++) {
+	        int maxIntersectionSize = Collections.max(intersectionSizes);
+	        int maxIndex = intersectionSizes.indexOf(maxIntersectionSize);
+	        
+	        topRecipes.add(allRecipes.get(maxIndex));
+	        
+	        intersectionSizes.set(maxIndex, -1); // Mark this index as visited
+	        
+	        // You don't need to remove the elements or the recipes from the list
+	    }
+	    
+	    return topRecipes;
+	}
+	
+    private int calculateIntersectionSize(List<Ingredient> list1, List<Ingredient> list2) {
+        List<Ingredient> smallerList = (list1.size() < list2.size()) ? list1 : list2;
+        List<Ingredient> largerList = (list1.size() < list2.size()) ? list2 : list1;
+
+        int count = 0;
+        for (Ingredient ingredient : smallerList) {
+            if (largerList.contains(ingredient)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 }
