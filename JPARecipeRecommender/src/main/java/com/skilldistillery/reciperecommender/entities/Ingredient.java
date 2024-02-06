@@ -15,70 +15,70 @@ import jakarta.persistence.ManyToMany;
 @Entity
 public class Ingredient {
 
-    public Ingredient() {
-    }
+	public Ingredient() {
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    public Ingredient(int id, String name, List<User> users) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.users = users;
-    }
+	public Ingredient(int id, String name, List<User> users) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.users = users;
+	}
 
-    @ManyToMany(mappedBy = "ingredientsInPantry")
-    private List<User> users;
+	@ManyToMany(mappedBy = "ingredientsInPantry")
+	private List<User> users;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private List<Recipe> recipes;
+	@ManyToMany(mappedBy = "ingredients")
+	private List<Recipe> recipes;
 
-    public void addUser(User user) {
-        if (user == null) {
-            users = new ArrayList<>();
-        }
-        if (!users.contains(user)) {
-            user.addIngredient(this);
-        }
-    }
+	public void addUser(User user) {
+		if (user == null) {
+			users = new ArrayList<>();
+		}
+		if (!users.contains(user)) {
+			user.addIngredient(this);
+		}
+	}
 
-    public void removeUser(User user) {
-        if (users != null && users.contains(user)) {
-            users.remove(user);
-            user.removeIngredient(this);
-        }
-    }
+	public void removeUser(User user) {
+		if (users != null && users.contains(user)) {
+			users.remove(user);
+			user.removeIngredient(this);
+		}
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<User> getUsers() {
-        return users;
-    }
+	public List<User> getUsers() {
+		return users;
+	}
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-    public List<Recipe> getRecipes() {
+	public List<Recipe> getRecipes() {
 		return recipes;
 	}
 
@@ -86,10 +86,10 @@ public class Ingredient {
 		this.recipes = recipes;
 	}
 
-    @Override
-    public String toString() {
-        return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
-    }
+	@Override
+	public String toString() {
+		return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
+	}
 
 	@Override
 	public int hashCode() {

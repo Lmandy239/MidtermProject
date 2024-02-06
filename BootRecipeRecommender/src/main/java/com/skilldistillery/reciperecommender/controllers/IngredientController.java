@@ -23,8 +23,8 @@ public class IngredientController {
 	@RequestMapping(path = "generateRecipes.do")
 	public String generateRecipes(HttpSession session, User user, Ingredient ingredient) {
 		try {
-	        user = (User) session.getAttribute("user");
-			//user.addIngredient(ingredient);
+			user = (User) session.getAttribute("user");
+			// user.addIngredient(ingredient);
 			List<Ingredient> ingredients = user.getIngredients();
 			List<Recipe> recipes = ingredientDAO.generateRecipes(user, ingredients, ingredient);
 			session.setAttribute("recipes", recipes);

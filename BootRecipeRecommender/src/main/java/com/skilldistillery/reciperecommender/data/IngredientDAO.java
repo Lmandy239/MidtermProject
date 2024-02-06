@@ -12,7 +12,7 @@ public interface IngredientDAO {
 
 	void removeIngredient(User user, Ingredient ingredient);
 
-	List<Recipe> generateRecipes(User user, List<Ingredient> ingredients, Ingredient ingredient);
+	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients, Ingredient ingredient);
 
 	void addToPantry(User user, Ingredient ingredient);
 
