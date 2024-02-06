@@ -1,5 +1,6 @@
 package com.skilldistillery.reciperecommender.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.skilldistillery.reciperecommender.entities.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -48,18 +50,36 @@ public class IngredientDAOImpl implements IngredientDAO {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients, Ingredient ingredient) {
-		String matcher = "";
-		for (Ingredient i : ingredients) {
-			String namePattern = i.getName();
-			matcher += namePattern;
+		List<Recipe> top6Recipes = new ArrayList<>();
+
+		// Constructing JPQL query to fetch recipes containing all provided ingredients
+		String jpql = "SELECT r FROM Recipe r WHERE ";
+		for (int i = 0; i < ingredients.size(); i++) {
+			jpql += ":ingredient" + i + " MEMBER OF r.ingredients ";
+			if (i < ingredients.size() - 1) {
+				jpql += " AND ";
+			}
 		}
-		String jpql = "SELECT r FROM Recipe r WHERE r.ingredientsNames LIKE :pattern";
-		Query query = em.createQuery(jpql);
-		List<Recipe> recipes = (List<Recipe>) query.setParameter("pattern", "%" + matcher + "%").getResultList();
-		return recipes;
+
+		// Creating query object and setting parameters
+		TypedQuery<Recipe> query = em.createQuery(jpql, Recipe.class);
+		for (int i = 0; i < ingredients.size(); i++) {
+			query.setParameter("ingredient" + i, ingredients.get(i));
+		}
+
+		// Executing query and retrieving results
+		List<Recipe> recipes = query.getResultList();
+
+		// Adding unique recipes to top6Recipes list
+		for (Recipe recipe : recipes) {
+			if (!top6Recipes.contains(recipe) && top6Recipes.size() < 6) {
+				top6Recipes.add(recipe);
+			}
+		}
+
+		return top6Recipes;
 	}
 
 	@Override
