@@ -86,31 +86,26 @@ public class Ingredient {
 		this.recipes = recipes;
 	}
 
-	@Override
-    public int hashCode() {
-        return Objects.hash(id, name, users);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Ingredient other = (Ingredient) obj;
-        return id == other.id && Objects.equals(name, other.name) && Objects.equals(users, other.users);
-    }
-
     @Override
     public String toString() {
         return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
     }
-}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ingredient other = (Ingredient) obj;
+		return id == other.id;
+	}
+
+}

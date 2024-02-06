@@ -45,8 +45,8 @@
           										  </c:forEach>
 										</form>
 								</div>
-							</div>
 								<br> <a href="home">Return to Login</a> <br>
+							</div>
 						</div>
 					</div>
 				</div>
