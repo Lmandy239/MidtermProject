@@ -2,6 +2,7 @@ package com.skilldistillery.reciperecommender.data;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.persistence.EntityManager;
@@ -22,6 +23,16 @@ public class UserDAOImpl implements UserDAO {
 				.getSingleResult();
 		return u;
 	}
+	
+	//find by id
+	@Override
+	public User findById(int id) {
+		User u = em.find(User.class, id);
+		
+		u.getIngredientsInPantry().size();
+		
+		return u;
+	}
 
 	@Override
 	public User registerUser(String username, String password) {
@@ -32,5 +43,15 @@ public class UserDAOImpl implements UserDAO {
 		user.setEnabled(true);
 		em.persist(user);
 		return user;
+	}
+
+	@Override
+	@Transactional
+	public void save(User user) {
+		if (em.contains(user)) {
+			em.persist(user);
+		} else { 
+			em.merge(user);
+		}
 	}
 }

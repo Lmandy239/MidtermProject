@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,10 @@ public class User {
 	private boolean enabled;
 
 	private String role;
+	
+	@ManyToMany
+	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<Ingredient> ingredientsInPantry;
 
 	public User() {
 	}
@@ -49,9 +54,21 @@ public class User {
 		}
 	}
 
-	@ManyToMany
-	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-	private List<Ingredient> ingredientsInPantry;
+	public List<Ingredient> getGoShopping() {
+		return goShopping;
+	}
+
+	public void setGoShopping(List<Ingredient> goShopping) {
+		this.goShopping = goShopping;
+	}
+
+	public List<Ingredient> getIngredientsInPantry() {
+		return ingredientsInPantry;
+	}
+
+	public void setIngredientsInPantry(List<Ingredient> ingredientsInPantry) {
+		this.ingredientsInPantry = ingredientsInPantry;
+	}
 
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {

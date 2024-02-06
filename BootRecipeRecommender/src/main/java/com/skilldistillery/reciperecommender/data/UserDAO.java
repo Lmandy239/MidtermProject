@@ -8,4 +8,8 @@ public interface UserDAO {
 
 	User registerUser(String username, String password);
 
+	void save(User user);
+
+	User findById(int id);
+
 }
