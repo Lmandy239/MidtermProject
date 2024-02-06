@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.skilldistillery.reciperecommender.data.UserDAO;
 import com.skilldistillery.reciperecommender.entities.User;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 	@Autowired

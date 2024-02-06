@@ -154,9 +154,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(enabled, id, ingredientsInPantry, password, role, username);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -168,10 +170,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return enabled == other.enabled && id == other.id
-				&& Objects.equals(ingredientsInPantry, other.ingredientsInPantry)
-				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
-				&& Objects.equals(username, other.username);
+		return id == other.id;
 	}
 
 	@Override
