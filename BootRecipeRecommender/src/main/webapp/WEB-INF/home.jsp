@@ -5,15 +5,20 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Insert title here</title>
+<title>Home page</title>
  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Recommender</title>
+    <title>Recipe Wizard</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="css/stylesheet.css">
-
+	<style>
+		.logo {
+             
+		     height: 150px;">
+		}
+	</style>
 </head>
 <body>
    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -21,8 +26,8 @@
         <div class="row d-flex">
             <div class="col-lg-6">
                 <div class="card1 pb-5">
-                    <div class="row">
-                        <img src="images/image6.png" class="logo">
+                <div class="row">
+		     	<img src="images/logoSpark.png" class="logo">
                     </div>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
 					 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -84,7 +89,7 @@
         </div>
     </div>
 </div>
-
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
