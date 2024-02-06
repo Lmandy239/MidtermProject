@@ -21,46 +21,6 @@ public class IngredientController {
 	@Autowired
 	private IngredientDAO ingredientDAO;
 
-	@RequestMapping(path = "searchIngredientFromStore.do", params = "name")
-	public String searchIngredientFromStore(HttpSession session, @RequestParam("name") String input,
-			@ModelAttribute("user") User user, Model model) {
-		try {
-			List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, input);
-			model.addAttribute("ingredients", ingredients);
-			for (Ingredient ingredient : ingredients) {
-				session.setAttribute("itemToAdd", ingredient);
-			}
-			return "userIngredient";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "error";
-	}
-
-	@RequestMapping(path = "removeIngredientFromPantry.do")
-	public String removeIngredientFromPantry(HttpSession session, User user) {
-		try {
-			Ingredient ingredient = (Ingredient) session.getAttribute("itemToAdd");
-			ingredientDAO.removeIngredient(user, ingredient);
-			return "userIngredient";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "error";
-	}
-
-	@RequestMapping(path = "populatePantry.do")
-	public String addIngredientToPantry(HttpSession session, User user) {
-		try {
-			Ingredient ingredient = (Ingredient) session.getAttribute("itemToAdd");
-			ingredientDAO.addToPantry(user, ingredient);
-			return "userIngredient";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "error";
-	}
-
 	@RequestMapping(path = "generateRecipe.do")
 	public String generateRecipes(HttpSession session, List<Ingredient> ingredients, User user) {
 		try {

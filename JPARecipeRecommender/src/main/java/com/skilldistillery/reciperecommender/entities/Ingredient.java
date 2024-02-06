@@ -77,7 +77,7 @@ public class Ingredient {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, users);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class Ingredient {
 		if (getClass() != obj.getClass())
 			return false;
 		Ingredient other = (Ingredient) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(users, other.users);
+		return id == other.id;
 	}
 
 	@Override
