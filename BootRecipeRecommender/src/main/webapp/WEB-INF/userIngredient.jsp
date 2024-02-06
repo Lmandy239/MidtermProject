@@ -34,19 +34,22 @@
 							<div class="col-md-4 offset-md-3 text-center">
 
 								<div>
-											<h3>Your Cart:</h3>
-										    
-										<form action="removeFromCart.do" method="GET">
-											        
-												<c:forEach var="ingredient" items="${user.ingredientsInPantry}">
+									<h3>Your Cart:</h3>
+									    
+									<form action="removeFromCart.do" method="GET">
+										        
+										<c:forEach var="ingredient"
+											items="${user.ingredientsInPantry}">
                									                     ${ingredient.name}
-														                    <input type="hidden" name="id" value="${ingredient.id}">
-														                    <input type="submit" value="Remove from Cart">                 
+														                    <input type="hidden" name="id"
+												value="${ingredient.id}">
+														                    <input type="submit"
+												value="Remove from Cart">                 
           										  </c:forEach>
-										</form>
+									</form>
 								</div>
-								<br> <a href="home">Return to Login</a> <br>
 							</div>
+							<br> <a href="home">Return to Login</a> <br>
 						</div>
 					</div>
 				</div>
@@ -63,8 +66,8 @@
 
 						<div class="row px-3">
 							<form action="searchIngredientFromStore.do" method="GET">
-								<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label> <input
-									class="mb-4" type="text" name="searchResults"
+								<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
+								<input class="mb-4" type="text" name="searchResults"
 									placeholder="Search for Ingredient" required><br>
 								<input type="submit" value="Search">
 							</form>
@@ -83,9 +86,10 @@
         								<h3>Search Results:</h3>
        									 <form action="addToCart.do" method="GET">
 												            
-													<c:forEach var="ingredient" items="${ingredients}">
-															${ingredient.name} <input type="hidden" name="id" value="${ingredient.id}">
-															 <input type="submit" value="Add to Cart">                    
+												<c:forEach var="ingredient" items="${ingredients}">
+															${ingredient.name} <input type="hidden" name="id"
+														value="${ingredient.id}">
+													<input type="submit" value="Add to Cart">                    
              									   </c:forEach>
 											</form>
    										 </c:if>
@@ -99,9 +103,11 @@
 				<br> <br>
 				<div class="row mb-3 px-3">
 					<div class="col-md-4 offset-md-3 text-center">
-						<button type="submit" class="btn btn-blue btn-block w-100">Find
-							Recipe</button>
-						<small class="font-weight-bold">Or <a href="findall.do">Show all</a></small>
+						<a href="generateRecipes.do">
+							<button type="submit" class="btn btn-blue btn-block w-100">Find
+								Recipe</button>
+						</a> <small class="font-weight-bold">Or <a href="findall.do">Show
+								all</a></small>
 					</div>
 					<br> <br>
 

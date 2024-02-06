@@ -27,14 +27,15 @@ public class IngredientDAOImpl implements IngredientDAO {
 		Query query = em.createQuery(jpql);
 
 		@SuppressWarnings("unchecked")
-		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%").getResultList();
+		List<Ingredient> ingredients = (List<Ingredient>) query.setParameter("pattern", "%" + namePattern + "%")
+				.getResultList();
 
 		for (Ingredient ingredient : ingredients) {
 			user.searchIngredient(ingredient);
 		}
 		return ingredients;
 	}
-	
+
 	@Override
 	public Ingredient findById(int id) {
 		return em.find(Ingredient.class, id);
@@ -47,24 +48,23 @@ public class IngredientDAOImpl implements IngredientDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients) {
-		return null;
-//		ingredients = user.getIngredients();
-//		int index = 0;
-//		int count = 0;
-//		Recipe [] topSixRecipes = new Recipe[6];
-//		for (Ingredient ingredient : ingredients) {
-//			for (Recipe recipe: recipes) {
-//				if (recipe.contains(ingredient)) {
-//					count++;
-//					topSixRecipes[index] = recipe;
+	public List<Recipe> generateRecipes(User user, List<Ingredient> ingredients, Ingredient ingredient) {
+		String matcher = "";
+		for (Ingredient i : ingredients) {
+			String namePattern = i.getName();
+			matcher += namePattern;
+		}
+		String jpql = "SELECT r FROM Recipe r WHERE r.ingredientsNames LIKE :pattern";
+		Query query = em.createQuery(jpql);
+		List<Recipe> recipes = (List<Recipe>) query.setParameter("pattern", "%" + matcher + "%").getResultList();
+		return recipes;
 	}
 
 	@Override
 	public void addToPantry(User user, Ingredient ingredient) {
 		user.addIngredient(ingredient);
-
 	}
 
 	@Override
@@ -80,9 +80,9 @@ public class IngredientDAOImpl implements IngredientDAO {
 	public List<Recipe> findRecipesByIngredients(String name) {
 		String jpql = "SELECT r FROM Recipe JOIN r.ingredients WHERE i.name IN :ingredientNames";
 		List<Recipe> recipes = em.createQuery(jpql, Recipe.class).getResultList();
-		
+
 		return recipes;
-	
+
 	}
 
 }

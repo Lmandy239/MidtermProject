@@ -12,14 +12,14 @@ public interface IngredientDAO {
 
 	void removeIngredient(User user, Ingredient ingredient);
 
-	List<Recipe> generateRecipes(User user, List<Ingredient> ingredients);
+	List<Recipe> generateRecipes(User user, List<Ingredient> ingredients, Ingredient ingredient);
 
 	void addToPantry(User user, Ingredient ingredient);
 
 	Ingredient findById(int id);
-	
+
 	List<Recipe> findAll();
-	
+
 	List<Recipe> findRecipesByIngredients(String name);
-	
+
 }
