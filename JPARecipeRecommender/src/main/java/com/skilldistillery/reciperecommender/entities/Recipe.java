@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -41,11 +42,22 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-   
     
-    public Recipe() {
+    @OneToMany(mappedBy = "recipe")
+    private List<Comment> comments;
+    
+    
+    
+    public List<Comment> getComments() {
+		return comments;
+	}
 
-    }
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+    
+    public Recipe() {}
     
     public int getId() {
         return id;

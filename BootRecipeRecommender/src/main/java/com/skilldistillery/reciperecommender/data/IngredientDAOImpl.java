@@ -56,9 +56,4 @@ public class IngredientDAOImpl implements IngredientDAO {
 		user.addIngredient(ingredient);
 
 	}
-	
-
-    
-    //test cahnges
-
 }
