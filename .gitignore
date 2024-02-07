@@ -12,3 +12,4 @@ default
 DB/reciperecommender_original.sql
 DB/reciperecommender.sql
 BootRecipeRecommender/src/main/webapp/images/food_images/*
+data/food_images/*
