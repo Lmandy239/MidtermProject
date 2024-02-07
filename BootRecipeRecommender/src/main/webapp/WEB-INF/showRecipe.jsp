@@ -11,7 +11,7 @@
 <title>Recipe</title>
 </head>
 <body>
-<c:forEach var="recipe" items="${recipes}">
+<c:forEach var="recipe" items="${recipe}">
     <p>${recipe.name}</p>
     <p>${recipe.ingredientDescription}</p>
     <p>${recipe.description}</p>
