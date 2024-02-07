@@ -99,6 +99,9 @@ public class IngredientDAOImpl implements IngredientDAO {
 	    for (int i = 0; i < Math.min(6, allRecipes.size()); i++) {
 	        int maxIntersectionSize = Collections.max(intersectionSizes);
 	        int maxIndex = intersectionSizes.indexOf(maxIntersectionSize);
+	        if (maxIntersectionSize < 1) {
+	        	return topRecipes;
+	        }
 	        
 	        topRecipes.add(allRecipes.get(maxIndex));
 	        
