@@ -46,8 +46,8 @@ public class User {
 	List<Ingredient> goShopping;
 	
 	
-	 @OneToMany(mappedBy = "user")
-	 private List<UserIngredient> cart;
+	@OneToMany(mappedBy = "user")
+	private List<UserIngredient> cart;
 
 	public User() {
 	}
@@ -184,14 +184,6 @@ public class User {
 	}
 	
 	
-
-	public List<Recipe> getFavoriteRecipes() {
-		return favoriteRecipes;
-	}
-
-	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
-		this.favoriteRecipes = favoriteRecipes;
-	}
 
 	public List<Recipe> getFavoriteRecipes() {
 		return favoriteRecipes;
