@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.reciperecommender.data.IngredientDAO;
 import com.skilldistillery.reciperecommender.entities.Recipe;
@@ -37,12 +38,6 @@ public class IngredientController {
 			e.printStackTrace();
 			return "error";
 		}
-	}
-	
-	@RequestMapping(path = "showRecipe.do")
-	public String showRecipe(HttpSession session, Recipe recipe, Model model) {
-		model.addAttribute("recipe", recipe);
-		return "showRecipe";
 	}
 
 }
