@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Recipe {
@@ -36,7 +37,12 @@ public class Recipe {
     
     @Column(name="ingredient_description")
     private String ingredientDescription;
+    
+    @Transient
+    private List<String> ingredientDescriptionList;
 
+    
+    
     public int getId() {
         return id;
     }
@@ -89,6 +95,15 @@ public class Recipe {
 
 	public void setIngredientDescription(String ingredientDescription) {
 		this.ingredientDescription = ingredientDescription;
+	}
+	
+
+	public List<String> getIngredientDescriptionList() {
+		return ingredientDescriptionList;
+	}
+
+	public void setIngredientDescriptionList(List<String> ingredientDescriptionList) {
+		this.ingredientDescriptionList = ingredientDescriptionList;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.skilldistillery.reciperecommender.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,13 +23,20 @@ public class RecipeDAOImpl implements RecipeDAO{
 	
 	@Override
 	public Recipe findById(int id) {
-		return em.find(Recipe.class, id);
+		Recipe recipe =  em.find(Recipe.class, id);
+        List<String> ingredientDescriptionList = parseIngredientDescription(recipe.getIngredientDescription());
+        recipe.setIngredientDescriptionList(ingredientDescriptionList);
+        return recipe;
 	}
 	
 	@Override
 	public List<Recipe> allRecipe() {
 		String jpql = "SELECT r FROM Recipe r";
 		List<Recipe> allRecipe = em.createQuery(jpql, Recipe.class).getResultList();
+		for (Recipe recipe : allRecipe) {
+	        List<String> ingredientDescriptionList = parseIngredientDescription(recipe.getIngredientDescription());
+	        recipe.setIngredientDescriptionList(ingredientDescriptionList);
+		}
 		return allRecipe;
 	}
 	
@@ -74,6 +82,14 @@ public class RecipeDAOImpl implements RecipeDAO{
             }
         }
         return count;
+    }
+    
+    private List<String> parseIngredientDescription(String ingredientDescription) {
+        List<String> ingredients = new ArrayList<>();
+        // Parse the string representation of the array and create a list
+        String[] ingredientsArray = ingredientDescription.replaceAll("\\[|\\]", "").split(", ");
+        ingredients.addAll(Arrays.asList(ingredientsArray));
+        return ingredients;
     }
 	
 
