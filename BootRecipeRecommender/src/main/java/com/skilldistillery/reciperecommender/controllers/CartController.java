@@ -50,7 +50,6 @@ public class CartController {
 	        	Ingredient ingredient = ingredientDAO.findById(ingredientId);	
 	        	// Add ingredient to the user's cart
 	        	user.addIngredient(ingredient);
-	    System.out.println("++++++++++++++++++++++++++++++++++++++++" + user);
 	    	session.setAttribute("user", user);
 	        }
 	        return "userIngredient";
