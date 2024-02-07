@@ -38,5 +38,11 @@ public class IngredientController {
 			return "error";
 		}
 	}
+	
+	@RequestMapping(path = "showRecipe.do")
+	public String showRecipe(HttpSession session, Recipe recipe, Model model) {
+		model.addAttribute("recipe", recipe);
+		return "showRecipe";
+	}
 
 }
