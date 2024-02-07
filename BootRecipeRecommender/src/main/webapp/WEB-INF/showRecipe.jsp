@@ -18,16 +18,34 @@
 <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
-	<h1>${recipe.name}</h1>
-	<img
-		src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
-		alt="${recipe.name}" class="centered-image">
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<!-- Centering the row -->
+			<div class="col-lg-12 text-center">
+				<!-- Centering the column -->
+				<h1 class="display-4">${recipe.name}</h1>
+				<!-- Making the header larger -->
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 text-center">
+				<img
+					src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
+					alt="${recipe.name}" class="img-fluid w-2">
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4">
+		<div class="row">
+			<div class="col-lg-12">
 
-
-
-	<p>${recipe.ingredientDescription}</p>
-	<p>${recipe.description}</p>
-	   
+				<p>${recipe.ingredientDescription}</p>
+				<p>${recipe.description}</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
