@@ -194,3 +194,12 @@ a {
     font-size: 14px; /* Adjust the font size as needed */
     max-height: 3em; /* Adjust the maximum height to fit your design */
 }
+
+.centered-image {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%; /* Adjust as needed */
+  max-height: 90vh; /* Adjust as needed */
+}

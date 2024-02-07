@@ -31,6 +31,11 @@ public class Recipe {
     
     @Column(name="recipe_image")
     private String image;
+    
+    private String description;
+    
+    @Column(name="ingredient_description")
+    private String ingredientDescription;
 
     public int getId() {
         return id;
@@ -65,6 +70,26 @@ public class Recipe {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+
+	public String getIngredientDescription() {
+		return ingredientDescription;
+	}
+
+	public void setIngredientDescription(String ingredientDescription) {
+		this.ingredientDescription = ingredientDescription;
+	}
 
 	@Override
     public int hashCode() {
@@ -85,7 +110,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe [id=" + id + ", name=" + name + ", ingredients=" + ingredients + "]";
+        return "Recipe [id=" + id + ", name=" + name  + "description=" + description + "]";
     }
 
 }
