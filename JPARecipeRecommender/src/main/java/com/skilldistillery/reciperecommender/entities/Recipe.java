@@ -41,6 +41,7 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+   
     
     public Recipe() {
 

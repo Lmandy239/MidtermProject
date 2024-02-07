@@ -11,5 +11,7 @@ public interface RecipeDAO {
 	List<Recipe> allRecipe();
 
 	List<Recipe> generateRecipes(User user);
+	
+	Recipe addRecipe();
 
 }

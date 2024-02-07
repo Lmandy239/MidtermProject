@@ -37,7 +37,6 @@ public class User {
     @OneToMany(mappedBy = "user") 
     private List<Recipe> recipes = new ArrayList<>();
 
-
 	@Transient
 	List<Ingredient> goShopping;
 	
