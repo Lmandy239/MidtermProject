@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,19 +28,23 @@ public class User {
 	private boolean enabled;
 
 	private String role;
+
+	@ManyToMany
+	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	private List<Recipe> favoriteRecipes;
 	
 	@ManyToMany
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Ingredient> ingredientsInPantry;
-	
-    @OneToMany(mappedBy = "user") 
-    private List<Recipe> recipes = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user")
+	private List<Recipe> recipes = new ArrayList<>();
 
 	@Transient
 	List<Ingredient> goShopping;
-	
-	public User() {}
-		
+
+	public User() {
+	}
 
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
@@ -88,6 +91,24 @@ public class User {
 		if (ingredientsInPantry != null && ingredientsInPantry.contains(ingredient)) {
 			ingredientsInPantry.remove(ingredient);
 			ingredient.removeUser(this);
+		}
+	}
+
+
+	public void addRecipe(Recipe recipe) {
+		if (favoriteRecipes == null) {
+			favoriteRecipes = new ArrayList<>();
+		}
+		if (!favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.add(recipe);
+			recipe.addUser(this);
+		}
+	}
+
+	public void removeRecipe(Recipe recipe) {
+		if (favoriteRecipes != null && favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.remove(recipe);
+			recipe.removeUser(this);
 		}
 	}
 
@@ -147,15 +168,14 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
-    }
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
 
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
+	}
 
 	@Override
 	public int hashCode() {
@@ -177,6 +197,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role +  "]";
+				+ ", role=" + role + "]";
 	}
 }

@@ -39,15 +39,33 @@
 	</div>
 	<div class="container mt-4">
 		<div class="row justify-content-center">
-        <div class="col-lg-6"> <!-- Taking up the middle 50% of the screen on large devices (col-lg-6) -->
-            <ul class="text-center display-3"> <!-- Centering the list and making the bullet points larger -->
-                <c:forEach items="${recipe.ingredientDescriptionList}" var="ingredient"> <!-- Iterate over the list of ingredients -->
-                    <li>${ingredient}</li> <!-- Display each ingredient as a list item with a bullet point -->
-                </c:forEach>
-            </ul>
-        </div>
+			<div class="col-lg-6">
+				<!-- Taking up the middle 50% of the screen on large devices (col-lg-6) -->
+				<ul class="text-center display-3">
+					<!-- Centering the list and making the bullet points larger -->
+					<c:forEach items="${recipe.ingredientDescriptionList}"
+						var="ingredient">
+						<!-- Iterate over the list of ingredients -->
+						<li>${ingredient}</li>
+						<!-- Display each ingredient as a list item with a bullet point -->
+					</c:forEach>
+				</ul>
+			</div>
 			<div class="col-lg-10">
 				<p class="display-4">${recipe.description}</p>
+			</div>
+		</div>
+	</div>
+	<div class="favorite-button">
+		<div class="container mt-4">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 text-center">
+					<input type="hidden" name="recipeId" value="${recipe.id}">
+					<a href="favoriteRecipe.do?recipeId=${recipe.id}"><button
+							class="btn btn-blue text-center">Favorite This Recipe</button></a><br>
+					<p class="display-4">${favoritedRecipe.name}</p>
+
+				</div>
 			</div>
 		</div>
 	</div>

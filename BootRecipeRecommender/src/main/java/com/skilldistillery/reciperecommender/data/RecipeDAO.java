@@ -14,4 +14,5 @@ public interface RecipeDAO {
 	
 	Recipe addRecipe();
 
+	Recipe favoriteThisRecipe(User user, Recipe recipe);
 }

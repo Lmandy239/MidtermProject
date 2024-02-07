@@ -15,7 +15,6 @@ import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class RecipeController {
 	@Autowired
@@ -29,12 +28,12 @@ public class RecipeController {
 	}
 
 	@RequestMapping(path = "showRecipe.do")
-	public String showRecipe(@RequestParam("recipeId") int recipeId, Model model) {
-	    Recipe recipe = recipeDAO.findById(recipeId); // Adjust this method according to your DAO implementation
-	    model.addAttribute("recipe", recipe);
-	    return "showRecipe";
+	public String showRecipe(@RequestParam("recipeId") int recipeId, Model model, HttpSession session) {
+		Recipe recipe = recipeDAO.findById(recipeId); // Adjust this method according to your DAO implementation
+		model.addAttribute("recipe", recipe);
+		return "showRecipe";
 	}
-	
+
 	@RequestMapping(path = "generateRecipes.do")
 	public String generateRecipes(HttpSession session, Model model) {
 		try {
@@ -42,6 +41,19 @@ public class RecipeController {
 			List<Recipe> topRecipes = recipeDAO.generateRecipes(user);
 			model.addAttribute("topRecipes", topRecipes);
 			return "displayRecipe";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	@RequestMapping(path = "favoriteRecipe.do", params = ("recipeId"))
+	public String favoriteRecipe(@RequestParam("recipeId") int recipeId, User user, HttpSession session, Model model) {
+		try {
+			Recipe recipe = recipeDAO.findById(recipeId);
+			Recipe displayFavoriteRecipe = recipeDAO.favoriteThisRecipe(user, recipe);
+			model.addAttribute("favoritedRecipe", displayFavoriteRecipe);
+			return "showRecipe";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

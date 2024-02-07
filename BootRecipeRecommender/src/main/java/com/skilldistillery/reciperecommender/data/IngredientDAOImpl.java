@@ -54,11 +54,5 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@Override
 	public void addToPantry(User user, Ingredient ingredient) {
 		user.addIngredient(ingredient);
-
 	}
-	
-
-    
-    //test cahnges
-
 }
