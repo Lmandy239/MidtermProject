@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Ingredient {
@@ -25,12 +26,8 @@ public class Ingredient {
     @Column(name = "name")
     private String name;
 
-    public Ingredient(int id, String name, List<User> users) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.users = users;
-    }
+    @OneToMany(mappedBy = "ingredient")
+    private List<UserIngredient> usersIngredients;
 
     @ManyToMany(mappedBy = "ingredientsInPantry")
     private List<User> users;
@@ -86,7 +83,15 @@ public class Ingredient {
 		this.recipes = recipes;
 	}
 
-    @Override
+    public List<UserIngredient> getUsersIngredients() {
+		return usersIngredients;
+	}
+
+	public void setUsersIngredients(List<UserIngredient> usersIngredients) {
+		this.usersIngredients = usersIngredients;
+	}
+
+	@Override
     public String toString() {
         return "Ingredient [id=" + id + ", name=" + name + ", users=" + users + "]";
     }

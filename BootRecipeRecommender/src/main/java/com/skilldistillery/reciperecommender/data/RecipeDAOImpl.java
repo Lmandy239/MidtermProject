@@ -91,7 +91,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 		ingredients.addAll(Arrays.asList(ingredientsArray));
 		return ingredients;
 	}
-	
+
 	@Override
 	public Recipe addRecipe() {
 		// TODO Auto-generated method stub
@@ -107,5 +107,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 		}
 
 		return recipe;
+
 	}
 }
