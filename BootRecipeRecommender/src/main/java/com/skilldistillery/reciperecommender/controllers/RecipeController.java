@@ -60,4 +60,31 @@ public class RecipeController {
 		}
 	}
 
+	@RequestMapping(path = "addRecipeRedirect.do")
+	public String addRecipeRedirect() {
+		return "addRecipe";
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

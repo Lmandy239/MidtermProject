@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +14,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 
 @Entity
 public class User {
@@ -36,14 +38,33 @@ public class User {
 	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> favoriteRecipes;
 	
-	@ManyToMany
-	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 	private List<Ingredient> ingredientsInPantry;
 
 	@OneToMany(mappedBy = "user")
 	private List<Recipe> recipes = new ArrayList<>();
 
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserIngredient> cart;
+
 	public User() {
+	}
+	
+	public void searchIngredient(Ingredient ingredient) {
+		if (goShopping == null) {
+			goShopping = new ArrayList<>();
+		}
+		if (!goShopping.contains(ingredient)) {
+			goShopping.add(ingredient);
+		}
+	}
+
+	public void displayWhatsInGroceryCart() {
+		for (Ingredient ingredient : goShopping) {
+			ingredient.getName();
+		}
 	}
 
 	public List<Ingredient> getGoShopping() {
@@ -61,7 +82,7 @@ public class User {
 	public void setIngredientsInPantry(List<Ingredient> ingredientsInPantry) {
 		this.ingredientsInPantry = ingredientsInPantry;
 	}
-
+	
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {
 			ingredientsInPantry = new ArrayList<>();
@@ -160,20 +181,14 @@ public class User {
 	public void setRecipes(List<Recipe> recipes) {
 		this.recipes = recipes;
 	}
-	
-	public void searchIngredient(Ingredient ingredient) {
-		if (goShopping == null) {
-			goShopping = new ArrayList<>();
-		}
-		if (!goShopping.contains(ingredient)) {
-			goShopping.add(ingredient);
-		}
+
+
+	public List<UserIngredient> getCart() {
+		return cart;
 	}
-	
-	public void displayWhatsInGroceryCart() {
-		for (Ingredient ingredient : goShopping) {
-			ingredient.getName();
-		}
+
+	public void setCart(List<UserIngredient> cart) {
+		this.cart = cart;
 	}
 
 	@Override
