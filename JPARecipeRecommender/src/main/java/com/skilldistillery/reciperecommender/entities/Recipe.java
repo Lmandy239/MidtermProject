@@ -11,14 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
 @Entity
 public class Recipe {
-
-    public Recipe() {
-
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +37,14 @@ public class Recipe {
     
     @Transient
     private List<String> ingredientDescriptionList;
-
     
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    public Recipe() {
+
+    }
     
     public int getId() {
         return id;
@@ -104,6 +107,15 @@ public class Recipe {
 
 	public void setIngredientDescriptionList(List<String> ingredientDescriptionList) {
 		this.ingredientDescriptionList = ingredientDescriptionList;
+	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
