@@ -92,12 +92,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return ingredients;
 	}
 
-	@Override
-	public Recipe addRecipe() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
 		if (user.getFavoriteRecipes() == null) {
 			user.setFavoriteRecipes(new ArrayList<>());
@@ -108,5 +102,11 @@ public class RecipeDAOImpl implements RecipeDAO {
 
 		return recipe;
 
+	}
+
+	@Override
+	public Recipe addRecipe() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
