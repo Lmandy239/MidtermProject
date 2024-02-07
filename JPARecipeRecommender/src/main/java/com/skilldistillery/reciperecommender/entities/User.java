@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -29,18 +30,21 @@ public class User {
 	private String role;
 
 	@ManyToMany
+	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	private List<Recipe> favoriteRecipes;
+	
+	@ManyToMany
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Ingredient> ingredientsInPantry;
 
-	@ManyToMany
-	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<Recipe> favoriteRecipes;
-
-	public User() {
-	}
+	@OneToMany(mappedBy = "user")
+	private List<Recipe> recipes = new ArrayList<>();
 
 	@Transient
 	List<Ingredient> goShopping;
+
+	public User() {
+	}
 
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
@@ -90,14 +94,22 @@ public class User {
 		}
 	}
 
-	public User(int id, String username, String password, boolean enabled, String role, List<Ingredient> ingredients) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-		this.ingredientsInPantry = ingredients;
+
+	public void addRecipe(Recipe recipe) {
+		if (favoriteRecipes == null) {
+			favoriteRecipes = new ArrayList<>();
+		}
+		if (!favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.add(recipe);
+			recipe.addUser(this);
+		}
+	}
+
+	public void removeRecipe(Recipe recipe) {
+		if (favoriteRecipes != null && favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.remove(recipe);
+			recipe.removeUser(this);
+		}
 	}
 
 	public int getId() {
@@ -157,6 +169,14 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -177,14 +197,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", ingredients=" + "]";
-	}
-
-	public List<Recipe> getFavoriteRecipes() {
-		return favoriteRecipes;
-	}
-
-	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
-		this.favoriteRecipes = favoriteRecipes;
+				+ ", role=" + role + "]";
 	}
 }

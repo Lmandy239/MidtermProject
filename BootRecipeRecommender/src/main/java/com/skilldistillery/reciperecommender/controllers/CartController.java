@@ -1,5 +1,6 @@
 package com.skilldistillery.reciperecommender.controllers;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class CartController {
 	@RequestMapping(path = "searchIngredientFromStore.do", params = "searchResults")
 	    public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults, HttpSession session, Model model, User user) {
 	        List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, searchResults);
+	        Collections.sort(ingredients, (ingredient1, ingredient2) -> {
+	            return Integer.compare(ingredient2.getRecipes().size(), ingredient1.getRecipes().size());
+	        });
 	        model.addAttribute("ingredients", ingredients);
 	        
 	        // Retrieve user from session
@@ -46,7 +50,6 @@ public class CartController {
 	        	Ingredient ingredient = ingredientDAO.findById(ingredientId);	
 	        	// Add ingredient to the user's cart
 	        	user.addIngredient(ingredient);
-	    System.out.println("++++++++++++++++++++++++++++++++++++++++" + user);
 	    	session.setAttribute("user", user);
 	        }
 	        return "userIngredient";

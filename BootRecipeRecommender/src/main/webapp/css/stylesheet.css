@@ -184,6 +184,14 @@ a {
 	border-radius: 5px;
 }
 
+.overflow-text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	max-height: 3em;
+}
+
 /* CSS to handle text overflow and text size */
 .overflow-text {
 	white-space: nowrap;
