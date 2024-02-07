@@ -12,4 +12,5 @@ public interface RecipeDAO {
 
 	List<Recipe> generateRecipes(User user);
 
+	Recipe favoriteThisRecipe(User user, Recipe recipe);
 }

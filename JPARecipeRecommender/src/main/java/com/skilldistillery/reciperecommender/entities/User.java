@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +27,14 @@ public class User {
 	private boolean enabled;
 
 	private String role;
-	
+
 	@ManyToMany
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Ingredient> ingredientsInPantry;
+
+	@ManyToMany
+	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<Recipe> favoriteRecipes;
 
 	public User() {
 	}
@@ -154,8 +157,6 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -177,5 +178,13 @@ public class User {
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + ", ingredients=" + "]";
+	}
+
+	public List<Recipe> getFavoriteRecipes() {
+		return favoriteRecipes;
+	}
+
+	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
+		this.favoriteRecipes = favoriteRecipes;
 	}
 }
