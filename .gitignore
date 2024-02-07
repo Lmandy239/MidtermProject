@@ -11,6 +11,7 @@ default
 *.bak
 DB/reciperecommender_original.sql
 DB/reciperecommender.sql
+data/recipe_data.csv
+data/food_images.zip
 data/food_images/*
-data/*.json
 BootRecipeRecommender/src/main/webapp/images/food_images/*
