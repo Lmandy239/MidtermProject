@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -32,12 +33,16 @@ public class User {
 	@ManyToMany
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<Ingredient> ingredientsInPantry;
+	
+    @OneToMany(mappedBy = "user") 
+    private List<Recipe> recipes = new ArrayList<>();
 
-	public User() {
-	}
 
 	@Transient
 	List<Ingredient> goShopping;
+	
+	public User() {}
+		
 
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
@@ -85,16 +90,6 @@ public class User {
 			ingredientsInPantry.remove(ingredient);
 			ingredient.removeUser(this);
 		}
-	}
-
-	public User(int id, String username, String password, boolean enabled, String role, List<Ingredient> ingredients) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.role = role;
-		this.ingredientsInPantry = ingredients;
 	}
 
 	public int getId() {
@@ -153,8 +148,15 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
 	
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+    }
+
 
 	@Override
 	public int hashCode() {
@@ -176,6 +178,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + ", ingredients=" + "]";
+				+ ", role=" + role +  "]";
 	}
 }
