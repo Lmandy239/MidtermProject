@@ -91,7 +91,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 		ingredients.addAll(Arrays.asList(ingredientsArray));
 		return ingredients;
 	}
-	
+
 	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
 		if (user.getFavoriteRecipes() == null) {
 			user.setFavoriteRecipes(new ArrayList<>());
@@ -101,6 +101,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 		}
 
 		return recipe;
+
 	}
 
 	@Override
