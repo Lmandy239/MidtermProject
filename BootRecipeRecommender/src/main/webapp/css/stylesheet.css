@@ -209,3 +209,18 @@ a {
 	outline: none;
 	margin: 5px;
 }
+
+#likeButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#likeButton.clicked {
+  background-color: #e74c3c;
+  transform: scale(1.1);
+}

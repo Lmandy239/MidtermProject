@@ -29,6 +29,9 @@ public class User {
 
 	private String role;
 
+	@Transient
+	List<Ingredient> goShopping;
+	
 	@ManyToMany
 	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> favoriteRecipes;
@@ -40,25 +43,7 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Recipe> recipes = new ArrayList<>();
 
-	@Transient
-	List<Ingredient> goShopping;
-
 	public User() {
-	}
-
-	public void searchIngredient(Ingredient ingredient) {
-		if (goShopping == null) {
-			goShopping = new ArrayList<>();
-		}
-		if (!goShopping.contains(ingredient)) {
-			goShopping.add(ingredient);
-		}
-	}
-
-	public void displayWhatsInGroceryCart() {
-		for (Ingredient ingredient : goShopping) {
-			ingredient.getName();
-		}
 	}
 
 	public List<Ingredient> getGoShopping() {
@@ -93,7 +78,6 @@ public class User {
 			ingredient.removeUser(this);
 		}
 	}
-
 
 	public void addRecipe(Recipe recipe) {
 		if (favoriteRecipes == null) {
@@ -176,6 +160,21 @@ public class User {
 	public void setRecipes(List<Recipe> recipes) {
 		this.recipes = recipes;
 	}
+	
+	public void searchIngredient(Ingredient ingredient) {
+		if (goShopping == null) {
+			goShopping = new ArrayList<>();
+		}
+		if (!goShopping.contains(ingredient)) {
+			goShopping.add(ingredient);
+		}
+	}
+	
+	public void displayWhatsInGroceryCart() {
+		for (Ingredient ingredient : goShopping) {
+			ingredient.getName();
+		}
+	}
 
 	@Override
 	public int hashCode() {
@@ -198,5 +197,13 @@ public class User {
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + "]";
+	}
+
+	public List<Recipe> getFavoriteRecipes() {
+		return favoriteRecipes;
+	}
+
+	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
+		this.favoriteRecipes = favoriteRecipes;
 	}
 }

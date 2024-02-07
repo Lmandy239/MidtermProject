@@ -27,11 +27,11 @@ public class RecipeController {
 		return "list";
 	}
 
-	@RequestMapping(path = "showRecipe.do")
+	@RequestMapping(path = "showRecipe.do", params = ("recipeId"))
 	public String showRecipe(@RequestParam("recipeId") int recipeId, Model model, HttpSession session) {
 		Recipe recipe = recipeDAO.findById(recipeId); // Adjust this method according to your DAO implementation
 		model.addAttribute("recipe", recipe);
-		return "showRecipe";
+		return "recipeInfo";
 	}
 
 	@RequestMapping(path = "generateRecipes.do")
@@ -53,7 +53,7 @@ public class RecipeController {
 			Recipe recipe = recipeDAO.findById(recipeId);
 			Recipe displayFavoriteRecipe = recipeDAO.favoriteThisRecipe(user, recipe);
 			model.addAttribute("favoritedRecipe", displayFavoriteRecipe);
-			return "showRecipe";
+			return "redirect:showRecipe.do?recipeId=" + recipeId;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";

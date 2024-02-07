@@ -56,18 +56,41 @@
 			</div>
 		</div>
 	</div>
-	<div class="favorite-button">
-		<div class="container mt-4">
-			<div class="row justify-content-center">
-				<div class="col-lg-12 text-center">
-					<input type="hidden" name="recipeId" value="${recipe.id}">
-					<a href="favoriteRecipe.do?recipeId=${recipe.id}"><button
-							class="btn btn-blue text-center">Favorite This Recipe</button></a><br>
-					<p class="display-4">${favoritedRecipe.name}</p>
 
-				</div>
+	<div class="favorite-button">
+		<div class="row justify-content-center">
+			<div class="col-12 text-center">
+				<form action="favoriteRecipe.do" method="POST">
+					<input type="hidden" name="recipeId" value="${recipe.id}">
+					<a href="favoriteRecipe.do?recipeId=${recipe.id}"><button>Like
+							This Recipe</button></a>
+				</form>
+
 			</div>
 		</div>
+	</div>
+	<div class="display">
+		<c:choose>
+			<c:when test="${! empty favoritedRecipe}">
+				
+				${favoritedRecipe.name} added to favorites!
+				<br>
+				<div class="favorite-button">
+					<div class="row justify-content-center">
+						<div class="col-12 text-center">
+							<form action="displayFavorites.do" method="POST">
+								<button>Show Favorites</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+			</c:when>
+			<c:otherwise>
+				<h4>No Favorite Recipes</h4>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 </html>

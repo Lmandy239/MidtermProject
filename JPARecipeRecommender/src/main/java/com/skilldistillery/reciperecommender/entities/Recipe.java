@@ -50,7 +50,6 @@ public class Recipe {
 	public Recipe() {	
 	}
     
-    
     public int getId() {
         return id;
     }
@@ -109,7 +108,6 @@ public class Recipe {
 	public void setIngredientDescriptionList(List<String> ingredientDescriptionList) {
 		this.ingredientDescriptionList = ingredientDescriptionList;
 	}
-	
 
 	public User getUser() {
 		return user;
@@ -157,5 +155,13 @@ public class Recipe {
     public String toString() {
         return "Recipe [id=" + id + ", name=" + name  + "description=" + description + "]";
     }
+
+	public List<User> getUserFavoriteRecipes() {
+		return userFavoriteRecipes;
+	}
+
+	public void setUserFavoriteRecipes(List<User> userFavoriteRecipes) {
+		this.userFavoriteRecipes = userFavoriteRecipes;
+	}
 
 }
