@@ -33,16 +33,15 @@
 			<div class="col-12 text-center">
 				<img
 					src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
-					alt="${recipe.name}" class="img-fluid w-2">
+					alt="${recipe.name}" class="img-fluid w-25">
 			</div>
 		</div>
 	</div>
 	<div class="container mt-4">
-		<div class="row">
-			<div class="col-lg-12">
-
-				<p>${recipe.ingredientDescription}</p>
-				<p>${recipe.description}</p>
+		<div class="row justify-content-center">
+			<p class="display-3">${recipe.ingredientDescription}</p>
+			<div class="col-lg-10">
+				<p class="display-4">${recipe.description}</p>
 			</div>
 		</div>
 	</div>
