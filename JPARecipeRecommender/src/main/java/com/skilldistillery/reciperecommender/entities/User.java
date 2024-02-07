@@ -176,6 +176,16 @@ public class User {
 	public void setRecipes(List<Recipe> recipes) {
 		this.recipes = recipes;
 	}
+	
+	
+
+	public List<Recipe> getFavoriteRecipes() {
+		return favoriteRecipes;
+	}
+
+	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
+		this.favoriteRecipes = favoriteRecipes;
+	}
 
 	@Override
 	public int hashCode() {
