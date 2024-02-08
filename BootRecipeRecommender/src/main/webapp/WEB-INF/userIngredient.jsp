@@ -26,9 +26,9 @@
   
   margin-bottom: 0px;
   overflow: auto;
-  height: 400px;
+  height: 380px;
   width: 100%;
-  max-height: 400px;
+  max-height: 380px;
 }
 
 .colored-card2 {
@@ -60,7 +60,7 @@
               <div class="col-md-6 offset-md-3 text-center">
               <br>
                 <h3>Your Cart:</h3>
-
+				<br>
                 <div class="colored-card card border-0 px-4 py-5">
                   <ul class="ingredient-list">
                     <c:forEach var="ingredient"
