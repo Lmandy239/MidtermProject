@@ -145,7 +145,7 @@
 					</div>
 					<br> <br>
 					<div class="col-md-4 offset-md-3 text-center find-recipe">
-						<form action="addRecipe.do" method="POST">
+						<form action="addRecipeRedirect.do" method="POST">
 							<button type="submit" class="btn btn-blue btn-block w-100">Add
 								New Recipe</button>
 						</form>

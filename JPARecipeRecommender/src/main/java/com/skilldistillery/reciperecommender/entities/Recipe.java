@@ -1,10 +1,12 @@
 package com.skilldistillery.reciperecommender.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,10 +26,6 @@ public class Recipe {
 
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    private List<Ingredient> ingredients;
-    
     @Column(name="recipe_image")
     private String image;
     
@@ -39,14 +37,16 @@ public class Recipe {
     @Transient
     private List<String> ingredientDescriptionList;
     
+    @ManyToMany
+    @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private List<Ingredient> ingredients;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
     @OneToMany(mappedBy = "recipe")
     private List<Comment> comments;
-    
-    
     
     public List<Comment> getComments() {
 		return comments;
@@ -55,10 +55,13 @@ public class Recipe {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+  
+	@ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.EAGER)
+	private List<User> userFavoriteRecipes;
 
-    
-    public Recipe() {}
-    
+	public Recipe() {	
+	}
+  
     public int getId() {
         return id;
     }
@@ -83,8 +86,6 @@ public class Recipe {
         this.ingredients = ingredients;
     }
      
-    
-    
     public String getImage() {
 		return image;
 	}
@@ -94,7 +95,6 @@ public class Recipe {
 	}
 	
 	
-
 	public String getDescription() {
 		return description;
 	}
@@ -102,7 +102,6 @@ public class Recipe {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 	
 
 	public String getIngredientDescription() {
@@ -130,6 +129,23 @@ public class Recipe {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public void addUser(User user) {
+		if (userFavoriteRecipes == null) {
+			userFavoriteRecipes = new ArrayList<>();
+		}
+		if (!userFavoriteRecipes.contains(user)) {
+			userFavoriteRecipes.add(user);
+			user.addRecipe(this);
+		}
+	}
+	
+	public void removeUser(User user) {
+		if (userFavoriteRecipes != null && userFavoriteRecipes.contains(user)) {
+			userFavoriteRecipes.remove(user);
+			user.removeRecipe(this);
+		}
+	}
 
 	@Override
     public int hashCode() {
@@ -154,4 +170,3 @@ public class Recipe {
     }
 
 }
-

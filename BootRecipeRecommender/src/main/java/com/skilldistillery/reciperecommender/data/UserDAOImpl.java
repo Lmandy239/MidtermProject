@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.User;
+import com.skilldistillery.reciperecommender.entities.UserIngredient;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -23,14 +24,14 @@ public class UserDAOImpl implements UserDAO {
 				.getSingleResult();
 		return u;
 	}
-	
-	//find by id
+
+	// find by id
 	@Override
 	public User findById(int id) {
 		User u = em.find(User.class, id);
-		
+
 		u.getIngredientsInPantry().size();
-		
+
 		return u;
 	}
 
@@ -50,10 +51,32 @@ public class UserDAOImpl implements UserDAO {
 	public void save(User user) {
 		if (em.contains(user)) {
 			em.persist(user);
-		} else { 
+		} else {
 			em.merge(user);
 		}
 	}
-	
-	//test cahnges
+
+	@Override
+	public void addToCart(User user, Ingredient ingredient, int quantity) {
+
+		UserIngredient userIngredient = new UserIngredient();
+		userIngredient.setUser(user);
+		userIngredient.setIngredient(ingredient);
+
+		em.persist(userIngredient);
+
+	}
+
+	@Override
+	public void removeFromCart(User user, Ingredient ingredient) {
+		UserIngredient userIngredient = em
+				.createQuery("SELECT ui FROM UserIngredient ui WHERE ui.user = :user AND ui.ingredient = :ingredient",
+						UserIngredient.class)
+				.setParameter("user", user).setParameter("ingredient", ingredient).getSingleResult();
+
+		em.remove(userIngredient);
+
+	}
+
+	// test cahnges
 }

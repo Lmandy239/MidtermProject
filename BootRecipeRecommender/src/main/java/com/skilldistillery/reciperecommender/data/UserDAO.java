@@ -1,5 +1,6 @@
 package com.skilldistillery.reciperecommender.data;
 
+import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.User;
 
 public interface UserDAO {
@@ -11,6 +12,8 @@ public interface UserDAO {
 	void save(User user);
 
 	User findById(int id);
-	//test changes
 
+    void addToCart(User user, Ingredient ingredient, int quantity);
+
+    void removeFromCart(User user, Ingredient ingredient);
 }

@@ -1,13 +1,10 @@
 package com.skilldistillery.reciperecommender.data;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.reciperecommender.entities.Ingredient;
-import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
 
 import jakarta.persistence.EntityManager;
@@ -54,6 +51,5 @@ public class IngredientDAOImpl implements IngredientDAO {
 	@Override
 	public void addToPantry(User user, Ingredient ingredient) {
 		user.addIngredient(ingredient);
-
 	}
 }

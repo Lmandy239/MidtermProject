@@ -13,6 +13,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 
 @Entity
 public class User {
@@ -28,13 +29,17 @@ public class User {
 	private boolean enabled;
 
 	private String role;
-	
+
 	@ManyToMany
-	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<Ingredient> ingredientsInPantry;
+	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+	private List<Recipe> favoriteRecipes;
 	
-    @OneToMany(mappedBy = "user") 
-    private List<Recipe> recipes = new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+	private List<Ingredient> ingredientsInPantry;
+
+	@OneToMany(mappedBy = "user")
+	private List<Recipe> recipes = new ArrayList<>();
 
 	@Transient
 	List<Ingredient> goShopping;
@@ -46,15 +51,16 @@ public class User {
 		return comments;
 	}
 
-
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserIngredient> cart;
 
-
-	public User() {}
-		
-
+	public User() {
+	}
+	
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
 			goShopping = new ArrayList<>();
@@ -85,7 +91,7 @@ public class User {
 	public void setIngredientsInPantry(List<Ingredient> ingredientsInPantry) {
 		this.ingredientsInPantry = ingredientsInPantry;
 	}
-
+	
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {
 			ingredientsInPantry = new ArrayList<>();
@@ -100,6 +106,24 @@ public class User {
 		if (ingredientsInPantry != null && ingredientsInPantry.contains(ingredient)) {
 			ingredientsInPantry.remove(ingredient);
 			ingredient.removeUser(this);
+		}
+	}
+
+
+	public void addRecipe(Recipe recipe) {
+		if (favoriteRecipes == null) {
+			favoriteRecipes = new ArrayList<>();
+		}
+		if (!favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.add(recipe);
+			recipe.addUser(this);
+		}
+	}
+
+	public void removeRecipe(Recipe recipe) {
+		if (favoriteRecipes != null && favoriteRecipes.contains(recipe)) {
+			favoriteRecipes.remove(recipe);
+			recipe.removeUser(this);
 		}
 	}
 
@@ -159,15 +183,32 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
+	}
 	
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
+	
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
-    }
+	public List<Recipe> getFavoriteRecipes() {
+		return favoriteRecipes;
+	}
 
+	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
+		this.favoriteRecipes = favoriteRecipes;
+	}
+
+	public List<UserIngredient> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<UserIngredient> cart) {
+		this.cart = cart;
+	}
 
 	@Override
 	public int hashCode() {
@@ -189,6 +230,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role +  "]";
+				+ ", role=" + role + "]";
 	}
 }

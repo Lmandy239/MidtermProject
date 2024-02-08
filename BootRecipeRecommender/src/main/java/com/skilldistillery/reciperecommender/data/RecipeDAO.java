@@ -14,6 +14,8 @@ public interface RecipeDAO {
 	List<Recipe> generateRecipes(User user);
 	
 	Recipe addRecipe();
+	
+	public Recipe favoriteThisRecipe(User user, Recipe recipe);
 
 	List<Comment> findCommentsByRecipeId(int recipeId);
 
