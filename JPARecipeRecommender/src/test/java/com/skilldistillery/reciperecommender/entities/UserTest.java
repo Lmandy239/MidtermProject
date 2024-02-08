@@ -2,6 +2,7 @@ package com.skilldistillery.reciperecommender.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -17,23 +18,21 @@ class UserTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private User user;
-	
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-	    emf = Persistence.createEntityManagerFactory("JPARecipeRecommender");
+		emf = Persistence.createEntityManagerFactory("JPARecipeRecommender");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-	    emf.close();
+		emf.close();
 	}
-	
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
-	    em = emf.createEntityManager();
-	    user = em.find(User.class, 1);
+		em = emf.createEntityManager();
+		user = em.find(User.class, 5);
 	}
 
 	@AfterEach
@@ -41,12 +40,32 @@ class UserTest {
 		em.close();
 		user = null;
 	}
-	
+
 	@Test
 	void test_User_has_username() {
 		assertNotNull(user);
 		assertNotNull(user.getUsername());
-		assertEquals("FIXME", user.getUsername());
+		assertEquals("blake", user.getUsername());
 	}
 
+	@Test
+	public void test_User_Has_Recipe() {
+		assertNotNull(user);
+		assertNotNull(user.getFavoriteRecipes());
+		assertTrue(user.getFavoriteRecipes().size() > 5);
+	}
+
+	@Test
+	public void test_User_Has_Ingredients() {
+		assertNotNull(user);
+		assertNotNull(user.getIngredientsInPantry());
+		assertTrue(user.getIngredientsInPantry().size() > 2);
+	}
+
+	@Test
+	public void test_User_Has_Comments() {
+		assertNotNull(user);
+		assertNotNull(user.getComments());
+		assertTrue(user.getComments().size() > 1);
+	}
 }

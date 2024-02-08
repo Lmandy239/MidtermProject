@@ -13,6 +13,16 @@ public class UserIngredient {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	public UserIngredient() {
+		super();
+	}
+
+	public UserIngredient(User user, Ingredient ingredient) {
+		super();
+		this.user = user;
+		this.ingredient = ingredient;
+	}
+
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "ingredient_id")

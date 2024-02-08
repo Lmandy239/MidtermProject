@@ -31,7 +31,6 @@ img.logo {
 	border-right: 1px solid #EEEEEE;
 }
 
-
 .line {
 	height: 1px;
 	width: 45%;
@@ -194,22 +193,36 @@ a {
 }
 
 .favorite-header h1 {
-	margin-top: 5px;
+	font-size: 45px;
+	margin: 15px !important;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-	padding: 3px;
+	padding: 15px;
 	color: #fd982a;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	letter-spacing: 1.8px;
+	margin: 15px !important;
 }
 
-.favorite-links {
+div .favorite-links {
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-	padding: 3px;
-	text-align: center !important;
-	height: 100%;
-	margin: 0;
-	display: flex !important;
-	justify-content: center !important;
-	align-items: center !important;
+	/* 	padding: 3px;
+ */
+	/* 	height: 100%;
+ */ /* margin-top: 5px !important;
+	margin-bottom: 5px !important; */
+}
+
+.my-recipebook {
+	background-image:
+		url('images/3d-wooden-table-against-defocussed-sunny-room-interior.jpg');
+	background-size: cover !important;
+	background-position: center !important;
+}
+
+.emptyRecipe {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }

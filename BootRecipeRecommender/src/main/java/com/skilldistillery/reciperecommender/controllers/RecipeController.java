@@ -32,6 +32,7 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeDAO recipeDAO;
+
 	@Autowired
 	private IngredientDAO ingredientDAO;
 
@@ -99,7 +100,7 @@ public class RecipeController {
 			return "error";
 		}
 	}
-	
+
 	@RequestMapping(path = "removeIngredientFromRecipe.do")
 	public String removeIngredientFromoRecipe(@RequestParam("id") int ingredientId, Model model) {
 		Ingredient ingredient = ingredientDAO.findById(ingredientId);
@@ -116,29 +117,24 @@ public class RecipeController {
 		return "addRecipe";
 	}
 
-	@RequestMapping(path = "addRecipeRedirect.do")
-	public String addRecipeRedirect() {
-		return "addRecipe";
-	}
-
-
 	@RequestMapping(path = "addRecipe.do", method = RequestMethod.POST)
 	public String addRecipeRedirect(@RequestParam("recipeName") String recipeName,
 			@RequestParam("tempIngredientList") String tempIngredientList,
-			@RequestParam("recipeDescription") String recipeDescription, RedirectAttributes redir, HttpSession session) {
-        
+			@RequestParam("recipeDescription") String recipeDescription, RedirectAttributes redir,
+			HttpSession session) {
+
 		User user = (User) session.getAttribute("user");
 		List<Ingredient> ingredients = new ArrayList();
-		
+
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(tempIngredientList);
-        
+
 		List<Integer> ids = new ArrayList<>();
-        while (matcher.find()) {
-            int id = Integer.parseInt(matcher.group());
-            ids.add(id);
-        }
-		
+		while (matcher.find()) {
+			int id = Integer.parseInt(matcher.group());
+			ids.add(id);
+		}
+
 		for (Integer id : ids) {
 			Ingredient ingredient = ingredientDAO.findById(id);
 			ingredients.add(ingredient);
@@ -157,20 +153,18 @@ public class RecipeController {
 		stringBuilder.append("]");
 		String ingredientListRepresentation = stringBuilder.toString();
 
-		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients, user, "default", LocalDateTime.now());
+		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients, user,
+				"default", LocalDateTime.now());
 
 		recipe = recipeDAO.create(recipe);
 		redir.addFlashAttribute("recipe", recipe);
 		return "redirect:recipeAdded.do";
 	}
 
-
-	
 	@RequestMapping("recipeAdded.do")
 	public String recipeAdded(Model model, RedirectAttributes redirectAttributes) {
 		return "recipeInfo";
 	}
-
 
 	@RequestMapping(path = "getAllFavorites.do")
 	public String findFavorites() {
@@ -188,9 +182,13 @@ public class RecipeController {
 		return "redirect:showRecipe.do?recipeId=" + recipeId;
 	}
 
+	@RequestMapping(path = "addRecipeRedirect.do")
+	public String addRecipeRedirect() {
+		return "addRecipe";
+	}
+
 	@RequestMapping(path = "rerouteToPantry.do")
 	public String takeMeToPantry() {
 		return "userIngredient";
 	}
-
 }
