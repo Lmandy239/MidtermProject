@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.reciperecommender.data.UserDAO;
 import com.skilldistillery.reciperecommender.entities.User;
@@ -34,6 +36,17 @@ public class UserController {
 		} else {
 			return "home";
 		}
+	}
+	
+	@RequestMapping(path = "logout.do", method = RequestMethod.POST)
+	public String logout(HttpSession session, RedirectAttributes redir) {
+	  session.removeAttribute("user");
+	  return "redirect:userLoggedOut.do";
+	}
+	
+	@RequestMapping("userLoggedOut.do")
+	public String userLoggedOut() {
+		return "home";
 	}
 
 	@GetMapping("register.do")
