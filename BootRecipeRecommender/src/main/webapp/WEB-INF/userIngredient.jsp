@@ -21,59 +21,48 @@
 	height: 150px;
 }
 
-.colored-block {
+.colored-card {
 	background-color: #e0e0e0;
-	padding: 20px;
-	margin-top: 20px;
 	margin-bottom: 0px;
-}
-
-.scroll-container {
 	overflow: auto;
-	height: 380px;
-	width: 330px;
-	margin-right: 60px;
-	position: relative;
-	right: 50px;
+	height: 400px;
+	width: 100%;
+	max-height: 400px;
 }
 
-.scroll-container2 {
+.colored-card2 {
+	background-color: #e0e0e0;
+	margin-bottom: 0px;
 	overflow: auto;
-	height: 160px;
-	width: 620px;
-	margin-right: 60px;
-	position: relative;
-	right: 150px;
-}
-
-.find-recipe {
-	margin-right: 100px;
-	position: relative;
-	left: 140px
-}
-
-.show-all {
-	margin-right: 100px;
-	position: relative;
-	left: 530px
+	height: 140px;
+	width: 100%;
+	max-height: 140px;
 }
 </style>
 </head>
 <body>
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
 		<div class="card card0 border-0">
+			<form action="logout.do" method="POST"
+				class="d-flex justify-content-end">
+				<button type="submit" class="btn btn-blue text-center">Log
+					out</button>
+			</form>
+			<div class="row">
+				<img src="images/logoSpark.png" class="logo">
+			</div>
 			<div class="row d-flex">
 				<div class="col-lg-6">
 					<div class="card1 pb-5">
-						<div class="row">
-							<img src="images/logoSpark.png" class="logo">
-						</div>
 
 						<div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-							<div class="col-md-4 offset-md-3 text-center">
-								<div>
+							<div class="col-md-6 offset-md-3 text-center">
+								<br>
+								<div class="col-md-6 offset-md-3 text-center">
+
 									<h3>Your Cart:</h3>
-									<div class="colored-block scroll-container">
+								</div>
+									<div class="colored-card card border-0 px-4 py-5">
 										<ul class="ingredient-list">
 											<c:forEach var="ingredient"
 												items="${user.ingredientsInPantry}">
@@ -87,96 +76,102 @@
 												</form>
 											</c:forEach>
 										</ul>
+
 									</div>
 								</div>
-								<br>
-
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="col-lg-6">
-					<div class="card2 card border-0 px-4 py-5">
-						<br> <br> <br> <br>
 
-						<div class="col-md-6 offset-md-3 text-center">
-							<h3>Search Ingredient</h3>
-						</div>
 
-						<div class="row px-3">
-							<form action="searchIngredientFromStore.do" method="GET">
-								<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
-								<input class="mb-4" type="text" name="searchResults"
-									placeholder="Search for Ingredient" required><br>
-								<input type="submit" value="Search">
-							</form>
-						</div>
 
-						<hr class="my-4">
+					<div class="col-lg-6">
+						<div class="card2 card border-0 px-4 py-5">
+							<div class="col-md-6 offset-md-3 text-center">
+								<h3>Search Ingredient</h3>
+							</div>
 
-						<div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-							<div class="col-md-6 text-center">
-								<h3>Search Results:</h3>
-								<div class="colored-block scroll-container2">
-									<ul class="ingredient-list">
-										<c:forEach var="ingredient" items="${ingredients}">
-											<form action="addToCart.do" method="GET">
-												<li
-													class="d-flex justify-content-between align-items-center">
-													${ingredient.name} <input type="hidden" name="id"
-													value="${ingredient.id}">
-													<button type="submit" class="btn btn-success">+</button>
-												</li>
-											</form>
-										</c:forEach>
-									</ul>
+							<div class="row px-3">
+								<form action="searchIngredientFromStore.do" method="GET">
+									<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
+									<input class="mb-4" type="text" name="searchResults"
+										placeholder="Search for Ingredient" required><br>
+									<input type="submit" value="Search">
+								</form>
+							</div>
+
+							<hr class="my-4">
+
+							<div
+								class="row px-3 justify-content-center mt-4 mb-5 border-line">
+								<div class="col-lg-12 text-center">
+									<h3>Search Results:</h3>
+									<div class="colored-card2 card border-0 px-4 py-5">
+										<ul class="ingredient-list">
+											<c:forEach var="ingredient" items="${ingredients}">
+												<form action="addToCart.do" method="GET">
+													<li
+														class="d-flex justify-content-between align-items-center">
+														${ingredient.name} <input type="hidden" name="id"
+														value="${ingredient.id}">
+														<button type="submit" class="btn btn-success">+</button>
+													</li>
+												</form>
+											</c:forEach>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row mb-3 px-3">
-					<div class="col-md-4 offset-md-3 text-center find-recipe">
-						<form action="generateRecipes.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">Find
-								Recipe</button>
-						</form>
+
+
+
+
+					<div class="row mb-3 px-3">
+						<div class="col-md-4 offset-md-4 text-center ">
+							<form action="generateRecipes.do" method="POST">
+								<button type="submit" class="btn btn-blue btn-block w-100">Find
+									Recipe</button>
+							</form>
+						</div>
+						<br>
+						<div class="col-md-4 offset-md-4 text-center ">
+							<form action="addRecipeRedirect.do" method="POST">
+								<button type="submit" class="btn btn-blue btn-block w-100">Add
+									New Recipe</button>
+							</form>
+						</div>
+						<br>
+						<div class="col-md-4 offset-md-4 text-center ">
+							<form action="getAllFavorites.do" method="POST">
+								<button type="submit" class="btn btn-blue btn-block w-100">My
+									Recipe Book</button>
+							</form>
+						</div>
+						<br>
+						<div class="col-md-4 offset-md-4 text-center">
+							<small class="font-weight-bold">Or <a href="findall.do">Show
+									All Recipes</a></small>
+						</div>
 					</div>
-					<br> <br>
-					<div class="col-md-4 offset-md-3 text-center find-recipe">
-						<form action="addRecipeRedirect.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">Add
-								New Recipe</button>
-						</form>
-					</div>
-					<br> <br> <br>
-					<div class="col-md-4 offset-md-3 text-center find-recipe">
-						<form action="getAllFavorites.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">My
-								Recipe Book</button>
-						</form>
-					</div>
-					<br>
-					<div class="col-md-4 text-center show-all">
-						<small class="font-weight-bold">Or <a href="findall.do">Show
-								All Recipes</a></small>
-					</div>
-				</div>
-				<div class="container">
-					<div class="bg-blue py-4">
-						<div class="row px-3">
-							<small class="ml-4 ml-sm-5 mb-2">Copyright &copy; SD 42
-								JUNIT-SPARK.</small>
+					<div class="container">
+						<div class="bg-blue py-4">
+							<div class="row px-3">
+								<small class="ml-4 ml-sm-5 mb-2">Copyright &copy; SD 42
+									JUNIT-SPARK.</small>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+				crossorigin="anonymous"></script>
 		</div>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-			crossorigin="anonymous"></script>
-	</div>
 </body>
+</html>
+
 </html>
