@@ -1,5 +1,6 @@
 package com.skilldistillery.reciperecommender.data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -154,6 +155,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 	public void addCommentToRecipe(int recipeId, Comment comment) {
 		Recipe recipe = findById(recipeId);
 		comment.setRecipe(recipe);
+		comment.setCreatedAt(LocalDateTime.now());
 		em.persist(comment);
 	}
 }
