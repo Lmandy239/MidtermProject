@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,7 +15,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
 
 @Entity
 public class User {
@@ -30,23 +31,23 @@ public class User {
 
 	private String role;
 
-	@ManyToMany
+	@Transient
+	List<Ingredient> goShopping;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> favoriteRecipes;
-	
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 	private List<Ingredient> ingredientsInPantry;
 
 	@OneToMany(mappedBy = "user")
-	private List<Recipe> recipes = new ArrayList<>();
+	private List<Recipe> recipes;
 
-	@Transient
-	List<Ingredient> goShopping;
-	
 	@OneToMany(mappedBy = "user")
-    private List<Comment> comments;
-	
+	private List<Comment> comments;
+
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -54,13 +55,16 @@ public class User {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<UserIngredient> cart;
 
+	@OneToMany(mappedBy = "user")
+	private List<RecipeImpression> recipeBook;
+
 	public User() {
 	}
-	
+
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
 			goShopping = new ArrayList<>();
@@ -91,7 +95,7 @@ public class User {
 	public void setIngredientsInPantry(List<Ingredient> ingredientsInPantry) {
 		this.ingredientsInPantry = ingredientsInPantry;
 	}
-	
+
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {
 			ingredientsInPantry = new ArrayList<>();
@@ -108,7 +112,6 @@ public class User {
 			ingredient.removeUser(this);
 		}
 	}
-
 
 	public void addRecipe(Recipe recipe) {
 		if (favoriteRecipes == null) {
@@ -191,16 +194,6 @@ public class User {
 	public void setRecipes(List<Recipe> recipes) {
 		this.recipes = recipes;
 	}
-	
-	
-
-	public List<Recipe> getFavoriteRecipes() {
-		return favoriteRecipes;
-	}
-
-	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
-		this.favoriteRecipes = favoriteRecipes;
-	}
 
 	public List<UserIngredient> getCart() {
 		return cart;
@@ -232,4 +225,21 @@ public class User {
 		return "Ingredient : [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + "]";
 	}
+
+	public List<Recipe> getFavoriteRecipes() {
+		return favoriteRecipes;
+	}
+
+	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
+		this.favoriteRecipes = favoriteRecipes;
+	}
+
+	public List<RecipeImpression> getRecipeBook() {
+		return recipeBook;
+	}
+
+	public void setRecipeBook(List<RecipeImpression> recipeBook) {
+		this.recipeBook = recipeBook;
+	}
+
 }

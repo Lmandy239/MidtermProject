@@ -18,58 +18,52 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
-	
+
 	@Autowired
-	private IngredientDAO ingredientDAO; 
+	private IngredientDAO ingredientDAO;
 	@Autowired
-	private UserDAO userDAO; 
+	private UserDAO userDAO;
 
 	@RequestMapping(path = "searchIngredientFromStore.do", params = "searchResults")
-	    public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults, HttpSession session, Model model, User user) {
-	        List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, searchResults);
-	        Collections.sort(ingredients, (ingredient1, ingredient2) -> {
-	            return Integer.compare(ingredient2.getRecipes().size(), ingredient1.getRecipes().size());
-	        });
-	        model.addAttribute("ingredients", ingredients);
-	        
-	        // Retrieve user from session
-	        user = (User) session.getAttribute("user");
-	        model.addAttribute("user", user);
-	        
-	        return "userIngredient";
-	    }
+	public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults, HttpSession session,
+			Model model, User user) {
+		List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, searchResults);
+		Collections.sort(ingredients, (ingredient1, ingredient2) -> {
+			return Integer.compare(ingredient2.getRecipes().size(), ingredient1.getRecipes().size());
+		});
+		model.addAttribute("ingredients", ingredients);
 
-	
-	 @RequestMapping("addToCart.do")
-	    public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
-	        User user = (User) session.getAttribute("user");
+		// Retrieve user from session
+		user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
 
-	        if (user != null) {
-	            Ingredient ingredient = ingredientDAO.findById(ingredientId);
+		return "userIngredient";
+	}
 
-	            userDAO.addToCart(user, ingredient, 1);
+	@RequestMapping("addToCart.do")
+	public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+			Ingredient ingredient = ingredientDAO.findById(ingredientId);
+			userDAO.addToCart(user, ingredient, 1);
+			session.setAttribute("user", userDAO.findById(user.getId()));
+		}
+		return "userIngredient";
+	}
 
-	            session.setAttribute("user", userDAO.findById(user.getId()));
-	        }
-	        return "userIngredient";
-	    }
+	@RequestMapping("removeFromCart.do")
+	public String removeFromCart(@RequestParam("id") int ingredientId, HttpSession session) {
+		User user = (User) session.getAttribute("user");
 
-	    @RequestMapping("removeFromCart.do")
-	    public String removeFromCart(@RequestParam("id") int ingredientId, HttpSession session) {
-	        User user = (User) session.getAttribute("user");
-	   
-	        Ingredient ingredient = ingredientDAO.findById(ingredientId);
+		Ingredient ingredient = ingredientDAO.findById(ingredientId);
 
-	       userDAO.removeFromCart(user, ingredient);
+		userDAO.removeFromCart(user, ingredient);
 
-	        session.setAttribute("user", userDAO.findById(user.getId()));
+		session.setAttribute("user", userDAO.findById(user.getId()));
 
-	        return "userIngredient";
-	    }
-	    
+		return "userIngredient";
+	}
 
-	
-	
 //	    @RequestMapping("addToCart.do")
 //	    public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
 //	        // Retrieve user from session
@@ -98,9 +92,9 @@ public class CartController {
 //
 //	        return "userIngredient";
 //	    }
-	    
-		public void refreshSession(HttpSession session) {
-			User u = (User) session.getAttribute("user");
-			session.setAttribute("user", userDAO.findById(u.getId()));
-		}
+
+	public void refreshSession(HttpSession session) {
+		User u = (User) session.getAttribute("user");
+		session.setAttribute("user", userDAO.findById(u.getId()));
 	}
+}

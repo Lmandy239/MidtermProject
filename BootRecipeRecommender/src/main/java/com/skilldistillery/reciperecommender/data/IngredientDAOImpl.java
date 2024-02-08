@@ -25,9 +25,9 @@ public class IngredientDAOImpl implements IngredientDAO {
 		String jpql = "SELECT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER(:pattern || '%')";
 
 		Query query = em.createQuery(jpql);
-		
+
 		List<Ingredient> ingredients;
-		
+
 		ingredients = query.setParameter("pattern", namePattern.toLowerCase()).getResultList();
 
 		for (Ingredient ingredient : ingredients) {
@@ -35,7 +35,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 		}
 		return ingredients;
 	}
-	
+
 	@Override
 	public Ingredient findById(int id) {
 		return em.find(Ingredient.class, id);

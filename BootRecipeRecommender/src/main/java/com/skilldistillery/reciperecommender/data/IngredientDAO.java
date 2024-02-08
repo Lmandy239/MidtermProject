@@ -12,14 +12,10 @@ public interface IngredientDAO {
 
 	void removeIngredient(User user, Ingredient ingredient);
 
-	
-
 	void addToPantry(User user, Ingredient ingredient);
 
 	Ingredient findById(int id);
-	
 
-	
 	// test changes
 	//
 	//
