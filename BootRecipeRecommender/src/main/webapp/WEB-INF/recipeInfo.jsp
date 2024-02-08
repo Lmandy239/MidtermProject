@@ -62,49 +62,132 @@
 	            background-color: #0056b3;
 	        
 }
+ .container-fluid {
+            text-align: center;
+        }
+
+        .colored-block {
+            background-color: #e0e0e0;
+        }
+
+        .scroll-container {
+            height: 380px;
+            overflow-y: auto;
+        }
+
+        .scroll-container2 {
+            height: 160px;
+            overflow-y: auto;
+        }
+
+        .find-recipe {
+          /*   margin-top: 20px; */
+        }
+
+        .section-divider {
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .card.comment {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+		.logo {
+			height: 150px;
+			width: auto;
+			margin-bottom: 0;
+		}
+		
+		.img-fluid {
+			max-width: 80%;
+			max-height: 600;
+			margin bottom: 20px;
+		}
     
 </style>
 </head>
 <body>
-	<div class="container mt-4">
-		<div class="row justify-content-center">
-			<!-- Centering the row -->
-			<div class="col-lg-12 text-center">
-				<!-- Centering the column -->
-				<h1 class="display-4">${recipe.name}</h1>
-				<!-- Making the header larger -->
+
+
+<!-- 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+		<div class="card card0 border-0">
+			<div class="row d-flex">
+				<div class="col-lg-6">
+					<div class="card1 pb-5">
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div class="row justify-content-center">
-			<div class="col-12 text-center">
-				<img
-					src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
-					alt="${recipe.name}" class="img-fluid w-25">
-			</div>
-		</div>
-	</div>
-	<div class="container mt-4">
-		<div class="row justify-content-center">
-			<div class="col-lg-6">
-				<!-- Taking up the middle 50% of the screen on large devices (col-lg-6) -->
-				<ul class="text-center display-3">
-					<!-- Centering the list and making the bullet points larger -->
-					<c:forEach items="${recipe.ingredientDescriptionList}"
-						var="ingredient">
-						<!-- Iterate over the list of ingredients -->
-						<li>${ingredient}</li>
-						<!-- Display each ingredient as a list item with a bullet point -->
-					</c:forEach>
-				</ul>
-			</div>
-			<div class="col-lg-10">
-				<p class="display-4">${recipe.description}</p>
-			</div>
-		</div>
-	</div>
-	<div class="favorite-button">
+</div> -->
+
+
+	
+
+				<div class="row">
+					<img src="images/logoSpark.png" class="logo">
+				</div>
+	 <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+        <div class="card card0 border-0">
+            <!-- Top Section: Ingredient List -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card1 pb-5">
+                        <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                            <div class="col-md-12 text-center">
+                                <h1>${recipe.name}</h1><br>
+                                <img src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg" alt="${recipe.name}" class="image_fluid">
+                            </div>
+                        </div>
+                        <div class="row px-3 justify-content-center mb-5 border-line">
+                            <div class="col-md-12 text-center">
+                                <div class="colored-block scroll-container">
+                                    <h3>${recipe.name} Ingredients Required</h3>
+                                    <ul class="ingredient-list">
+                                        <c:forEach var="ingredient" items="${recipe.ingredientDescriptionList}">
+                                            <li>${ingredient}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="section-divider">
+            <!-- Bottom Section: Recipe Description -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card2 card border-0 px-4 py-5">
+                        <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                            <div class="col-md-12 text-center">
+                                <h3>${recipe.name} Instructions</h3>
+                                <p>${recipe.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+<div class="favorite-button">
 		<div class="container mt-4">
 			<div class="row justify-content-center">
 				<div class="col-lg-12 text-center">
@@ -140,37 +223,46 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-12 text-center">
 					<form action="getAllFavorites.do" method="POST">
-						<button class="btn btn-blue text-center">See Your Recipe
-							Book</button>
+						<button class="btn btn-blue text-center">See Your Recipe Book</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	</div>
-	</div>
-	</div>
-	</div>
 
-	<h2>Comments</h2>
 
-	<c:forEach items="${recipe.comments}" var="comment">
-    <div class="comment">
-			        
-			<p class="username">Username: ${comment.user.username} Posted:
-				${comment.comment}</p>
-			    
-		</div>
-	</c:forEach>
+            <hr class="section-divider">
+            <!-- Comments Section -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card2 card border-0 px-4 py-5">
+                        <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                            <div class="col-md-12 text-center">
+                    <h2>${recipe.name} Reviews</h2>
 
-	<form id="add-comment-form" action="addComment.do" method="POST">
-		    
-		<textarea name="content" rows="4" placeholder="Add a comment here"></textarea>
-		<br>     <input type="hidden" name="recipeId"
-			value="${recipe.id}">     <input type="hidden" name="userId"
-			value="${user.id}">     <input type="submit"
-			value="Submit Comment">
-	</form>
+                        <c:forEach items="${recipe.comments}" var="comment">
+                            <div class="card comment">
+                                <h5 class="username"><strong>${comment.user.username}</strong></h5>
+                                <h6>${comment.comment}</h6>
+                                <p>${comment.createdAt}</p>
+                            </div>
+                        </c:forEach>
+                    <form id="add-comment-form" action="addComment.do" method="POST" class="center-content">
+    				<textarea name="content" rows="3" style="width: 100%;" placeholder="Add a comment here"></textarea><br>
+   					 <input type="hidden" name="recipeId" value="${recipe.id}">
+    					<input type="hidden" name="userId" value="${user.id}">
+    						<input type="submit" value="Submit Comment" style="width: 100%;">
+					</form>
+	
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
 </body>
 </html>
