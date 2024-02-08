@@ -133,9 +133,9 @@ public class RecipeDAOImpl implements RecipeDAO {
 	}
 
 	@Override
-	public Recipe addRecipe() {
-		// TODO Auto-generated method stub
-		return null;
+	public Recipe create(Recipe recipe) {
+		em.persist(recipe);
+		return recipe;
 	}
 
 	// COMMENT METHODS
