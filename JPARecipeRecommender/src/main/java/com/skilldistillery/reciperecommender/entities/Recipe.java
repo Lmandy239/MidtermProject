@@ -64,6 +64,14 @@ public class Recipe {
 
 	public Recipe() {
 	}
+	
+	public Recipe(String name, String description, String ingredientDescription, List<Ingredient> ingredients) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.ingredientDescription = ingredientDescription;
+		this.ingredients = ingredients;
+	}
 
 	public int getId() {
 		return id;
