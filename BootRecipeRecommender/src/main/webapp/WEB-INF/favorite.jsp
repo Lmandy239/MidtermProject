@@ -13,43 +13,75 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="css/stylesheet.css">
+
 
 <meta charset="UTF-8">
 <title>Favorites Page</title>
 </head>
 <body>
-	<h1>Your Favorite Recipes</h1>
-	<div class="favorite-recipes">
-		<div class="container mt-4">
-			<div class="row justify-content-center">
-				<div class="col-lg-12 text-center">
-					<c:choose>
-						<c:when test="${! empty favoritedRecipe}">
-							<ol>
-								<li>${favoritedRecipe.name}</li>
-							</ol>
-						</c:when>
-						<c:otherwise>
-							<h4>No Favorite Recipes</h4>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
+	<div class="favorite-header">
+		<h1>
+			<strong>${user.username}'s Recipe Book</strong>
+		</h1>
+	</div>
+	<div class="container mt-4">
+		<div class="row">
+			<c:choose>
+				<c:when test="${!empty user.getFavoriteRecipes()}">
+					<c:forEach var="recipe" items="${user.getFavoriteRecipes()}">
+						<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+							<form action="showRecipe.do" method="POST">
+								<!-- Hidden input to pass recipe ID or any other data -->
+								<input type="hidden" name="recipeId" value="${recipe.id}">
+								<div class="card">
+									<button type="submit" class="card-button">
+										<img
+											src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
+											alt="${recipe.name}" class="card-img-top">
+									</button>
+									<div class="card-body">
+										<h5 class="card-title overflow-text">${recipe.name}</h5>
+										<h6 class="card-title overflow-text">Date added:
+											${recipe.createDate}</h6>
+									</div>
+								</div>
+							</form>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<h4>Your recipe book is empty!</h4>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
-	<br>
-	<br>
-	<a href="showRecipe.do">Choose A Different Recipe</a>
-	<br>
-	<br>
-	<br>
-	<br>
-	<a href="showRecipe.do">Ingredient Selection</a>
-	<br>
-	<br>
-	<br>
-	<br>
-	<a href="home">Go Home</a>
+	<div class="favorite-links">
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="rerouteToPantry.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Choose
+					Different Ingredients</button>
+			</form>
+		</div>
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="generateRecipes.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Choose
+					a Different Recipe</button>
+			</form>
+		</div>
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="addRecipeRedirect.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Add
+					New Recipe</button>
+			</form>
+		</div>
+		<div class="col-md-3 mx-auto mx-auto text-center find-recipe">
+			<form action="home" method="GET">
+				<button type="submit" class="btn btn-blue btn-block w-100">Logout</button>
+			</form>
+		</div>
+		<br> <br>
+	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

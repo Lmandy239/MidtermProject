@@ -13,7 +13,7 @@ public interface UserDAO {
 
 	User findById(int id);
 
-    void addToCart(User user, Ingredient ingredient, int quantity);
+	void addToCart(User user, Ingredient ingredient, int quantity);
 
-    void removeFromCart(User user, Ingredient ingredient);
+	void removeFromCart(User user, Ingredient ingredient);
 }

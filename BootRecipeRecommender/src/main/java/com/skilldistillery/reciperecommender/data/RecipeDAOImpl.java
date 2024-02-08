@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.reciperecommender.entities.Comment;
 import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.Recipe;
+import com.skilldistillery.reciperecommender.entities.RecipeImpression;
 import com.skilldistillery.reciperecommender.entities.User;
+import com.skilldistillery.reciperecommender.entities.UserIngredient;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -94,16 +96,40 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return ingredients;
 	}
 
-	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
-		if (user.getFavoriteRecipes() == null) {
-			user.setFavoriteRecipes(new ArrayList<>());
-			user.getFavoriteRecipes().add(recipe);
-		} else if (!user.getFavoriteRecipes().contains(recipe)) {
-			user.getFavoriteRecipes().add(recipe);
+	@Override
+	@Transactional
+	public RecipeImpression mapThisRecipeToUser(User user, Recipe recipe) {
+		RecipeImpression recipeImpression = new RecipeImpression();
+		recipeImpression.setUser(user);
+		recipeImpression.setRecipe(recipe);
+		if (em.contains(recipeImpression)) {
+			em.persist(recipeImpression);
+		} else {
+			em.merge(recipeImpression);
 		}
+		return recipeImpression;
+	}
 
+	@Override
+	@Transactional
+	public void unmapThisRecipeToUser(User user, Recipe recipe) {
+		RecipeImpression recipeImpression = em
+				.createQuery("SELECT ri FROM RecipeImpression ri WHERE ri.user = :user AND ri.recipe = :recipe",
+						RecipeImpression.class)
+				.setParameter("user", user).setParameter("recipe", recipe).getSingleResult();
+
+		em.remove(recipeImpression);
+	}
+
+	@Override
+	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
+		user.addRecipe(recipe);
 		return recipe;
+	}
 
+	@Override
+	public void unfavoriteThisRecipe(User user, Recipe recipe) {
+		user.removeRecipe(recipe);
 	}
 
 	@Override
@@ -111,25 +137,20 @@ public class RecipeDAOImpl implements RecipeDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	//COMMENT METHODS
+
+	// COMMENT METHODS
 	@Override
 	public List<Comment> findCommentsByRecipeId(int recipeId) {
 		String jpql = "SELECT c FROM Comment c WHERE c.recipe.id = :recipeId";
-
 		Query query = em.createQuery(jpql);
-
 		query.setParameter("recipeId", recipeId);
-
 		return query.getResultList();
 	}
 
 	@Override
 	public void addCommentToRecipe(int recipeId, Comment comment) {
 		Recipe recipe = findById(recipeId);
-
 		comment.setRecipe(recipe);
-		
 		em.persist(comment);
 	}
 }

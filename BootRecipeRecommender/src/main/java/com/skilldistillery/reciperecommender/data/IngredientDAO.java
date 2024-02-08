@@ -15,9 +15,7 @@ public interface IngredientDAO {
 	void addToPantry(User user, Ingredient ingredient);
 
 	Ingredient findById(int id);
-	
 
-	
 	// test changes
 	//
 	//
