@@ -104,40 +104,53 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="favorite-button">
-		<div class="row justify-content-center">
-			<div class="col-12 text-center">
-				<form action="favoriteRecipe.do" method="POST">
-					<input type="hidden" name="recipeId" value="${recipe.id}">
-					<a href="favoriteRecipe.do?recipeId=${recipe.id}"><button>Like
-							This Recipe</button></a>
-				</form>
-
+		<div class="container mt-4">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 text-center">
+					<c:if test="${!user.getFavoriteRecipes().contains(recipe)}">
+						<form action="favoriteRecipe.do" method="POST">
+							<input type="hidden" name="recipeId" value="${recipe.id}">
+							<a href="favoriteRecipe.do?recipeId=${recipe.id}"><button
+									class="btn btn-blue text-center">Like This Recipe</button></a>
+						</form>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="display">
+	<c:if test="${user.getFavoriteRecipes().contains(recipe)}">
 		<div class="favorite-button">
+			<div class="container mt-4">
+				<div class="row justify-content-center">
+					<div class="col-lg-12 text-center">
+						<form action="unfavoriteRecipe.do" method="POST">
+							<input type="hidden" name="recipeId" value="${recipe.id}">
+							<a href="unfavoriteRecipe.do?recipeId=${recipe.id}"><button
+									class="btn btn-blue text-center">Unlike This Recipe</button></a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<br>
+	<div class="favorite-button">
+		<div class="container mt-4">
 			<div class="row justify-content-center">
-				<div class="col-12 text-center">
-					<c:choose>
-						<c:when test="${! empty favoritedRecipe}">
-							<ol>
-								<li>${favoritedRecipe.name} added to recipe book!</li>
-							</ol>
-						</c:when>
-						<c:otherwise>
-
-						</c:otherwise>
-					</c:choose>
-					<br>
+				<div class="col-lg-12 text-center">
 					<form action="getAllFavorites.do" method="POST">
-						<button>See Your Recipe Book</button>
+						<button class="btn btn-blue text-center">See Your Recipe
+							Book</button>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	</div>
+	</div>
+	</div>
 	</div>
 
 	<h2>Comments</h2>
@@ -159,6 +172,5 @@
 			value="${user.id}">     <input type="submit"
 			value="Submit Comment">
 	</form>
-
 </body>
 </html>

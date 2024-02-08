@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class User {
 	@Transient
 	List<Ingredient> goShopping;
 
-	@ManyToMany(cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> favoriteRecipes;
 
@@ -59,7 +60,7 @@ public class User {
 	private List<UserIngredient> cart;
 
 	@OneToMany(mappedBy = "user")
-	private List<UserRecipe> recipeBook;
+	private List<RecipeImpression> recipeBook;
 
 	public User() {
 	}
@@ -233,11 +234,12 @@ public class User {
 		this.favoriteRecipes = favoriteRecipes;
 	}
 
-	public List<UserRecipe> getRecipeBook() {
+	public List<RecipeImpression> getRecipeBook() {
 		return recipeBook;
 	}
 
-	public void setRecipeBook(List<UserRecipe> recipeBook) {
+	public void setRecipeBook(List<RecipeImpression> recipeBook) {
 		this.recipeBook = recipeBook;
 	}
+
 }

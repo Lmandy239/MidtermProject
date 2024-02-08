@@ -56,7 +56,7 @@ public class Recipe {
 		this.comments = comments;
 	}
 
-	@ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "favoriteRecipes")
 	private List<User> userFavoriteRecipes;
 
 	public Recipe() {
@@ -162,7 +162,7 @@ public class Recipe {
 
 	@Override
 	public String toString() {
-		return "Recipe [id=" + id + ", name=" + name + "description=" + description + "]";
+		return "Recipe Name=" + name + "\n Recipe Description=" + description + "\nimage";
 	}
 
 	public List<User> getUserFavoriteRecipes() {

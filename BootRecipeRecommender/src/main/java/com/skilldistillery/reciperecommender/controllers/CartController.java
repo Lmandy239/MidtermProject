@@ -43,12 +43,9 @@ public class CartController {
 	@RequestMapping("addToCart.do")
 	public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
-
 		if (user != null) {
 			Ingredient ingredient = ingredientDAO.findById(ingredientId);
-
 			userDAO.addToCart(user, ingredient, 1);
-
 			session.setAttribute("user", userDAO.findById(user.getId()));
 		}
 		return "userIngredient";
