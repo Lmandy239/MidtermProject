@@ -51,7 +51,9 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<h4>Your recipe book is empty!</h4>
+					<div class="emptyRecipe">
+						<h4>Your recipe book is empty!</h4>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
