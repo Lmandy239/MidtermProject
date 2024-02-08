@@ -214,10 +214,9 @@ div .favorite-links {
 	margin-bottom: 5px !important; */
 }
 
-body .my-recipebook {
+.my-recipebook {
 	background-image:
-		url('images/3d-wooden-table-against-defocussed-sunny-room-interior.jpg')
-		!important;
+		url('images/3d-wooden-table-against-defocussed-sunny-room-interior.jpg');
 	background-size: cover !important;
 	background-position: center !important;
 }
