@@ -17,9 +17,9 @@
 
 
 <meta charset="UTF-8">
-<title>Favorites Page</title>
+<title>My Recipe Book Page</title>
 </head>
-<body>
+<body class="my-recipebook">
 	<div class="favorite-header">
 		<h1>
 			<strong>${user.username}'s Recipe Book</strong>
@@ -59,28 +59,25 @@
 	<br>
 
 	<div class="favorite-links">
-		<div class="col-md-3 mx-auto text-center find-recipe">
+		<div class="col-md-4 mx-auto  text-center find-recipe">
 			<form action="rerouteToPantry.do" method="POST">
 				<button type="submit" class="btn btn-blue btn-block w-100">Choose
 					Different Ingredients</button>
 			</form>
 		</div>
-		<br>
-		<div class="col-md-3 mx-auto text-center find-recipe">
+		<div class="col-md-4 mx-auto text-center find-recipe">
 			<form action="generateRecipes.do" method="POST">
 				<button type="submit" class="btn btn-blue btn-block w-100">Choose
 					a Different Recipe</button>
 			</form>
 		</div>
-		<br>
-		<div class="col-md-3 mx-auto text-center find-recipe">
+		<div class="col-md-4 mx-auto text-center find-recipe">
 			<form action="addRecipeRedirect.do" method="POST">
 				<button type="submit" class="btn btn-blue btn-block w-100">Add
 					New Recipe</button>
 			</form>
 		</div>
-		<br>
-		<div class="col-md-3 mx-auto mx-auto text-center find-recipe">
+		<div class="col-md-4 mx-auto text-center find-recipe">
 			<form action="home" method="GET">
 				<button type="submit" class="btn btn-blue btn-block w-100">Logout</button>
 			</form>
