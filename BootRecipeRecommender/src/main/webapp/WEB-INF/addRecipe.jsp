@@ -37,55 +37,30 @@
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
 		<div class="card card0 border-0">
 			<div class="row d-flex">
-
-				<!--  Remainder of Form -->
-				<div class="col-lg-6">
-					<div class="row">
-						<img src="images/logoSpark.png" class="logo">
-					</div>
-					<div class="col-lg-10 mb-3 mx-auto">
-						<div class="d-flex flex-column align-items-center">
-							<label for="recipeName" class="form-label h3 text-center">Recipe
-								Name</label> <input
-								placeholder="Herb-Infused Lemon Chicken with Roasted Vegetables"
-								type="text" class="form-control" id="recipeName"
-								name="recipeName">
-						</div>
-					</div>
-					<br>
-					<div class="col-lg-10 mb-3 mx-auto">
-						<div class="d-flex flex-column align-items-center">
-							<label for="recipeDescription" class="form-label h3 text-center">Preparation
-								Instruction</label>
-							<textarea class="form-control" id="recipeDescription"
-								name="recipeDescription" rows="5"
-								placeholder="To make Herb-Infused Lemon Chicken with Roasted Vegetables, start by preheating the oven to 400°F (200°C). In a small bowl, mix together chopped herbs such as rosemary, thyme, and parsley with lemon zest and a drizzle of olive oil..."></textarea>
-						</div>
-					</div>
-				</div>
 				<!-- Search Ingredients Column -->
+				<div class="row">
+					<img src="images/logoSpark.png" class="logo">
+				</div>
 				<div class="col-lg-6">
-					<br>
 					<h3 class="text-center">Search Ingredient</h3>
 					<div class="row justify-content-center">
 						<div class="col-lg-8">
-							
+							<form action="searchIngredientFromStore.do" method="GET"
+								class="d-flex">
+								<input class="form-control mr-2" type="text"
+									name="searchResults" placeholder="Search for Ingredient"
+									required> <input type="hidden" name="formSource"
+									value="addRecipe">
+								<button type="submit" style="outline: none !important;">Search</button>
+
+							</form>
 <!-- 							<form action="searchIngredientFromStore.do" method="GET">
 								<input class="mb-4 form-control" type="text"
 									name="searchResults" placeholder="Search for Ingredient"
 									required> <input type="hidden" name="formSource"
-									value="addRecipe"> <input type="submit"
-									class="btn btn-primary" value="Search">
-							</form> -->
-							
-							<div>
-								<input class="mb-4 form-control" type="text" id="searchResults"
-									placeholder="Search for Ingredient" required> <input
-									type="hidden" id="formSource" value="addRecipe"> <a
-									href="/searchIngredientFromStore.do?searchResults=searchResults&formSource=formSource"
-									class="btn btn-primary">Search</a>
-							</div>
-
+									value="addRecipe"> <input type="submit" value="Search">
+							</form>
+ -->
 
 							<h3 class="text-center">Search Results:</h3>
 							<div class="colored-block scroll-container text-center">
@@ -104,7 +79,7 @@
 
 							<!-- Recipe Ingredients Column -->
 							<h3 class="text-center">Recipe Ingredients:</h3>
-							<div class="colored-block scroll-container">
+							<div class="colored-block scroll-container pb-10">
 								<ul class="ingredient-list">
 									<c:forEach var="ingredient" items="${tempIngredientList}">
 										<form action="removeIngredientFromRecipe.do" method="GET">
@@ -120,14 +95,43 @@
 						</div>
 					</div>
 				</div>
+
+				<!--  Remainder of Form -->
+				<div class="col-lg-6  ">
+
+					<form id="recipeForm" action="addRecipe.do" method="POST">
+						<div class="col-lg-10 mb-3 mx-auto">
+							<div class="d-flex flex-column align-items-center">
+								<label for="recipeName" class="form-label h3 text-center">Recipe
+									Name</label> <input
+									placeholder="Herb-Infused Lemon Chicken with Roasted Vegetables"
+									type="text" class="form-control" id="recipeName"
+									name="recipeName">
+							</div>
+						</div>
+						<br>
+						<div class="col-lg-10 mb-3 mx-auto">
+							<div class="d-flex flex-column align-items-center">
+								<label for="recipeDescription" class="form-label h3 text-center">Preparation
+									Instruction</label>
+								<textarea class="form-control" id="recipeDescription"
+									name="recipeDescription" rows="5"
+									placeholder="To make Herb-Infused Lemon Chicken with Roasted Vegetables, start by preheating the oven to 400°F (200°C). In a small bowl, mix together chopped herbs such as rosemary, thyme, and parsley with lemon zest and a drizzle of olive oil..."></textarea>
+							</div>
+						</div>
+
+
+						<!-- Hidden input field -->
+						<input type="hidden" id="tempIngredientList"
+							name="tempIngredientList" value="${tempIngredientList}">
+				</div>
 				<div class="row justify-content-center">
 					<div class="col-md-4 text-center">
-						<form action="generateRecipes.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">Add
-								Recipe</button>
-						</form>
+						<button type="submit" class="btn btn-blue btn-block w-100">Add
+							Recipe</button>
 					</div>
 				</div>
+				</form>
 				<br> <br>
 				<div class="container">
 					<div class="bg-blue py-4">

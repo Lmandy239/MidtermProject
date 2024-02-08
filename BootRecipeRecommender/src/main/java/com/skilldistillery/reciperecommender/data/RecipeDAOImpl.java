@@ -89,6 +89,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 	}
 
 	private List<String> parseIngredientDescription(String ingredientDescription) {
+		System.out.println(ingredientDescription);
 		List<String> ingredients = new ArrayList<>();
 		// Parse the string representation of the array and create a list
 		String[] ingredientsArray = ingredientDescription.replaceAll("\\[|\\]", "").split(", ");
@@ -133,9 +134,11 @@ public class RecipeDAOImpl implements RecipeDAO {
 	}
 
 	@Override
-	public Recipe addRecipe() {
-		// TODO Auto-generated method stub
-		return null;
+	public Recipe create(Recipe recipe) {
+		em.persist(recipe);
+		List<String> ingredientDescriptionList = parseIngredientDescription(recipe.getIngredientDescription());
+		recipe.setIngredientDescriptionList(ingredientDescriptionList);
+		return recipe;
 	}
 
 	// COMMENT METHODS
