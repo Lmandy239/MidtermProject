@@ -179,7 +179,7 @@ public class RecipeController {
 		comment.setComment(content);
 		recipeDAO.addCommentToRecipe(recipeId, comment);
 		session.setAttribute("user", userDAO.findById(user.getId()));
-		return "showRecipe";
+		return "redirect:showRecipe.do?recipeId=" + recipeId;
 	}
 
 	@RequestMapping(path = "addRecipeRedirect.do")

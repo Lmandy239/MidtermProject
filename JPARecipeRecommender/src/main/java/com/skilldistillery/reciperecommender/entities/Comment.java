@@ -1,9 +1,12 @@
 package com.skilldistillery.reciperecommender.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,18 +16,33 @@ import jakarta.persistence.Table;
 @Table(name = "user_comment")
 public class Comment {
 	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
 	@Column(name = "comment")
 	private String comment;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
+	
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public Comment() {
 		super();
