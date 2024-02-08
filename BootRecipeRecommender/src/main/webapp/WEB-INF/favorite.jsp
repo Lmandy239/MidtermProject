@@ -58,21 +58,21 @@
 	</div>
 	<div class="favorite-links">
 		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="rerouteToPantry.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Choose
+					Different Ingredients</button>
+			</form>
+		</div>
+		<div class="col-md-3 mx-auto text-center find-recipe">
 			<form action="generateRecipes.do" method="POST">
 				<button type="submit" class="btn btn-blue btn-block w-100">Choose
-					A Different Recipe</button>
+					a Different Recipe</button>
 			</form>
 		</div>
 		<div class="col-md-3 mx-auto text-center find-recipe">
 			<form action="addRecipeRedirect.do" method="POST">
 				<button type="submit" class="btn btn-blue btn-block w-100">Add
 					New Recipe</button>
-			</form>
-		</div>
-		<div class="col-md-3 mx-auto text-center find-recipe">
-			<form action="generateRecipes.do" method="POST">
-				<button type="submit" class="btn btn-blue btn-block w-100">My
-					Recipe Book</button>
 			</form>
 		</div>
 		<div class="col-md-3 mx-auto mx-auto text-center find-recipe">
