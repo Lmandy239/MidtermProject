@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,6 +44,16 @@ public class User {
 	@Transient
 	List<Ingredient> goShopping;
 	
+	@OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	
 	@OneToMany(mappedBy = "user")
 	private List<UserIngredient> cart;

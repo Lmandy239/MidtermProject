@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -44,13 +45,23 @@ public class Recipe {
     @JoinColumn(name = "user_id")
     private User user;
     
+    @OneToMany(mappedBy = "recipe")
+    private List<Comment> comments;
+    
+    public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+  
 	@ManyToMany(mappedBy = "favoriteRecipes", fetch = FetchType.EAGER)
 	private List<User> userFavoriteRecipes;
 
 	public Recipe() {	
 	}
-    
-    
+  
     public int getId() {
         return id;
     }

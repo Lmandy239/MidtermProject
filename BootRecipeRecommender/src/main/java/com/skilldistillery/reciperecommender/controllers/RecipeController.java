@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.reciperecommender.data.RecipeDAO;
+import com.skilldistillery.reciperecommender.data.UserDAO;
+import com.skilldistillery.reciperecommender.entities.Comment;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
 
@@ -17,9 +19,13 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RecipeController {
+	
 	@Autowired
 	private RecipeDAO recipeDAO;
-
+	
+	@Autowired
+	private UserDAO userDAO;
+	
 	@GetMapping(path = "findall.do")
 	public String findAll(Model model) {
 		List<Recipe> recipes = recipeDAO.allRecipe();
@@ -46,6 +52,24 @@ public class RecipeController {
 			return "error";
 		}
 	}
+
+	@RequestMapping(path = "addComment.do")
+	public String addCommentToRecipe(@RequestParam("recipeId") int recipeId, @RequestParam("content") String content, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		
+		Comment comment = new Comment(user, recipeDAO.findById(recipeId));
+		
+		comment.setComment(content);
+		
+		recipeDAO.addCommentToRecipe(recipeId, comment);
+    	
+		session.setAttribute("user", userDAO.findById(user.getId()));
+
+		return "showRecipe";
+
+	}
+}
 
 	@RequestMapping(path = "favoriteRecipe.do", params = ("recipeId"))
 	public String favoriteRecipe(@RequestParam("recipeId") int recipeId, User user, HttpSession session, Model model) {
