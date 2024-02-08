@@ -3,6 +3,7 @@ package com.skilldistillery.reciperecommender.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,14 +14,12 @@ import org.junit.jupiter.api.Test;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
 
-public class CommentTest {
+public class RecipeTest {
 
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 	private Recipe recipe;
-	private User user;
 
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
@@ -38,37 +37,32 @@ public class CommentTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		recipe = em.find(Recipe.class, 1);
-		user = em.find(User.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
 		recipe = null;
-		user = null;
 	}
 
 	@Test
-	public void testFindCommentByRecipeAndUser() {
-		int recipeId = recipe.getId();
-		int userId = user.getId();
-
-		Comment comment = findCommentByRecipeAndUser(userId, recipeId);
-		assertNotNull(comment);
-		assertEquals("This stuff sucks!", comment.getComment());
+	public void test_Recipe_By_Id() {
+		assertNotNull(recipe);
+		assertEquals("test recipe name", recipe.getName());
+		assertEquals("description 1", recipe.getDescription());
 	}
 
-	private Comment findCommentByRecipeAndUser(int recipeId, int userId) {
-		String jpql = "SELECT c FROM Comment c WHERE c.recipe.id = :recipeId AND c.user.id = :userId";
-		EntityManager em = emf.createEntityManager();
+	@Test
+	public void test_Recipe_Has_User() {
+		assertNotNull(recipe);
+		assertNotNull(recipe.getUser());
+		assertEquals("admin", recipe.getUser().getUsername());
+	}
 
-		TypedQuery<Comment> query = em.createQuery(jpql, Comment.class);
-
-		query.setParameter("recipeId", recipeId);
-		query.setParameter("userId", userId);
-
-		Comment comment = query.getSingleResult();
-
-		return comment;
+	@Test
+	public void test_Recipe_Has_Ingredient() {
+		assertNotNull(recipe);
+		assertNotNull(recipe.getIngredients());
+		assertTrue(recipe.getIngredients().size() > 0);
 	}
 }

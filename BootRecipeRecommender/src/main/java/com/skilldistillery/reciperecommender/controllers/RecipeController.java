@@ -1,7 +1,6 @@
 package com.skilldistillery.reciperecommender.controllers;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.skilldistillery.reciperecommender.data.IngredientDAO;
 import com.skilldistillery.reciperecommender.data.RecipeDAO;
 import com.skilldistillery.reciperecommender.data.UserDAO;
 import com.skilldistillery.reciperecommender.entities.Comment;
-import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.RecipeImpression;
 import com.skilldistillery.reciperecommender.entities.User;
@@ -28,14 +25,10 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeDAO recipeDAO;
-	@Autowired
-	private IngredientDAO ingredientDAO;
-	
+
 	@Autowired
 	private UserDAO userDAO;
-    private List<Ingredient> temporaryList = new ArrayList<>(); // Temporary list to hold added ingredients
 
-	
 	@GetMapping(path = "findall.do")
 	public String findAll(Model model) {
 		List<Recipe> recipes = recipeDAO.allRecipe();
@@ -62,7 +55,6 @@ public class RecipeController {
 			return "error";
 		}
 	}
-
 
 	@RequestMapping(path = "favoriteRecipe.do", params = ("recipeId"))
 	public String favoriteRecipe(@RequestParam("recipeId") int recipeId, @ModelAttribute User user, HttpSession session,
@@ -97,27 +89,6 @@ public class RecipeController {
 			return "error";
 		}
 	}
-	
-	@RequestMapping(path = "addRecipeRedirect.do")
-	public String addRecipeRedirect() {
-		return "addRecipe";
-	}
-	
-	@RequestMapping(path = "addIngredientToRecipe.do")
-	public String addIngredientToRecipe(@RequestParam("id") int ingredientId, Model model) {
-		Ingredient ingredient = ingredientDAO.findById(ingredientId);
-		temporaryList.add(ingredient);
-		model.addAttribute("tempIngredientList", temporaryList);
-		return "addRecipe";
-	}
-	
-	@RequestMapping(path = "removeIngredientFromRecipe.do")
-	public String removeIngredientFromoRecipe(@RequestParam("id") int ingredientId, Model model) {
-		Ingredient ingredient = ingredientDAO.findById(ingredientId);
-		temporaryList.remove(ingredient);
-		model.addAttribute("tempIngredientList", temporaryList);
-		return "addRecipe";
-	}
 
 	@RequestMapping(path = "getAllFavorites.do")
 	public String findFavorites() {
@@ -135,11 +106,13 @@ public class RecipeController {
 		return "showRecipe";
 	}
 
-
+	@RequestMapping(path = "addRecipeRedirect.do")
+	public String addRecipeRedirect() {
+		return "addRecipe";
+	}
 
 	@RequestMapping(path = "rerouteToPantry.do")
 	public String takeMeToPantry() {
 		return "userIngredient";
 	}
-
 }

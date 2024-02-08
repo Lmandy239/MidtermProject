@@ -14,10 +14,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class UserTest {
+class IngredientTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Ingredient ingredient;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,40 +32,33 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 5);
+		ingredient = em.find(Ingredient.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		ingredient = null;
 	}
 
 	@Test
-	void test_User_has_username() {
-		assertNotNull(user);
-		assertNotNull(user.getUsername());
-		assertEquals("blake", user.getUsername());
+	public void test_Ingredient_Has_Name() {
+		assertNotNull(ingredient);
+		assertNotNull(ingredient.getName());
+		assertEquals("test ingredient", ingredient.getName());
 	}
 
 	@Test
-	public void test_User_Has_Recipe() {
-		assertNotNull(user);
-		assertNotNull(user.getFavoriteRecipes());
-		assertTrue(user.getFavoriteRecipes().size() > 5);
+	public void test_Ingredient_Has_Recipes() {
+		assertNotNull(ingredient);
+		assertNotNull(ingredient.getRecipes());
+		assertTrue(ingredient.getRecipes().size() > 0);
 	}
 
 	@Test
-	public void test_User_Has_Ingredients() {
-		assertNotNull(user);
-		assertNotNull(user.getIngredientsInPantry());
-		assertTrue(user.getIngredientsInPantry().size() > 2);
-	}
-
-	@Test
-	public void test_User_Has_Comments() {
-		assertNotNull(user);
-		assertNotNull(user.getComments());
-		assertTrue(user.getComments().size() > 1);
+	public void test_Ingredient_Has_Users() {
+		assertNotNull(ingredient);
+		assertNotNull(ingredient.getUsers());
+		assertTrue(ingredient.getUsers().size() > 0);
 	}
 }
