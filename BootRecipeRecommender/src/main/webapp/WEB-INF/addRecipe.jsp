@@ -37,10 +37,11 @@
 										id="recipeIngredients" name="ingredientDescription">
 								</div>
 								<div class="mb-3">
-									<label for="recipeDescription" class="form-label">Recipe Description</label>
-									<input type="text" class="form-control" id="recipeDescription"
-										name="description">
+									<label for="recipeDescription" class="form-label">Recipe
+										Description</label> <input type="text" class="form-control"
+										id="recipeDescription" name="description">
 								</div>
+							</form>
 						</div>
 					</div>
 				</div>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.reciperecommender.entities.Comment;
 import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
@@ -14,6 +15,7 @@ import com.skilldistillery.reciperecommender.entities.UserRecipe;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -105,9 +107,9 @@ public class RecipeDAOImpl implements RecipeDAO {
 	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
 		if (user.getFavoriteRecipes() == null) {
 			user.setFavoriteRecipes(new ArrayList<>());
-			user.getFavoriteRecipes().add(recipe);
+			user.addRecipe(recipe);
 		} else if (!user.getFavoriteRecipes().contains(recipe)) {
-			user.getFavoriteRecipes().add(recipe);
+			user.addRecipe(recipe);
 		}
 		return recipe;
 	}
@@ -118,4 +120,24 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return null;
 	}
 
+	// COMMENT METHODS
+	@Override
+	public List<Comment> findCommentsByRecipeId(int recipeId) {
+		String jpql = "SELECT c FROM Comment c WHERE c.recipe.id = :recipeId";
+
+		Query query = em.createQuery(jpql);
+
+		query.setParameter("recipeId", recipeId);
+
+		return query.getResultList();
+	}
+
+	@Override
+	public void addCommentToRecipe(int recipeId, Comment comment) {
+		Recipe recipe = findById(recipeId);
+
+		comment.setRecipe(recipe);
+
+		em.persist(comment);
+	}
 }

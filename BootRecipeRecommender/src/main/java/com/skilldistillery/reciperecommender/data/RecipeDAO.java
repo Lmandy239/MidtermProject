@@ -2,6 +2,7 @@ package com.skilldistillery.reciperecommender.data;
 
 import java.util.List;
 
+import com.skilldistillery.reciperecommender.entities.Comment;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
 
@@ -17,5 +18,9 @@ public interface RecipeDAO {
 	public Recipe favoriteThisRecipe(User user, Recipe recipe);
 
 	void saveThisRecipe(User user, Recipe recipe);
+
+	List<Comment> findCommentsByRecipeId(int recipeId);
+
+	void addCommentToRecipe(int recipeId, Comment comment);
 
 }

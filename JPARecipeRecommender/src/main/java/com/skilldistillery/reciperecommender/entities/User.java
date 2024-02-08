@@ -45,6 +45,17 @@ public class User {
 	private List<Recipe> recipes;
 
 	@OneToMany(mappedBy = "user")
+	private List<Comment> comments;
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	@OneToMany(mappedBy = "user")
 	private List<UserIngredient> cart;
 
 	@OneToMany(mappedBy = "user")

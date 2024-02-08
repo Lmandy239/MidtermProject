@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.List"%>
-<%@ page
-	import="com.skilldistillery.reciperecommender.entities.Ingredient"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +12,58 @@
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous">
-
 <link rel="stylesheet" href="css/stylesheet.css">
+<style>
+        .comment {
+	            margin-bottom: 20px;
+	            padding: 10px;
+	            border: 1px solid #ccc;
+	            border-radius: 5px;
+	        
+}
+
+        .comment p {
+	            margin-bottom: 5px;
+	        
+}
+
+        .comment p.username {
+	            font-weight: bold;
+	            color: #007bff;
+	        
+}
+
+        #add-comment-form {
+	            margin-top: 20px;
+	        
+}
+
+        #add-comment-form textarea {
+	            width: 100%;
+	            max-width: 100%;
+	            padding: 10px;
+	            border-radius: 5px;
+	            resize: vertical;
+	        
+}
+
+        #add-comment-form input[type="submit"] {
+	            margin-top: 10px;
+	            padding: 10px 20px;
+	            background-color: #007bff;
+	            color: #fff;
+	            border: none;
+	            border-radius: 5px;
+	            cursor: pointer;
+	        
+}
+
+        #add-comment-form input[type="submit"]:hover {
+	            background-color: #0056b3;
+	        
+}
+    
+</style>
 </head>
 <body>
 	<div class="container mt-4">
@@ -75,27 +123,42 @@
 				<div class="col-12 text-center">
 					<c:choose>
 						<c:when test="${! empty favoritedRecipe}">
-				
-						${favoritedRecipe.name} added to favorites!
-						<br>
-
-							<form action="getAllFavorites.do" method="POST">
-								<button>Show Your Favorites</button>
-							</form>
+							<ol>
+								<li>${favoritedRecipe.name} added to recipe book!</li>
+							</ol>
 						</c:when>
 						<c:otherwise>
-							<h4>No Favorite Recipes</h4>
+
 						</c:otherwise>
 					</c:choose>
-
+					<br>
+					<form action="getAllFavorites.do" method="POST">
+						<button>See Your Recipe Book</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<h2>Comments</h2>
+
+	<c:forEach items="${recipe.comments}" var="comment">
+    <div class="comment">
+			        
+			<p class="username">Username: ${comment.user.username} Posted:
+				${comment.comment}</p>
+			    
+		</div>
+	</c:forEach>
+
+	<form id="add-comment-form" action="addComment.do" method="POST">
+		    
+		<textarea name="content" rows="4" placeholder="Add a comment here"></textarea>
+		<br>     <input type="hidden" name="recipeId"
+			value="${recipe.id}">     <input type="hidden" name="userId"
+			value="${user.id}">     <input type="submit"
+			value="Submit Comment">
+	</form>
+
 </body>
 </html>
-
-
-
-
-

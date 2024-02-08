@@ -27,7 +27,7 @@ public class UserController {
 	public String authenticateLogin(@RequestParam("username") String username,
 			@RequestParam("password") String password, HttpSession session) {
 		User u = userDAO.authenticateUser(username, password);
-        session.setAttribute("user", u);
+		session.setAttribute("user", u);
 
 		if (u != null) {
 			return "userIngredient";
