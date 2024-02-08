@@ -88,11 +88,11 @@
             </div>
             <div class="row px-3">
               <form action="searchIngredientFromStore.do" method="GET">
-                <label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
-                <input class="mb-4" type="text" name="searchResults"
-                  placeholder="Search for Ingredient" required><br>
-                <input type="submit" value="Search">
-              </form>
+					<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
+					<input class="mb-4" type="text" name="searchResults" placeholder="Search for Ingredient" required> <input
+					type="hidden" name="formSource" value="userIngredient">
+					<br> <input type="submit" value="Search">
+				</form>
             </div>
             <hr class="my-4">
             <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
