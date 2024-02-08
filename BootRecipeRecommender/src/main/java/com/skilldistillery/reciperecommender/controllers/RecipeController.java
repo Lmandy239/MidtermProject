@@ -99,6 +99,14 @@ public class RecipeController {
 			return "error";
 		}
 	}
+	
+	@RequestMapping(path = "removeIngredientFromRecipe.do")
+	public String removeIngredientFromoRecipe(@RequestParam("id") int ingredientId, Model model) {
+		Ingredient ingredient = ingredientDAO.findById(ingredientId);
+		temporaryList.remove(ingredient);
+		model.addAttribute("tempIngredientList", temporaryList);
+		return "addRecipe";
+	}
 
 	@RequestMapping(path = "addIngredientToRecipe.do")
 	public String addIngredientToRecipe(@RequestParam("id") int ingredientId, Model model) {
@@ -112,6 +120,7 @@ public class RecipeController {
 	public String addRecipeRedirect() {
 		return "addRecipe";
 	}
+
 
 	@RequestMapping(path = "addRecipe.do", method = RequestMethod.POST)
 	public String addRecipeRedirect(@RequestParam("recipeName") String recipeName,
@@ -155,18 +164,13 @@ public class RecipeController {
 		return "redirect:recipeAdded.do";
 	}
 
+
+	
 	@RequestMapping("recipeAdded.do")
 	public String recipeAdded(Model model, RedirectAttributes redirectAttributes) {
 		return "recipeInfo";
 	}
 
-	@RequestMapping(path = "removeIngredientFromRecipe.do")
-	public String removeIngredientFromoRecipe(@RequestParam("id") int ingredientId, Model model) {
-		Ingredient ingredient = ingredientDAO.findById(ingredientId);
-		temporaryList.remove(ingredient);
-		model.addAttribute("tempIngredientList", temporaryList);
-		return "addRecipe";
-	}
 
 	@RequestMapping(path = "getAllFavorites.do")
 	public String findFavorites() {
