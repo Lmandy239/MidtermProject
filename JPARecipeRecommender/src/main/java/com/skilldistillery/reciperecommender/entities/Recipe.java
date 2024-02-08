@@ -1,12 +1,12 @@
 package com.skilldistillery.reciperecommender.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,6 +30,9 @@ public class Recipe {
 	private String image;
 
 	private String description;
+
+	@Column(name = "created_at")
+	private LocalDateTime createDate;
 
 	@Column(name = "ingredient_description")
 	private String ingredientDescription;
@@ -171,6 +174,14 @@ public class Recipe {
 
 	public void setUserFavoriteRecipes(List<User> userFavoriteRecipes) {
 		this.userFavoriteRecipes = userFavoriteRecipes;
+	}
+
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
 }

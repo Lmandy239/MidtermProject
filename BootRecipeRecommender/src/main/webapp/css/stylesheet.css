@@ -230,8 +230,18 @@ a {
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	padding: 3px;
 	color: #fd982a;
-	text-align: center;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+}
+
+.favorite-links {
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	padding: 3px;
+	text-align: center !important;
+	height: 100%;
+	margin: 0;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
 }

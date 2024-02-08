@@ -150,10 +150,17 @@
 								New Recipe</button>
 						</form>
 					</div>
+					<br> <br> <br>
+					<div class="col-md-4 offset-md-3 text-center find-recipe">
+						<form action="getAllFavorites.do" method="POST">
+							<button type="submit" class="btn btn-blue btn-block w-100">My
+								Recipe Book</button>
+						</form>
+					</div>
 					<br>
 					<div class="col-md-4 text-center show-all">
 						<small class="font-weight-bold">Or <a href="findall.do">Show
-								all</a></small>
+								All Recipes</a></small>
 					</div>
 				</div>
 				<div class="container">

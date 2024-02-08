@@ -1,5 +1,6 @@
 package com.skilldistillery.reciperecommender.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,7 @@ public class RecipeController {
 		try {
 			user = (User) session.getAttribute("user");
 			Recipe recipe = recipeDAO.findById(recipeId);
+			recipe.setCreateDate(LocalDateTime.now());
 			RecipeImpression recipeImpression = recipeDAO.mapThisRecipeToUser(user, recipe);
 			Recipe displayFavoriteRecipe = recipeDAO.favoriteThisRecipe(user, recipe);
 			model.addAttribute("recipeImpression", recipeImpression);
@@ -78,8 +80,7 @@ public class RecipeController {
 		try {
 			user = (User) session.getAttribute("user");
 			Recipe recipe = recipeDAO.findById(recipeId);
-			// RecipeImpression recipeImpression = (RecipeImpression)
-			// model.getAttribute("recipeImpression");
+			recipe.setCreateDate(null);
 			recipeDAO.unmapThisRecipeToUser(user, recipe);
 			recipeDAO.unfavoriteThisRecipe(user, recipe);
 			return "redirect:showRecipe.do?recipeId=" + recipeId;
@@ -109,7 +110,7 @@ public class RecipeController {
 	public String addRecipeRedirect() {
 		return "addRecipe";
 	}
-	
+
 	@RequestMapping(path = "rerouteToPantry.do")
 	public String takeMeToPantry() {
 		return "userIngredient";

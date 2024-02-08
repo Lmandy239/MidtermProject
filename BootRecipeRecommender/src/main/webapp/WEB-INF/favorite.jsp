@@ -42,6 +42,8 @@
 									</button>
 									<div class="card-body">
 										<h5 class="card-title overflow-text">${recipe.name}</h5>
+										<h6 class="card-title overflow-text">Date added:
+											${recipe.createDate}</h6>
 									</div>
 								</div>
 							</form>
@@ -54,51 +56,32 @@
 			</c:choose>
 		</div>
 	</div>
-	<br>
-	<br>
-	<div class="favorite-button">
-		<div class="container mt-4">
-			<div class="row justify-content-center">
-				<div class="col-lg-12 text-center">
-					<form action="generateRecipes.do" method="POST">
-						<input type="hidden" name="recipeId" value="${recipe.id}">
-						<a href="generateRecipes.do"><button
-								class="btn btn-blue text-center">Choose A Different
-								Recipe</button></a>
-					</form>
-				</div>
-			</div>
+	<div class="favorite-links">
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="generateRecipes.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Choose
+					A Different Recipe</button>
+			</form>
 		</div>
-	</div>
-	<div class="favorite-button">
-		<div class="container mt-4">
-			<div class="row justify-content-center">
-				<div class="col-lg-12 text-center">
-					<form action="rerouteToPantry.do" method="POST">
-						<input type="hidden" name="recipeId" value="${recipe.id}">
-						<a href="rerouteToPantry.do"><button
-								class="btn btn-blue text-center">Choose Different
-								Ingredients</button></a>
-					</form>
-				</div>
-			</div>
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="addRecipeRedirect.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">Add
+					New Recipe</button>
+			</form>
 		</div>
-	</div>
-	<div class="favorite-button">
-		<div class="container mt-4">
-			<div class="row justify-content-center">
-				<div class="col-lg-12 text-center">
-					<form action="home" method="POST">
-						<input type="hidden" name="recipeId" value="${recipe.id}">
-						<a href="home"><button class="btn btn-blue text-center">Logout</button></a>
-					</form>
-				</div>
-			</div>
+		<div class="col-md-3 mx-auto text-center find-recipe">
+			<form action="generateRecipes.do" method="POST">
+				<button type="submit" class="btn btn-blue btn-block w-100">My
+					Recipe Book</button>
+			</form>
 		</div>
+		<div class="col-md-3 mx-auto mx-auto text-center find-recipe">
+			<form action="home" method="GET">
+				<button type="submit" class="btn btn-blue btn-block w-100">Logout</button>
+			</form>
+		</div>
+		<br> <br>
 	</div>
-
-	<br>
-	<br>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
