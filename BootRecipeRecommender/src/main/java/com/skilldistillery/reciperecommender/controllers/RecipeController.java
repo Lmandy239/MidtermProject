@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.skilldistillery.reciperecommender.data.RecipeDAO;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
+import com.skilldistillery.reciperecommender.entities.UserIngredient;
+import com.skilldistillery.reciperecommender.entities.UserRecipe;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -51,6 +53,7 @@ public class RecipeController {
 	public String favoriteRecipe(@RequestParam("recipeId") int recipeId, User user, HttpSession session, Model model) {
 		try {
 			Recipe recipe = recipeDAO.findById(recipeId);
+			recipeDAO.saveThisRecipe(user, recipe);
 			Recipe displayFavoriteRecipe = recipeDAO.favoriteThisRecipe(user, recipe);
 			model.addAttribute("favoritedRecipe", displayFavoriteRecipe);
 			return "redirect:showRecipe.do?recipeId=" + recipeId;
@@ -64,27 +67,10 @@ public class RecipeController {
 	public String addRecipeRedirect() {
 		return "addRecipe";
 	}
-	
-	
+
+	@RequestMapping(path = "getAllFavorites.do")
+	public String findFavorites() {
+		return "favorite";
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

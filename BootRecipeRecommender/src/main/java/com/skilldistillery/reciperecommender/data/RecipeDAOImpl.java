@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.reciperecommender.entities.Ingredient;
 import com.skilldistillery.reciperecommender.entities.Recipe;
 import com.skilldistillery.reciperecommender.entities.User;
+import com.skilldistillery.reciperecommender.entities.UserRecipe;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -92,6 +93,15 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return ingredients;
 	}
 
+	@Override
+	public void saveThisRecipe(User user, Recipe recipe) {
+		UserRecipe userRecipe = new UserRecipe();
+		userRecipe.setUser(user);
+		userRecipe.setRecipe(recipe);
+		em.persist(userRecipe);
+	}
+
+	@Override
 	public Recipe favoriteThisRecipe(User user, Recipe recipe) {
 		if (user.getFavoriteRecipes() == null) {
 			user.setFavoriteRecipes(new ArrayList<>());

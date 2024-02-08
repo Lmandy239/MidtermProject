@@ -6,7 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class UserIngredient {
+public class UserRecipe {
 
 	@Id
 	@ManyToOne
@@ -15,8 +15,8 @@ public class UserIngredient {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "ingredient_id")
-	private Ingredient ingredient;
+	@JoinColumn(name = "recipe_id")
+	private Recipe recipe;
 
 	public User getUser() {
 		return user;
@@ -26,12 +26,12 @@ public class UserIngredient {
 		this.user = user;
 	}
 
-	public Ingredient getIngredient() {
-		return ingredient;
+	public Recipe getRecipe() {
+		return recipe;
 	}
 
-	public void setIngredient(Ingredient ingredient) {
-		this.ingredient = ingredient;
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
 }

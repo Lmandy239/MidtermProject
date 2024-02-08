@@ -70,27 +70,27 @@
 		</div>
 	</div>
 	<div class="display">
-		<c:choose>
-			<c:when test="${! empty favoritedRecipe}">
+		<div class="favorite-button">
+			<div class="row justify-content-center">
+				<div class="col-12 text-center">
+					<c:choose>
+						<c:when test="${! empty favoritedRecipe}">
 				
-				${favoritedRecipe.name} added to favorites!
-				<br>
-				<div class="favorite-button">
-					<div class="row justify-content-center">
-						<div class="col-12 text-center">
-							<form action="displayFavorites.do" method="POST">
-								<button>Show Favorites</button>
+						${favoritedRecipe.name} added to favorites!
+						<br>
+
+							<form action="getAllFavorites.do" method="POST">
+								<button>Show Your Favorites</button>
 							</form>
+						</c:when>
+						<c:otherwise>
+							<h4>No Favorite Recipes</h4>
+						</c:otherwise>
+					</c:choose>
 
-						</div>
-					</div>
 				</div>
-
-			</c:when>
-			<c:otherwise>
-				<h4>No Favorite Recipes</h4>
-			</c:otherwise>
-		</c:choose>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

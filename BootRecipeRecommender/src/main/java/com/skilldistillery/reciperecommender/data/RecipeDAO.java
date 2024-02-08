@@ -11,9 +11,11 @@ public interface RecipeDAO {
 	List<Recipe> allRecipe();
 
 	List<Recipe> generateRecipes(User user);
-	
+
 	Recipe addRecipe();
-	
+
 	public Recipe favoriteThisRecipe(User user, Recipe recipe);
+
+	void saveThisRecipe(User user, Recipe recipe);
 
 }

@@ -14,7 +14,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
 
 @Entity
 public class User {
@@ -33,25 +32,27 @@ public class User {
 
 	@Transient
 	List<Ingredient> goShopping;
-	
-	@ManyToMany
+
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "recipe_impression", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "recipe_id"))
 	private List<Recipe> favoriteRecipes;
-	
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "user_ingredient", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 	private List<Ingredient> ingredientsInPantry;
 
 	@OneToMany(mappedBy = "user")
-	private List<Recipe> recipes = new ArrayList<>();
+	private List<Recipe> recipes;
 
-	
 	@OneToMany(mappedBy = "user")
 	private List<UserIngredient> cart;
 
+	@OneToMany(mappedBy = "user")
+	private List<UserRecipe> recipeBook;
+
 	public User() {
 	}
-	
+
 	public void searchIngredient(Ingredient ingredient) {
 		if (goShopping == null) {
 			goShopping = new ArrayList<>();
@@ -82,7 +83,7 @@ public class User {
 	public void setIngredientsInPantry(List<Ingredient> ingredientsInPantry) {
 		this.ingredientsInPantry = ingredientsInPantry;
 	}
-	
+
 	public void addIngredient(Ingredient ingredient) {
 		if (ingredientsInPantry == null) {
 			ingredientsInPantry = new ArrayList<>();
@@ -182,7 +183,6 @@ public class User {
 		this.recipes = recipes;
 	}
 
-
 	public List<UserIngredient> getCart() {
 		return cart;
 	}
@@ -220,5 +220,13 @@ public class User {
 
 	public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
 		this.favoriteRecipes = favoriteRecipes;
+	}
+
+	public List<UserRecipe> getRecipeBook() {
+		return recipeBook;
+	}
+
+	public void setRecipeBook(List<UserRecipe> recipeBook) {
+		this.recipeBook = recipeBook;
 	}
 }
