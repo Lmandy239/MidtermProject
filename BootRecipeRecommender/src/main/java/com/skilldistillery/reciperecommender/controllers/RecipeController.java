@@ -148,7 +148,7 @@ public class RecipeController {
 		stringBuilder.append("]");
 		String ingredientListRepresentation = stringBuilder.toString();
 
-		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients, user);
+		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients, user, "default", LocalDateTime.now());
 
 		recipe = recipeDAO.create(recipe);
 		redir.addFlashAttribute("recipe", recipe);
@@ -157,8 +157,6 @@ public class RecipeController {
 
 	@RequestMapping("recipeAdded.do")
 	public String recipeAdded(Model model, RedirectAttributes redirectAttributes) {
-		Recipe recipe = (Recipe) redirectAttributes.getFlashAttributes().get("recipe");
-		model.addAttribute("recipe", recipe);
 		return "recipeInfo";
 	}
 

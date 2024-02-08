@@ -65,15 +65,16 @@ public class Recipe {
 	public Recipe() {
 	}
 	
-	public Recipe(String name, String description, String ingredientDescription, List<Ingredient> ingredients, User user) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.ingredientDescription = ingredientDescription;
-		this.ingredients = ingredients;
-		this.user = user;
+	public Recipe(String name, String description, String ingredientDescription, List<Ingredient> ingredients, User user, String image, LocalDateTime createdAt) {
+	    super();
+	    this.name = name;
+	    this.description = description;
+	    this.ingredientDescription = ingredientDescription;
+	    this.ingredients = ingredients;
+	    this.user = user;
+	    this.image = image;
+	    this.createDate = createdAt; // Set to null in your Java code
 	}
-
 	public int getId() {
 		return id;
 	}

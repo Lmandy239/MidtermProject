@@ -37,12 +37,68 @@
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
 		<div class="card card0 border-0">
 			<div class="row d-flex">
+				<!-- Search Ingredients Column -->
+				<div class="row">
+					<img src="images/logoSpark.png" class="logo">
+				</div>
+				<div class="col-lg-6">
+					<h3 class="text-center">Search Ingredient</h3>
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<form action="searchIngredientFromStore.do" method="GET"
+								class="d-flex">
+								<input class="form-control mr-2" type="text"
+									name="searchResults" placeholder="Search for Ingredient"
+									required> <input type="hidden" name="formSource"
+									value="addRecipe">
+								<button type="submit" style="outline: none !important;">Search</button>
+
+							</form>
+<!-- 							<form action="searchIngredientFromStore.do" method="GET">
+								<input class="mb-4 form-control" type="text"
+									name="searchResults" placeholder="Search for Ingredient"
+									required> <input type="hidden" name="formSource"
+									value="addRecipe"> <input type="submit" value="Search">
+							</form>
+ -->
+
+							<h3 class="text-center">Search Results:</h3>
+							<div class="colored-block scroll-container text-center">
+								<ul class="ingredient-list">
+									<c:forEach var="ingredient" items="${ingredients}">
+										<form action="addIngredientToRecipe.do" method="GET">
+											<li class="d-flex justify-content-between align-items-center">
+												${ingredient.name} <input type="hidden" name="id"
+												value="${ingredient.id}">
+												<button type="submit" class="btn btn-success">+</button>
+											</li>
+										</form>
+									</c:forEach>
+								</ul>
+							</div>
+
+							<!-- Recipe Ingredients Column -->
+							<h3 class="text-center">Recipe Ingredients:</h3>
+							<div class="colored-block scroll-container pb-10">
+								<ul class="ingredient-list">
+									<c:forEach var="ingredient" items="${tempIngredientList}">
+										<form action="removeIngredientFromRecipe.do" method="GET">
+											<li class="d-flex justify-content-between align-items-center">
+												${ingredient.name} <input type="hidden" name="id"
+												value="${ingredient.id}">
+												<button type="submit" class="btn btn-danger">-</button>
+											</li>
+										</form>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<!--  Remainder of Form -->
-				<div class="col-lg-6">
-					<div class="row">
-						<img src="images/logoSpark.png" class="logo">
-					</div>
+				<div class="col-lg-6  ">
+
 					<form id="recipeForm" action="addRecipe.do" method="POST">
 						<div class="col-lg-10 mb-3 mx-auto">
 							<div class="d-flex flex-column align-items-center">
@@ -76,61 +132,6 @@
 					</div>
 				</div>
 				</form>
-				<!-- Search Ingredients Column -->
-				<div class="col-lg-6">
-					<br>
-					<h3 class="text-center">Search Ingredient</h3>
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-
-							<form action="searchIngredientFromStore.do" method="GET">
-								<input class="mb-4 form-control" type="text"
-									name="searchResults" placeholder="Search for Ingredient"
-									required> <input type="hidden" name="formSource"
-									value="addRecipe"> <input type="submit" value="Search">
-							</form>
-
-
-							<h3 class="text-center">Search Results:</h3>
-							<div class="colored-block scroll-container text-center">
-								<ul class="ingredient-list">
-									<c:forEach var="ingredient" items="${ingredients}">
-										<form action="addIngredientToRecipe.do" method="GET">
-											<li class="d-flex justify-content-between align-items-center">
-												${ingredient.name} <input type="hidden" name="id"
-												value="${ingredient.id}">
-												<button type="submit" class="btn btn-success">+</button>
-											</li>
-										</form>
-									</c:forEach>
-								</ul>
-							</div>
-
-							<!-- Recipe Ingredients Column -->
-							<h3 class="text-center">Recipe Ingredients:</h3>
-							<div class="colored-block scroll-container">
-								<ul class="ingredient-list">
-									<c:forEach var="ingredient" items="${tempIngredientList}">
-										<form action="removeIngredientFromRecipe.do" method="GET">
-											<li class="d-flex justify-content-between align-items-center">
-												${ingredient.name} <input type="hidden" name="id"
-												value="${ingredient.id}">
-												<button type="submit" class="btn btn-danger">-</button>
-											</li>
-										</form>
-									</c:forEach>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- 				<div class="row justify-content-center">
-					<div class="col-md-4 text-center">
-						<button type="submit" class="btn btn-blue btn-block w-100">Add
-							Recipe</button>
-					</div>
-				</div> -->
 				<br> <br>
 				<div class="container">
 					<div class="bg-blue py-4">
