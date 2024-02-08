@@ -20,7 +20,7 @@
 .logo {
 	height: 150px;
 }
-
+ 
 .colored-block {
 	background-color: #e0e0e0;
 	padding: 20px;
@@ -108,7 +108,8 @@
 							<form action="searchIngredientFromStore.do" method="GET">
 								<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
 								<input class="mb-4" type="text" name="searchResults"
-									placeholder="Search for Ingredient" required><br>
+									placeholder="Search for Ingredient" required> <input
+									type="hidden" name="formSource" value="userIngredient"> <br>
 								<input type="submit" value="Search">
 							</form>
 						</div>

@@ -15,9 +15,9 @@ body {
 	margin: 0px 40px;
 }
 
-.logo {
+img.logo {
 	width: 200px;
-	height: 100px;
+	height: 150px;
 	margin-top: 20px;
 	margin-left: 35px;
 }

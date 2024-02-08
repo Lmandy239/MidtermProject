@@ -8,11 +8,9 @@ import com.skilldistillery.reciperecommender.entities.User;
 
 public interface IngredientDAO {
 
-	List<Ingredient> findIngredientByName(User user, String namePattern);
+	List<Ingredient> findIngredientByName(String namePattern);
 
 	void removeIngredient(User user, Ingredient ingredient);
-
-	
 
 	void addToPantry(User user, Ingredient ingredient);
 
