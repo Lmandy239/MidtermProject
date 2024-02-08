@@ -19,7 +19,6 @@
 <style>
 .logo {
 	height: 150px;
-	">
 }
 </style>
 </head>

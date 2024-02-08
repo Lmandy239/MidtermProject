@@ -14,8 +14,6 @@ public interface RecipeDAO {
 
 	List<Recipe> generateRecipes(User user);
 
-	Recipe addRecipe();
-
 	Recipe favoriteThisRecipe(User user, Recipe recipe);
 
 	void unfavoriteThisRecipe(User user, Recipe recipe);
@@ -27,5 +25,7 @@ public interface RecipeDAO {
 	List<Comment> findCommentsByRecipeId(int recipeId);
 
 	void addCommentToRecipe(int recipeId, Comment comment);
+	
+	Recipe create(Recipe recipe);
 
 }

@@ -21,6 +21,7 @@
 	height: 150px;
 }
 
+
 .colored-card {
 	background-color: #e0e0e0;
 	margin-bottom: 0px;
@@ -52,6 +53,7 @@
 				<img src="images/logoSpark.png" class="logo">
 			</div>
 			<div class="row d-flex">
+			
 				<div class="col-lg-6">
 					<div class="card1 pb-5">
 
@@ -83,7 +85,15 @@
 						</div>
 					</div>
 
-
+						<div class="row px-3">
+							<form action="searchIngredientFromStore.do" method="GET">
+								<label for="searchResults" class="mb-1" class="mb-0 text-sm"></label>
+								<input class="mb-4" type="text" name="searchResults"
+									placeholder="Search for Ingredient" required> <input
+									type="hidden" name="formSource" value="userIngredient"> <br>
+								<input type="submit" value="Search">
+							</form>
+						</div>
 
 
 					<div class="col-lg-6">

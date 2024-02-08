@@ -24,28 +24,33 @@ public class CartController {
 	@Autowired
 	private UserDAO userDAO;
 
-	@RequestMapping(path = "searchIngredientFromStore.do", params = "searchResults")
-	public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults, HttpSession session,
-			Model model, User user) {
-		List<Ingredient> ingredients = ingredientDAO.findIngredientByName(user, searchResults);
+	@RequestMapping("searchIngredientFromStore.do")
+	public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults,
+			@RequestParam("formSource") String formSource, HttpSession session, Model model) {
+		List<Ingredient> ingredients = ingredientDAO.findIngredientByName(searchResults);
 		Collections.sort(ingredients, (ingredient1, ingredient2) -> {
 			return Integer.compare(ingredient2.getRecipes().size(), ingredient1.getRecipes().size());
 		});
 		model.addAttribute("ingredients", ingredients);
 
 		// Retrieve user from session
-		user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		model.addAttribute("user", user);
-
+		if ("addRecipe".equals(formSource)) {
+			return "addRecipe";
+		}
 		return "userIngredient";
 	}
 
 	@RequestMapping("addToCart.do")
 	public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
+
 		if (user != null) {
 			Ingredient ingredient = ingredientDAO.findById(ingredientId);
+
 			userDAO.addToCart(user, ingredient, 1);
+
 			session.setAttribute("user", userDAO.findById(user.getId()));
 		}
 		return "userIngredient";
@@ -63,35 +68,6 @@ public class CartController {
 
 		return "userIngredient";
 	}
-
-//	    @RequestMapping("addToCart.do")
-//	    public String addToCart(@RequestParam("id") int ingredientId, HttpSession session, Model model) {
-//	        // Retrieve user from session
-//	        User user = (User) session.getAttribute("user");
-//
-//	        //Make sure there is a user
-//	        if (user != null) {
-//	        	// Find the selected ingredient
-//	        	Ingredient ingredient = ingredientDAO.findById(ingredientId);	
-//	        	// Add ingredient to the user's cart
-//	        	user.addIngredient(ingredient);
-//	    	session.setAttribute("user", user);
-//	        }
-//	        return "userIngredient";
-//	    }
-//
-//	    @RequestMapping("removeFromCart.do")
-//	    public String removeFromCart(@RequestParam("id") int ingredientId, HttpSession session) {
-//	        // Retrieve user from session
-//	        User user = (User) session.getAttribute("user");
-//	        
-//	        Ingredient ingredient = ingredientDAO.findById(ingredientId);
-//	        // Remove ingredient from the user's cart
-//	        user.removeIngredient(ingredient);
-//	        session.setAttribute("user", user);
-//
-//	        return "userIngredient";
-//	    }
 
 	public void refreshSession(HttpSession session) {
 		User u = (User) session.getAttribute("user");

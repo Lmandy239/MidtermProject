@@ -21,7 +21,7 @@ public class IngredientDAOImpl implements IngredientDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Ingredient> findIngredientByName(User user, String namePattern) {
+	public List<Ingredient> findIngredientByName(String namePattern) {
 		String jpql = "SELECT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER(:pattern || '%')";
 
 		Query query = em.createQuery(jpql);
@@ -30,9 +30,6 @@ public class IngredientDAOImpl implements IngredientDAO {
 
 		ingredients = query.setParameter("pattern", namePattern.toLowerCase()).getResultList();
 
-		for (Ingredient ingredient : ingredients) {
-			user.searchIngredient(ingredient);
-		}
 		return ingredients;
 	}
 
