@@ -44,6 +44,7 @@
 <body>
   <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
     <div class="card card0 border-0">
+      <div class="row d-flex">
       <form action="logout.do" method="POST"
         class="d-flex justify-content-end">
         <button type="submit" class="btn btn-blue text-center">Log
@@ -52,7 +53,6 @@
       <div class="row">
         <img src="images/logoSpark.png" class="logo">
       </div>
-      <div class="row d-flex">
         <div class="col-lg-6">
           <div class="card1 pb-5">
 
