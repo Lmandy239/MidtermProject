@@ -116,11 +116,9 @@ public class RecipeController {
 	@RequestMapping(path = "addRecipe.do", method = RequestMethod.POST)
 	public String addRecipeRedirect(@RequestParam("recipeName") String recipeName,
 			@RequestParam("tempIngredientList") String tempIngredientList,
-			@RequestParam("recipeDescription") String recipeDescription, RedirectAttributes redir) {
-        System.out.println("\n\n\n===============");
-		System.out.println(recipeName);
-		System.out.println(tempIngredientList);
-		System.out.println(recipeDescription);
+			@RequestParam("recipeDescription") String recipeDescription, RedirectAttributes redir, HttpSession session) {
+        
+		User user = (User) session.getAttribute("user");
 		List<Ingredient> ingredients = new ArrayList();
 		
 		Pattern pattern = Pattern.compile("\\d+");
@@ -150,9 +148,9 @@ public class RecipeController {
 		stringBuilder.append("]");
 		String ingredientListRepresentation = stringBuilder.toString();
 
-		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients);
+		Recipe recipe = new Recipe(recipeName, recipeDescription, ingredientListRepresentation, ingredients, user);
 
-		recipeDAO.create(recipe);
+		recipe = recipeDAO.create(recipe);
 		redir.addFlashAttribute("recipe", recipe);
 		return "redirect:recipeAdded.do";
 	}

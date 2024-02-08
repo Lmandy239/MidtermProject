@@ -65,12 +65,13 @@ public class Recipe {
 	public Recipe() {
 	}
 	
-	public Recipe(String name, String description, String ingredientDescription, List<Ingredient> ingredients) {
+	public Recipe(String name, String description, String ingredientDescription, List<Ingredient> ingredients, User user) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.ingredientDescription = ingredientDescription;
 		this.ingredients = ingredients;
+		this.user = user;
 	}
 
 	public int getId() {
