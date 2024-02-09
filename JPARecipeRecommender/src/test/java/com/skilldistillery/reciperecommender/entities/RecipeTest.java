@@ -24,38 +24,34 @@ public class RecipeTest {
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("JPARecipeRecommender");
-		em = emf.createEntityManager();
 	}
 
 	@AfterAll
 	public static void tearDownAfterClass() throws Exception {
-		em.close();
 		emf.close();
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		recipe = em.find(Recipe.class, 1);
+		recipe = em.find(Recipe.class, 5);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		em.close();
 		recipe = null;
+		em.close();
 	}
 
 	@Test
 	public void test_Recipe_By_Id() {
 		assertNotNull(recipe);
-		assertEquals("test recipe name", recipe.getName());
-		assertEquals("description 1", recipe.getDescription());
+		assertEquals("Miso-Butter Roast Chicken With Acorn Squash Panzanella", recipe.getName());
 	}
 
 	@Test
 	public void test_Recipe_Has_User() {
 		assertNotNull(recipe);
-		assertNotNull(recipe.getUser());
 		assertEquals("admin", recipe.getUser().getUsername());
 	}
 

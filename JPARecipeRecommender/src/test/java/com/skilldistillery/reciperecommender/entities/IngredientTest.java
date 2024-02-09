@@ -32,20 +32,20 @@ class IngredientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		ingredient = em.find(Ingredient.class, 1);
+		ingredient = em.find(Ingredient.class, 7);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		em.close();
 		ingredient = null;
+		em.close();
 	}
 
 	@Test
 	public void test_Ingredient_Has_Name() {
 		assertNotNull(ingredient);
 		assertNotNull(ingredient.getName());
-		assertEquals("test ingredient", ingredient.getName());
+		assertEquals("pappadams", ingredient.getName());
 	}
 
 	@Test

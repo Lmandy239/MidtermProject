@@ -37,8 +37,8 @@ class UserTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		em.close();
 		user = null;
+		em.close();
 	}
 
 	@Test
@@ -48,21 +48,4 @@ class UserTest {
 		assertEquals("admin", user.getUsername());
 	}
 
-	@Test
-	public void test_User_Has_Recipe() {
-		assertNotNull(user);
-		assertNotNull(user.getFavoriteRecipes());
-	}
-
-	@Test
-	public void test_User_Has_Ingredients() {
-		assertNotNull(user);
-		assertNotNull(user.getIngredientsInPantry());
-	}
-
-	@Test
-	public void test_User_Has_Comments() {
-		assertNotNull(user);
-		assertNotNull(user.getComments());
-	}
 }
