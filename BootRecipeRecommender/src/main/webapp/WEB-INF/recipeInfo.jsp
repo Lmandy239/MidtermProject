@@ -149,7 +149,17 @@ h1 {
             <div class="row px-3 justify-content-center mt-4 mb-5">
                 <div class="col-md-12 text-center">
                     <h1>${recipe.name}</h1><br>
-                    <img src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg" alt="${recipe.name}" class="image_fluid">
+                    <c:choose>
+						<c:when test="${empty recipe.image}">
+						 <img src="${pageContext.request.contextPath}/images/food_images/default.jpg" alt="Default Image" 
+						 class="card-img-top" style="height: 250px; width: 300px;">
+						</c:when>
+												<c:otherwise>
+													<img src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
+														alt="${recipe.name}" class="card-img-top"
+														style="height: 250px; width: 300px;">
+												</c:otherwise>
+											</c:choose>
                 </div>
             </div>
             <div class="row px-3 justify-content-center mb-5">
