@@ -54,31 +54,28 @@
 				</div>
 
 
-				<div class="col-lg-6">
+				<div class="col-lg-6" style="margin-top: 135px;">
 					<div class="card2 card border-0 px-4 py-5">
 						<form action="login.do" method="POST">
-							<br> <br> <br> <br>
 							<h1>Recipe Recommender</h1>
-							<br> <br> <br>
-							<div class="row px-3">
-								<label class="mb-1"><h6 class="mb-0 text-sm">User
-										Name</h6></label> <input class="mb-4" type="text" name="username"
+							<br>
+							<div class="row px-3 mb-4">
+								<label><h6 class="mb-0 text-sm">User Name</h6></label> <input
+									type="text" name="username"
 									placeholder="Enter a valid user name">
 							</div>
-							<div class="row px-3">
-								<label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label>
-								<input type="password" name="password"
-									placeholder="Enter password">
+							<div class="row px-3 mb-4">
+								<label><h6 class="mb-0 text-sm">Password</h6></label> <input
+									type="password" name="password" placeholder="Enter password">
 							</div>
 							<div class="row px-3 mb-4">
-								<div class="row mb-3 px-3">
-									<button type="submit" class="btn btn-blue text-center">Login</button>
-								</div>
-								<div class="row mb-4 px-3">
-									<small class="font-weight-bold">Don't have an account?
-										<a href="register.do">Create new user</a>
-									</small>
-								</div>
+								<button type="submit" class="btn btn-blue text-center">Login</button>
+							</div>
+							
+							<div class="row px-3">
+								<small class="font-weight-bold">Don't have an account? <a
+									href="register.do">Create new user</a>
+								</small>
 							</div>
 						</form>
 					</div>
