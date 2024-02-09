@@ -93,8 +93,14 @@ public class RecipeDAOImpl implements RecipeDAO {
 		System.out.println(ingredientDescription);
 		List<String> ingredients = new ArrayList<>();
 		// Parse the string representation of the array and create a list
-		String[] ingredientsArray = ingredientDescription.replaceAll("\\[|\\]", "").split(", ");
-		ingredients.addAll(Arrays.asList(ingredientsArray));
+		String pattern = "(?<=')\\s*,\\s*";
+	    String[] ingredientsArray = ingredientDescription.split(pattern);
+	    for (String ingredient : ingredientsArray) {
+	    	System.out.println(ingredient);
+	        // Remove leading and trailing whitespace, and single quotes if any
+	    	ingredient = ingredient.trim().replaceAll("^'|^\\['|'\\]$|'$", "");
+	        ingredients.add(ingredient);
+	    }
 		return ingredients;
 	}
 
