@@ -47,10 +47,15 @@
 											<input type="hidden" name="recipeId" value="${recipe.id}">
 											<div class="card">
 												<button type="submit" class="card-button">
-													<img
-														src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg"
-														alt="${recipe.name}" class="card-img-top">
-												</button>
+    							<c:choose>
+       							 <c:when test="${empty recipe.image}">
+           						 <img src="${pageContext.request.contextPath}/images/food_images/default.jpg" alt="Default Image" class="card-img-top" style="height: 250px; width: 300px;">
+        						</c:when>
+       							 <c:otherwise>
+            					<img src="${pageContext.request.contextPath}/images/food_images/${recipe.image}.jpg" alt="${recipe.name}" class="card-img-top" style="height: 250px; width: 300px;">
+									</c:otherwise>
+    								</c:choose>
+									</button>
 												<div class="card-body">
 													<h5 class="card-title overflow-text">${recipe.name}</h5>
 													<h6 class="card-title overflow-text">Date added:
@@ -78,24 +83,7 @@
 								Different Ingredients</button>
 						</form>
 					</div>
-					<div class="col-md-4 mx-auto text-center find-recipe">
-						<form action="generateRecipes.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">Choose
-								a Different Recipe</button>
-						</form>
-					</div>
-					<div class="col-md-4 mx-auto text-center find-recipe">
-						<form action="addRecipeRedirect.do" method="POST">
-							<button type="submit" class="btn btn-blue btn-block w-100">Add
-								New Recipe</button>
-						</form>
-					</div>
-					<div class="col-md-4 mx-auto text-center find-recipe">
-						<form action="home" method="GET">
-							<button type="submit" class="btn btn-blue btn-block w-100">Logout</button>
-						</form>
-					</div>
-					<br> <br>
+					<br>
 				</div>
 				<div class="container">
 					<div class="bg-blue py-4">
