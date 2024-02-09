@@ -37,6 +37,11 @@
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
 		<div class="card card0 border-0">
 			<div class="row d-flex">
+				<form action="logout.do" method="POST"
+					class="d-flex justify-content-end">
+					<button type="submit" class="btn btn-blue text-center">Log
+						out</button>
+				</form>
 				<!-- Search Ingredients Column -->
 				<div class="row">
 					<img src="images/logoSpark.png" class="logo">
@@ -54,7 +59,7 @@
 								<button type="submit" style="outline: none !important;">Search</button>
 
 							</form>
-<!-- 							<form action="searchIngredientFromStore.do" method="GET">
+							<!-- 							<form action="searchIngredientFromStore.do" method="GET">
 								<input class="mb-4 form-control" type="text"
 									name="searchResults" placeholder="Search for Ingredient"
 									required> <input type="hidden" name="formSource"
