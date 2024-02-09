@@ -105,7 +105,7 @@ h1 {
 .img-fluid {
     max-width: 80%;
     max-height: 600;
-    margin bottom: 20px;
+    margin_bottom: 20px;
 }
 
 /* Added CSS */
@@ -176,35 +176,33 @@ h1 {
     </div>
 </div>
 <!-- Buttons Section -->
-<div class="row mb-3 px-3">
-    <div class="col-md-4 offset-md-4 text-center">
-        <c:if test="${!user.getFavoriteRecipes().contains(recipe)}">
-            <form action="favoriteRecipe.do" method="POST">
-                <input type="hidden" name="recipeId" value="${recipe.id}">
-                <button class="btn btn-blue btn-block w-100">Like This Recipe</button>
-            </form>
-        </c:if>
+	<!-- <div class="row mb-3 px-3"> -->
+			   <div class="col-md-4 offset-md-4 text-center">
+			    <c:if test="${!user.getFavoriteRecipes().contains(recipe)}">
+			        <form action="favoriteRecipe.do" method="POST">
+			            <input type="hidden" name="recipeId" value="${recipe.id}">
+			            <button type="submit" class="btn btn-blue btn-block w-100">Like This Recipe</button>
+			        </form>
+			    </c:if>
 			</div>
 			
-			
-		<div class="col-md-4 offset-md-4 text-center">
-        <c:if test="${user.getFavoriteRecipes().contains(recipe)}">
-            <form action="unfavoriteRecipe.do" method="POST">
-                <input type="hidden" name="recipeId" value="${recipe.id}">
-                <button class="btn btn-blue btn-block w-100">Unlike This Recipe</button>
-            </form>
-        </c:if>
-		</div>
 		
-		
-		
-		 <div class="col-md-4 offset-md-4 text-center">
-        <form action="getAllFavorites.do" method="POST">
-            <button class="btn btn-blue btn-block w-100">My Recipe Book</button>
-        </form>
-		</div>
-		
-		
+			<div class="col-md-4 offset-md-4 text-center">
+			    <c:if test="${user.getFavoriteRecipes().contains(recipe)}">
+			        <form action="unfavoriteRecipe.do" method="POST">
+			            <input type="hidden" name="recipeId" value="${recipe.id}">
+			            <button class="btn btn-blue btn-block w-100">Unlike This Recipe</button>
+			        </form>
+			    </c:if>
+			</div>
+	
+			<div class="col-md-4 offset-md-4 text-center">
+			    <form action="getAllFavorites.do" method="POST">
+			        <button type="submit" class="btn btn-blue btn-block w-100">My Recipe Book</button>
+			    </form>
+			</div>
+	<!-- 	</div> -->
+	
         <hr class="section-divider">
         <!-- Comments Section -->
         <div class="row d-flex justify-content-center">
@@ -233,6 +231,9 @@ h1 {
         </div>
     </div>
 </div>
-
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
 </body>
 </html>
