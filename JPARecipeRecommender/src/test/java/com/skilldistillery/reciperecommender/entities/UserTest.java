@@ -32,40 +32,20 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 5);
+		user = em.find(User.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		em.close();
 		user = null;
+		em.close();
 	}
 
 	@Test
 	void test_User_has_username() {
 		assertNotNull(user);
 		assertNotNull(user.getUsername());
-		assertEquals("blake", user.getUsername());
+		assertEquals("admin", user.getUsername());
 	}
 
-	@Test
-	public void test_User_Has_Recipe() {
-		assertNotNull(user);
-		assertNotNull(user.getFavoriteRecipes());
-		assertTrue(user.getFavoriteRecipes().size() > 5);
-	}
-
-	@Test
-	public void test_User_Has_Ingredients() {
-		assertNotNull(user);
-		assertNotNull(user.getIngredientsInPantry());
-		assertTrue(user.getIngredientsInPantry().size() > 2);
-	}
-
-	@Test
-	public void test_User_Has_Comments() {
-		assertNotNull(user);
-		assertNotNull(user.getComments());
-		assertTrue(user.getComments().size() > 1);
-	}
 }

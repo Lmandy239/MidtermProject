@@ -193,16 +193,12 @@ a {
 }
 
 .favorite-header h1 {
-	font-size: 45px;
-	margin: 15px !important;
-	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-	padding: 15px;
-	color: #fd982a;
-	align-items: center;
+	font-size: 40px;
+	margin-bottom: 25px !important;
+	padding-bottom: 25px !important;
+ 	align-items: center;
 	justify-content: center;
-	text-align: center;
-	letter-spacing: 1.8px;
-	margin: 15px !important;
+	text-align: center; 
 }
 
 div .favorite-links {

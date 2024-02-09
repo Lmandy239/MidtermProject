@@ -24,6 +24,8 @@ public class CartController {
 	@Autowired
 	private UserDAO userDAO;
 
+	
+	
 	@RequestMapping("searchIngredientFromStore.do")
 	public String searchIngredientFromStore(@RequestParam("searchResults") String searchResults,
 			@RequestParam("formSource") String formSource, HttpSession session, Model model) {

@@ -40,13 +40,15 @@ public class RecipeController {
 	private UserDAO userDAO;
 	private List<Ingredient> temporaryList = new ArrayList<>(); // Temporary list to hold added ingredients
 
-	@GetMapping(path = "findall.do")
+	
+
+	@RequestMapping(path = "findall.do")
 	public String findAll(Model model) {
 		List<Recipe> recipes = recipeDAO.allRecipe();
 		model.addAttribute("recipes", recipes);
 		return "list";
 	}
-
+	
 	@RequestMapping(path = "showRecipe.do", params = ("recipeId"))
 	public String showRecipe(@RequestParam("recipeId") int recipeId, Model model, HttpSession session) {
 		Recipe recipe = recipeDAO.findById(recipeId); // Adjust this method according to your DAO implementation
