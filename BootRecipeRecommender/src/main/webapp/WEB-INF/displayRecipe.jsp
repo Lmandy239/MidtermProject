@@ -66,15 +66,33 @@
 						</c:forEach>
 					</div>
 				</div>
-				<div class="container">
-					<div class="bg-blue py-4">
-						<div class="row px-3">
-							<small class="ml-4 ml-sm-5 mb-2">Copyright &copy; SD 42
-								JUNIT-SPARK.</small>
-						</div>
+				<div class="row mb-3 px-3">
+					<div class="col-md-4 offset-md-4 text-center">
+						<form action="rerouteToPantry.do" method="POST">
+							<button type="submit" class="btn btn-blue btn-block w-100">Choose
+								Different Ingredients</button>
+						</form>
+					</div>
+					<div class="col-md-4 offset-md-4 text-center">
+						<form action="getAllFavorites.do" method="POST">
+							<button type="submit" class="btn btn-blue btn-block w-100">My
+								Recipe Book</button>
+						</form>
+					</div>
+				</div>
+			<div class="container">
+				<div class="bg-blue py-4">
+					<div class="row px-3">
+						<small class="ml-4 ml-sm-5 mb-2">Copyright &copy; SD 42
+							JUNIT-SPARK.</small>
 					</div>
 				</div>
 			</div>
+
+
+			</div>
+
+
 		</div>
 	</div>
 </body>
