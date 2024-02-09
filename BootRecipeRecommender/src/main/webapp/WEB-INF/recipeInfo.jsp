@@ -125,12 +125,20 @@ h1 {
     padding: 10px;
     text-align: left;
 }
+ .card0 form {
+      margin-top: -1px;
+   }
 </style>
 </head>
 <body>
 
 <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
     <div class="card card0 border-0">
+ <form action="logout.do" method="POST"
+        class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-blue text-center">Log
+          out</button>
+      </form>
        <!-- Top Section: Ingredient List -->
 <div class="row d-flex justify-content-center">
     <div class="row">
