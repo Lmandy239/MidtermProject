@@ -8,6 +8,8 @@ Created by [Blake Vieyra](https://github.com/blakevieyra),
 ## Description
 Our app provides users with access to over 12,500 diverse recipes. With our innovative recommendation system, users can discover new recipes based on the ingredients they have on hand, streamlining meal planning.
 
+AWS EC2 Link: http://52.44.132.108:8080/BootRecipeRecommender
+
 ### Key Features:
 
 - **Ingredient-Based Recommendations**: Users can input the ingredients they have on hand, and our web application recommends recipes tailored to their available ingredients.
