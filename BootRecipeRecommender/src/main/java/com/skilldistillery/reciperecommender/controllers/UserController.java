@@ -40,8 +40,6 @@ public class UserController {
 		if (u != null) {
 			return "userIngredient";
 		} else {
-			List<Recipe> recipes = recipeDAO.allRecipe();
-			model.addAttribute("allRecipes", recipes);
 			return "home";
 		}
 	}
